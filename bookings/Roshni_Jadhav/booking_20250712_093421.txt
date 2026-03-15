@@ -1,0 +1,21 @@
+Name: Roshni Jadhav
+Email: roshanijadhav12@gmail.com
+Destination: Tokyo
+Travel Date: 2026-10-10
+Days: 7
+International Tour: Yes
+Luxury Package: Yes
+Flight Type: firstclass
+Hotel Type: 4star
+Meal Preference: both
+Need Guide: yes
+
+Travel Fee: ₹7000
+Guide Fee: ₹14000
+Visa Fee: ₹10000
+Luxury Fee: ₹21000
+Restaurant Fee: ₹10500
+Hotel Fee: ₹17500
+Flight Fee: ₹30000
+
+Total Cost: ₹110000

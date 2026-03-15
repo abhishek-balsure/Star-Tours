@@ -1,0 +1,24 @@
+Name: Roshni Jadhav
+Email: roshanijadhav12@gmail.com
+Destination: Norway
+Travel Date: 2025-05-10
+Return Date: 2025-05-25
+Days: 15
+People: 1
+International Tour: Yes
+Luxury Package: Yes
+Flight Type: firstclass
+Hotel Type: 5star
+Meal Preference: nonveg
+Need Guide: no
+
+Charges Per Person:
+Travel Fee: ₹15000
+Guide Fee: ₹0
+Visa Fee: ₹10000
+Luxury Fee: ₹45000
+Restaurant Fee: ₹22500
+Hotel Fee: ₹60000
+Flight Fee: ₹30000
+
+Total Cost for 1 person(s): ₹182500

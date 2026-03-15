@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Visa Application | ＳＴ ✪ Ｒ Tours And Travels</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet" />
+    <link rel="stylesheet" href="visa.css" />
+</head>
+
+<body>
+    <!-- -- Navigation Menu -- -->
+    <nav class="navbar">
+        <div class="brand">
+            <img src="Logoo-removebg-preview.png" alt="STAR Tours Logo">
+            <span class="brand-name">ＳＴ ✪ Ｒ Tours & Travels</span>
+            <button class="hamburger" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+
+        <ul class="nav-links" id="navbar-menu">
+            <li><a href="homepage.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="tours.html">Tours</a></li>
+            <li><a href="visa.html" class="active">Visa</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>Visa Application Form</h1>
+
+        <form id="visaForm" method="POST" action="visa.php" enctype="multipart/form-data">
+            <!-- Visa Type -->
+            <label for="visaType">Visa Type:</label>
+            <select id="visaType" name="visaType" onchange="populateCountries()" required>
+                <option value="">-- Select Visa Type --</option>
+                <option value="Tourist">Tourist</option>
+                <!-- <option value="Business">Business</option>
+                <option value="Student">Student</option>
+                <option value="Work">Work</option> -->
+            </select>
+
+            <!-- Country -->
+            <label for="country">Destination Country:</label>
+            <select id="country" name="country" onchange="generateDocumentFields()" required>
+                <option value="">-- Select Country --</option>
+            </select>
+
+            <!-- Personal Info -->
+            <label for="fullName">Full Name:</label>
+            <input type="text" name="fullName" required />
+
+            <label for="email">Email:</label>
+            <input type="email" name="email" required />
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" name="phone" required />
+
+            <label for="passport">Passport Number:</label>
+            <input type="text" name="passport" required />
+
+            <label for="nationality">Nationality:</label>
+            <input type="text" name="nationality" required />
+
+            <label for="travelDates">Travel Dates:</label>
+            <input type="text" name="travelDates" placeholder="e.g., 10 Aug 2025 – 25 Aug 2025" required />
+
+            <!-- Document Upload Section -->
+            <div id="documentsContainer">
+                <h3>Upload Required Documents:</h3>
+            </div>
+
+            <button type="submit">Submit Application</button>
+            <button type="reset" style="background-color: red;">Clear</button>
+        </form>
+    </div>
+
+    <script>
+        const visaRequirements = {
+            Tourist: {
+                "Australia": [
+                    "Passport",
+                    "Health Check",
+                    "Police Certificate"
+                ],
+                "Chile": [
+                    "Passport",
+                    "Application Form",
+                    "Return Ticket"
+                ],
+                "France": [
+                    "Passport",
+                    "Visa Application Form",
+                    "Photo"
+                ],
+                "Greece": [
+                    "Passport",
+                    "Accommodation",
+                    "Flight Reservation"
+                ],
+                "Greenland": [
+                    "Passport",
+                    "Travel Itinerary",
+                    "Accommodation Proof"
+                ],
+                "Iceland": [
+                    "Passport",
+                    "Travel Plan",
+                    "Photograph"
+                ],
+                "Indonesia": [
+                    "Passport",
+                    "Return Ticket",
+                    "Hotel Details"
+                ],
+                "Italy": [
+                    "Passport",
+                    "Flight Ticket",
+                    "Hotel Booking"
+                ],
+                "Japan": [
+                    "Passport",
+                    "Return Ticket",
+                    "Hotel Booking",
+                    "Itinerary",
+                    "Sponsor Letter"
+                ],
+                "Kenya": [
+                    "Passport",
+                    "Visa Form",
+                    "Yellow Fever Certificate"
+                ],
+                "Maldives": [
+                    "Passport",
+                    "Hotel Booking",
+                    "Return Ticket"
+                ],
+                "Morocco": [
+                    "Passport",
+                    "Visa Form",
+                    "Hotel Confirmation"
+                ],
+                "Netherlands": [
+                    "Passport",
+                    "Proof of Funds",
+                    "Visa Application"
+                ],
+                "New Zealand": [
+                    "Passport",
+                    "Health Check",
+                    "Financial Documents"
+                ],
+                "Norway": [
+                    "Passport",
+                    "Bank Statement",
+                    "Accommodation"
+                ],
+                "Peru": [
+                    "Passport",
+                    "Visa Form",
+                    "Travel Itinerary"
+                ],
+                "South Africa": [
+                    "Passport",
+                    "Yellow Fever Certificate",
+                    "Travel Insurance"
+                ],
+                "Spain": [
+                    "Passport",
+                    "Bank Statement",
+                    "Travel Insurance"
+                ],
+                "Switzerland": [
+                    "Passport",
+                    "Travel Insurance",
+                    "Flight Details"
+                ],
+                "United Arab Emirates": [
+                    "Passport",
+                    "Photograph",
+                    "Hotel Booking"
+                ],
+                "United Kingdom": [
+                    "Passport",
+                    "Financial Documents",
+                    "Accommodation Proof"
+                ],
+                "United States": [
+                    "Passport",
+                    "Photograph",
+                    "Travel Itinerary",
+                    "DS-160 Confirmation",
+                    "Appointment Letter"
+                ],
+                "Egypt": [
+                    "Passport",
+                    "Visa Application",
+                    "Hotel Reservation"
+                ],
+                "Brazil": [
+                    "Passport",
+                    "Visa Form",
+                    "Return Ticket"
+                ],
+                "Canada": [
+                    "Passport",
+                    "Photograph",
+                    "Proof of Funds",
+                    "Travel Itinerary"
+                ],
+                "China": [
+                    "Passport",
+                    "Visa Application Form",
+                    "Invitation Letter",
+                    "Photograph"
+                ],
+                "Thailand": [
+                    "Passport",
+                    "Return Ticket",
+                    "Hotel Booking"
+                ],
+                "Argentina": [
+                    "Passport",
+                    "Visa Application",
+                    "Flight Reservation"
+                ],
+                "Czech Republic": [
+                    "Passport",
+                    "Travel Insurance",
+                    "Hotel Booking"
+                ],
+                "Vietnam": [
+                    "Passport",
+                    "Visa Approval Letter",
+                    "Photograph"
+                ],
+                "Russia": [
+                    "Passport",
+                    "Visa Application",
+                    "Invitation Letter"
+                ],
+                "Turkey": [
+                    "Passport",
+                    "Visa Form",
+                    "Hotel Booking"
+                ],
+                "Mexico": [
+                    "Passport",
+                    "Tourist Card",
+                    "Return Ticket"
+                ],
+                "Croatia": [
+                    "Passport",
+                    "Travel Insurance",
+                    "Hotel Confirmation"
+                ],
+                "Austria": [
+                    "Passport",
+                    "Visa Form",
+                    "Bank Statement"
+                ],
+                "Nepal": [
+                    "Passport",
+                    "Visa on Arrival Form",
+                    "Photograph"
+                ],
+                "Philippines": [
+                    "Passport",
+                    "Return Ticket",
+                    "Hotel Details"
+                ],
+                "Finland": [
+                    "Passport",
+                    "Visa Form",
+                    "Travel Insurance"
+                ],
+                "Portugal": [
+                    "Passport",
+                    "Hotel Booking",
+                    "Travel Insurance"
+                ],
+                "Serbia": [
+                    "Passport",
+                    "Visa Form",
+                    "Proof of Funds"
+                ],
+                "Slovenia": [
+                    "Passport",
+                    "Accommodation Proof",
+                    "Travel Insurance"
+                ],
+                "Hungary": [
+                    "Passport",
+                    "Visa Application Form",
+                    "Hotel Confirmation"
+                ],
+                "Colombia": [
+                    "Passport",
+                    "Return Ticket",
+                    "Travel Insurance"
+                ],
+                "Iran": [
+                    "Passport",
+                    "Visa Authorization Code",
+                    "Hotel Booking"
+                ],
+                "Mongolia": [
+                    "Passport",
+                    "Visa Application",
+                    "Invitation Letter"
+                ],
+                "Cuba": [
+                    "Passport",
+                    "Tourist Card",
+                    "Travel Insurance"
+                ],
+                "Bhutan": [
+                    "Passport",
+                    "Visa Clearance",
+                    "Tour Operator Booking"
+                ]
+            }
+        };
+
+        function populateCountries() {
+            const visaType = document.getElementById("visaType").value;
+            const countrySelect = document.getElementById("country");
+            countrySelect.innerHTML = `<option value="">-- Select Country --</option>`;
+
+            if (visaType && visaRequirements[visaType]) {
+                Object.keys(visaRequirements[visaType]).forEach(country => {
+                    const opt = document.createElement("option");
+                    opt.value = country;
+                    opt.textContent = country;
+                    countrySelect.appendChild(opt);
+                });
+            }
+            document.getElementById("documentsContainer").innerHTML = "<h3>Upload Required Documents:</h3>";
+        }
+
+        function generateDocumentFields() {
+            const visaType = document.getElementById("visaType").value;
+            const country = document.getElementById("country").value;
+            const docContainer = document.getElementById("documentsContainer");
+
+            docContainer.innerHTML = "<h3>Upload Required Documents:</h3>";
+
+            if (visaType && country && visaRequirements[visaType] && visaRequirements[visaType][country]) {
+                visaRequirements[visaType][country].forEach((doc, index) => {
+                    const label = document.createElement("label");
+                    label.textContent = `${doc}:`;
+                    const input = document.createElement("input");
+                    input.type = "file";
+                    input.name = `documents[${doc}]`;
+                    input.required = true;
+                    input.accept = ".pdf,.jpg,.png,.jpeg";
+
+                    docContainer.appendChild(label);
+                    docContainer.appendChild(input);
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>

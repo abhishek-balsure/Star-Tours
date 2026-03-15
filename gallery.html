@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery Section</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+    }
+
+    /* Import Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
+
+    /* Navigation Bar Styles */
+    .navbar {
+      background-color: #fff;
+      color: #000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Brand Section */
+    .navbar .brand {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .navbar .brand img {
+      width: 70px;
+      height: 70px;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+    }
+
+    .navbar .brand img:hover {
+      transform: scale(1.08);
+    }
+
+    /* Brand Name Styling */
+    .brand-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      background: linear-gradient(90deg, #283593, #5c6bc0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: 200% auto;
+      animation: shimmer 4s linear infinite;
+      text-shadow: 0 0 6px rgba(42, 42, 114, 0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .brand-name:hover {
+      transform: scale(1.03);
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: -100%;
+      }
+
+      100% {
+        background-position: 200%;
+      }
+    }
+
+    /* Navigation Links */
+    .nav-links {
+      display: flex;
+      gap: 1.8rem;
+      list-style: none;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links li a {
+      color: #1a237e;
+      text-decoration: none;
+      font-size: 20px;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-links li a::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 2px;
+      background: #3f51b5;
+      transition: width 0.3s ease;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+    }
+
+    .nav-links li a:hover {
+      background-color: rgba(63, 81, 181, 0.08);
+      color: #303f9f;
+      transform: translateY(-1px);
+    }
+
+    .nav-links li a:hover::after {
+      width: 100%;
+    }
+
+    .nav-links li a.active {
+      background-color: #c5cae9;
+      font-weight: bold;
+      color: #1a237e;
+      box-shadow: 0 2px 6px rgba(63, 81, 181, 0.15);
+    }
+
+    /* Hamburger Menu */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background-color: #000;
+      border-radius: 2px;
+    }
+
+    /* Responsive Navigation */
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex;
+      }
+
+      .nav-links {
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: #f1f6fe;
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease;
+        border-top: 1px solid #ddd;
+      }
+
+      .nav-links.open {
+        max-height: 500px;
+        padding: 1rem 0;
+      }
+
+      .nav-links li {
+        text-align: center;
+        padding: 12px 0;
+      }
+
+      .nav-links li a {
+        font-size: 18px;
+      }
+    }
+
+    .slider-container {
+      overflow: hidden;
+      position: relative;
+      padding-bottom: 20px;
+    }
+
+    /* .slider-container:hover .slider-track {
+      animation-play-state: paused;
+    } */
+
+    .slider-track {
+      display: flex;
+      width: max-content;
+      animation: scroll 30s linear infinite;
+      will-change: transform;
+    }
+
+    .slide {
+      flex: 0 0 auto;
+      width: 80vw;
+      max-width: 300px;
+      margin-right: 20px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .slide img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .gallery-caption,
+    .gallery-review {
+      padding: 8px 12px;
+      text-align: center;
+      background: #fff;
+      color: #222;
+      font-weight: 500;
+      font-size: 0.95rem;
+      border-left: 1px solid #eee;
+      border-right: 1px solid #eee;
+    }
+
+    .gallery-review {
+      border-bottom: 1px solid #ddd;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      margin: 16px;
+      text-align: center;
+      font-size: 1.4rem;
+      color: #333;
+      background-color: lightskyblue;
+      padding: 8px;
+      border-radius: 6px;
+    }
+
+    @keyframes scroll {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    .footer {
+      background: linear-gradient(145deg, #0d1b2a, #1e2a38);
+      color: #ffffff;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      padding: 60px 80px;
+      font-family: 'Segoe UI', sans-serif;
+      border-top: 5px solid #f9c851;
+      box-shadow: 0 -2px 10px rgba(255, 255, 255, 0.05);
+      animation: fadeInFooter 1.5s ease-in-out;
+      border-radius: 30px 30px 0 0;
+      backdrop-filter: blur(4px);
+    }
+
+    @keyframes fadeInFooter {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .footer-section {
+      flex: 1;
+      min-width: 260px;
+      margin-bottom: 30px;
+      animation: slideIn 1s ease forwards;
+      opacity: 0;
+    }
+
+    .footer-section:nth-child(1) {
+      animation-delay: 0.4s;
+    }
+
+    .footer-section:nth-child(2) {
+      animation-delay: 0.7s;
+    }
+
+    .footer-section:nth-child(3) {
+      animation-delay: 1s;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .footer-section.left img {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 10px;
+      border-radius: 50%;
+      filter: drop-shadow(0 0 6px #f9c851aa);
+    }
+
+    .footer-section.left span {
+      font-size: 1.8rem;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 10px;
+      color: #f9c851;
+      text-shadow: 0 0 5px #f9c85177;
+    }
+
+    .footer-section.left p {
+      font-size: 1rem;
+      color: #ccc;
+      font-style: italic;
+    }
+
+    .footer-section.center h4,
+    .footer-section.right h4 {
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+      border-bottom: 3px solid #f9c851;
+      display: inline-block;
+      padding-bottom: 6px;
+      color: #f9c851;
+    }
+
+    .footer-section.center a {
+      display: block;
+      color: #ccc;
+      text-decoration: none;
+      margin: 12px 0;
+      font-size: 1.05rem;
+      transition: all 0.4s ease;
+      position: relative;
+    }
+
+    .footer-section.center a::before {
+      content: '';
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      background-color: #f9c851;
+      bottom: -4px;
+      left: 0;
+      transition: width 0.3s ease;
+    }
+
+    .footer-section.center a:hover::before {
+      width: 100%;
+    }
+
+    .footer-section.center a:hover {
+      color: #f9c851;
+      transform: translateX(10px);
+    }
+
+    .footer-section.right p {
+      margin: 10px 0;
+      font-size: 1rem;
+      color: #ddd;
+    }
+
+    .socials a {
+      display: inline-block;
+      margin-right: 15px;
+      color: #fff;
+      font-size: 1.5rem;
+      transition: transform 0.4s, color 0.4s, box-shadow 0.4s;
+      text-shadow: 0 0 5px #000;
+    }
+
+    .socials a:hover {
+      color: #f9c851;
+      transform: scale(1.2) rotate(5deg);
+      box-shadow: 0 0 12px #f9c851aa;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .footer {
+        flex-direction: column;
+        padding: 40px 30px;
+        text-align: center;
+      }
+
+      .footer-section {
+        margin-bottom: 25px;
+      }
+
+      .footer-section.center a {
+        font-size: 1.1rem;
+      }
+
+      .socials a {
+        margin: 0 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- -- Navigation Menu -- -->
+  <nav class="navbar">
+    <div class="brand">
+      <img src="Logoo-removebg-preview.png" alt="STAR Tours Logo">
+      <span class="brand-name">ＳＴ ✪ Ｒ Tours & Travels</span>
+      <button class="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <ul class="nav-links" id="navbar-menu">
+      <li><a href="homepage.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="gallery.html" class="active">Gallery</a></li>
+      <li><a href="tours.html">Tours</a></li>
+      <li><a href="visa.html">Visa</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="slider-container" data-section="National Trips">
+    <h2 class="section-title">🌄 National Trips</h2>
+    <div class="slider-track">
+      <!-- slides here -->
+      <div class="slide">
+        <img src="Images/manali.jpg" alt="Manali Adventure">
+        <div class="gallery-caption">Manali Adventure 2024</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️☆ (4.5/5)</div>
+      </div>
+      <div class="slide">
+        <img src="goa.avif" alt="Goa Beach Party">
+        <div class="gallery-caption">Goa Beach Party 2023</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️⭐️ (4.8/5)</div>
+      </div>
+      <div class="slide">
+        <img src="Images/arunachal.jpg" alt="Arunachal Pradesh Tour">
+        <div class="gallery-caption">Arunachal Pradesh Tour</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️☆ (4.4/5)</div>
+      </div>
+      <div class="slide">
+        <img src="Images/munnar.jpg" alt="Munnar, Kerala">
+        <div class="gallery-caption">Munnar, Kerala</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️⭐️ (4.9/5)</div>
+      </div>
+      <div class="slide">
+        <img src="Images/ladakh.jpg" alt="Ladakh Trip">
+        <div class="gallery-caption">Ladakh Trip</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️☆ (4.6/5)</div>
+      </div>
+      <div class="slide">
+        <img src="Images/gwahati.jpg" alt="Guwahati Tour">
+        <div class="gallery-caption">Guwahati Tour</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️☆ (4.3/5)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slider-container" data-section="International Trips">
+    <h2 class="section-title">✈️ International Trips</h2>
+    <div class="slider-track">
+      <div class="slide">
+        <img src="Images/paris.jpg" alt="Romantic Paris">
+        <div class="gallery-caption">Romantic Paris 2023</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️⭐️ (4.9/5)</div>
+      </div>
+      <div class="slide">
+        <img src="Images/dubai.jpg" alt="Dubai Desert Safari">
+        <div class="gallery-caption">Dubai Desert Safari 2024</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️☆ (4.6/5)</div>
+      </div>
+      <div class="slide">
+        <img src="Images/uk.jpg" alt="United Kingdom trip">
+        <div class="gallery-caption">United Kingdom Tour</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️☆ (4.4/5)</div>
+      </div>
+      <div class="slide">
+        <img src="Images/sitz.jpg" alt="Switzerland Trip">
+        <div class="gallery-caption">Switzerland Trip</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️⭐️ (4.9/5)</div>
+      </div>
+      <div class="slide">
+        <img src="Images/egypt.jpg" alt="Egypt Desert Safari">
+        <div class="gallery-caption">Egypt Desert Safari 2024</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️☆ (4.5/5)</div>
+      </div>
+      <div class="slide">
+        <img src="Images/newzz.jpg" alt="New Zealand Safari">
+        <div class="gallery-caption">New Zealand Safari 2022</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️⭐️ (4.8/5)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slider-container" data-section="Adventures Trips">
+    <h2 class="section-title">🏞️ Adventures Trips</h2>
+    <div class="slider-track">
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1711992437606-bd676fb6fdf2?w=500" alt="Rishikesh Rafting">
+        <div class="gallery-caption">Rishikesh Rafting</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️☆ (4.5/5)</div>
+      </div>
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1719949122509-74d0a1d08b44?w=500" alt="Manali Paragliding">
+        <div class="gallery-caption">Manali Paragliding</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️⭐️ (4.8/5)</div>
+      </div>
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1662217134917-264a5e248581?w=500" alt="Thar Desert Safari">
+        <div class="gallery-caption">Thar Desert Safari</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️☆ (4.4/5)</div>
+      </div>
+      <div class="slide">
+        <img
+          src="https://plus.unsplash.com/premium_photo-1675461594460-8d1beaf28e21?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fFJvY2slMjBDbGltYmluZyUyMGluJTIwU2FoeWFkcmklMjBIaWxsc3xlbnwwfHwwfHx8MA%3D%3D"
+          alt="Rock Climbing">
+        <div class="gallery-caption">Rock Climbing in Sahyadri Hills</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️⭐️ (4.9/5)</div>
+      </div>
+      <div class="slide">
+        <img src="Images/ladakh.jpg" alt="Ladakh Adventure">
+        <div class="gallery-caption">Ladakh Adventure Trip</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️☆ (4.6/5)</div>
+      </div>
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1715028108305-1686dbceae8e?w=500" alt="Scuba Diving Andaman">
+        <div class="gallery-caption">Scuba Diving in Andaman</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️☆ (4.3/5)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slider-container" data-section="Seasonal Tours">
+    <h2 class="section-title">❄️ Seasonal Tours</h2>
+    <div class="slider-track">
+      <div class="slide">
+        <img src="https://plus.unsplash.com/premium_photo-1737093823673-891c0a8d0c73?w=500" alt="Winter Manali & Auli">
+        <div class="gallery-caption">Winter in Manali & Auli</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️☆ (4.5/5)</div>
+      </div>
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1566837497312-7be7830ae9b1?w=500" alt="Spring in Kashmir">
+        <div class="gallery-caption">Spring Bloom in Kashmir</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️⭐️ (4.8/5)</div>
+      </div>
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1656495782911-06e6a5f9bef5?w=500" alt="Monsoon Munnar">
+        <div class="gallery-caption">Monsoon Magic in Munnar</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️☆ (4.4/5)</div>
+      </div>
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1597783494335-312202282772?w=500" alt="Summer Himachal">
+        <div class="gallery-caption">Summer Escape to Himachal</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️⭐️ (4.9/5)</div>
+      </div>
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1707391112581-d3da3815ac0c?w=500" alt="Gulmarg Skiing">
+        <div class="gallery-caption">Gulmarg Skiing Tour</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️☆ (4.6/5)</div>
+      </div>
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1716475288028-d6ff85b5855b?w=500" alt="Autumn Northeast">
+        <div class="gallery-caption">Autumn in North East</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️☆ (4.3/5)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slider-container" data-section="Honeymoon & Romantic Tours">
+    <h2 class="section-title">💖 Honeymoon & Romantic Tours</h2>
+    <div class="slider-track">
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?w=500" alt="Santorini Greece">
+        <div class="gallery-caption">Santorini, Greece</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️☆ (4.5/5)</div>
+      </div>
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=500" alt="Paris & French Riviera">
+        <div class="gallery-caption">Paris & French Riviera, France</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️⭐️ (4.8/5)</div>
+      </div>
+      <div class="slide">
+        <img
+          src="https://images.unsplash.com/photo-1741771034079-3d142c11d913?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8JTNFU2FmYXJpJTIwSG9uZXltb29uJTIwaW4lMjBLZW55YXxlbnwwfHwwfHx8MA%3D%3D"
+          alt="Safari Honeymoon Kenya">
+        <div class="gallery-caption">Safari Honeymoon in Kenya</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️☆ (4.4/5)</div>
+      </div>
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1533656338503-b22f63e96cd8?w=500" alt="Amalfi Coast Italy">
+        <div class="gallery-caption">Amalfi Coast, Italy</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️⭐️ (4.9/5)</div>
+      </div>
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=500" alt="Kyoto Japan">
+        <div class="gallery-caption">Kyoto, Japan</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️☆ (4.6/5)</div>
+      </div>
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1671080749889-19f8a69deb2b?w=500" alt="Bali Indonesia">
+        <div class="gallery-caption">Bali, Indonesia</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️☆ (4.3/5)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slider-container" data-section="Luxury Tours">
+    <h2 class="section-title">✨ Luxury Tours</h2>
+    <div class="slider-track">
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1607712617949-8c993d290809?w=500" alt="Luxury Safari Kruger">
+        <div class="gallery-caption">Luxury Safari in South Africa (Kruger)</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️☆ (4.5/5)</div>
+      </div>
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1664268406930-fa8a02c6e09f?w=500" alt="Amalfi Yacht Tour">
+        <div class="gallery-caption">Amalfi Coast Private Yacht Tour</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️⭐️ (4.8/5)</div>
+      </div>
+      <div class="slide">
+        <img src="https://plus.unsplash.com/premium_photo-1697730288131-6684ca63584b?w=500"
+          alt="BoraBora Overwater Bungalow">
+        <div class="gallery-caption">Overwater Bungalow Escape – Bora Bora/Maldives</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️☆ (4.4/5)</div>
+      </div>
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1619333795123-5cc2b7d9ce20?w=500" alt="Private Island Fiji">
+        <div class="gallery-caption">Private Island Tour – Fiji/Seychelles</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️⭐️ (4.9/5)</div>
+      </div>
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1742205309408-3ceb6f4c464f?w=500" alt="Antarctica Cruise Luxury">
+        <div class="gallery-caption">Antarctica Cruise – Luxury Expedition</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️☆ (4.6/5)</div>
+      </div>
+      <div class="slide">
+        <img
+          src="https://images.unsplash.com/photo-1431057259500-78dd318a0a75?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8THV4dXJ5JTIwU2FmYXJpJTIwJTI2JTIwVmljdG9yaWElMjBGYWxscyUyMChaYW1iaWElMkZaaW1iYWJ3ZSl8ZW58MHx8MHx8fDA%3D"
+          alt="VictoriaFalls Safari Luxury">
+        <div class="gallery-caption">Luxury Safari & Victoria Falls (Zambia/Zimbabwe)</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️☆ (4.3/5)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slider-container" data-section="Best Nature & Eco Destinations">
+    <h2 class="section-title">🌿 Best Nature & Eco Destinations</h2>
+    <div class="slider-track">
+
+      <!-- Amazon Rainforest, Brazil -->
+      <div class="slide">
+        <img
+          src="https://plus.unsplash.com/premium_photo-1750890384784-bc70f8d00804?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8QW1hem9uJTIwUmFpbmZvcmVzdCUyMEV4cGVkaXRpb24lMjAlRTIlODAlOTMlMjBCcmF6aWx8ZW58MHx8MHx8fDA%3D"
+          alt="Amazon Rainforest Brazil">
+        <div class="gallery-caption">Amazon Rainforest Expedition – Brazil</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️☆ (4.7/5)</div>
+      </div>
+
+      <!-- Banff National Park, Canada -->
+      <div class="slide">
+        <img
+          src="https://images.unsplash.com/photo-1750131114716-d27467346acf?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8QmFuZmYlMjBOYXRpb25hbCUyMFBhcmslMjAlRTIlODAlOTMlMjBDYW5hZGF8ZW58MHx8MHx8fDA%3D"
+          alt="Banff National Park">
+        <div class="gallery-caption">Banff National Park – Canada</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️⭐️ (4.9/5)</div>
+      </div>
+
+      <!-- Plitvice Lakes, Croatia -->
+      <div class="slide">
+        <img
+          src="https://images.unsplash.com/photo-1629709960788-26fbf4641910?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8UGxpdHZpY2UlMjBMYWtlcyUyME5hdGlvbmFsJTIwUGFyayUyMCVFMiU4MCU5MyUyMENyb2F0aWF8ZW58MHx8MHx8fDA%3D"
+          alt="Plitvice Lakes Croatia">
+        <div class="gallery-caption">Plitvice Lakes National Park – Croatia</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️☆ (4.6/5)</div>
+      </div>
+
+      <!-- Fiordland National Park, New Zealand -->
+      <div class="slide">
+        <img
+          src="https://plus.unsplash.com/premium_photo-1661885458396-81132d44adfd?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8RmlvcmRsYW5kJTIwTmF0aW9uYWwlMjBQYXJrJTIwJUUyJTgwJTkzJTIwTmV3JTIwWmVhbGFuZHxlbnwwfHwwfHx8MA%3D%3D"
+          alt="Fiordland New Zealand">
+        <div class="gallery-caption">Fiordland National Park – New Zealand</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️⭐️ (4.8/5)</div>
+      </div>
+
+      <!-- Borneo Rainforest, Malaysia -->
+      <div class="slide">
+        <img
+          src="https://images.unsplash.com/photo-1752604803487-0d4433da4abe?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Qm9ybmVvJTIwUmFpbmZvcmVzdCUyMFdpbGRsaWZl  JTIwVG91ciUyMCVFMiU4MCU5MyUyME1hbGF5c2lhfGVufDB8fDB8fHww"
+          alt="
+          Borneo Rainforest Malaysia">
+        <div class="gallery-caption">Borneo Rainforest Wildlife Tour – Malaysia</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️☆ (4.5/5)</div>
+      </div>
+
+      <!-- Sapa Terraces, Vietnam -->
+      <div class="slide">
+        <img
+          src="https://plus.unsplash.com/premium_photo-1661917179706-33e305a4ee45?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8U2FwYSUyMFJpY2UlMjBUZXJyYWNlcyUyMFRyZWslMjAlRTIlODAlOTMlMjBWaWV0bmFtfGVufDB8fDB8fHww"
+          alt="Sapa Vietnam Nature Terraces">
+        <div class="gallery-caption">Sapa Rice Terraces Trek – Vietnam</div>
+        <div class="gallery-review">⭐️⭐️⭐️⭐️☆ (4.4/5)</div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- Enhanced Footer -->
+  <footer class="footer">
+    <div class="footer-section left">
+      <img src="https://cdn-icons-png.flaticon.com/512/201/201623.png" alt="Globe Icon" />
+      <span>ＳＴ ✪ Ｒ Tours and Travels</span>
+      <p>Your journey begins with us.</p>
+    </div>
+
+    <div class="footer-section center">
+      <h4>Quick Links</h4>
+      <a href="homepage.html"><i class="fas fa-home"></i> Home</a>
+      <a href="about.html"><i class="fas fa-user-friends"></i> About</a>
+      <a href="visa.html"><i class="fas fa-passport"></i> Visa</a>
+      <a href="gallery.html"><i class="fas fa-images"></i> Gallery</a>
+      <a href="tours.html"><i class="fas fa-map-marked-alt"></i> Tours</a>
+      <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+    </div>
+
+    <div class="footer-section right">
+      <h4>Contact Us</h4>
+      <p><i class="fas fa-envelope"></i> info@stours.com</p>
+      <p><i class="fas fa-phone-alt"></i> +91-9876543210</p>
+      <div class="socials">
+        <a href="https://instagram.com/abhi_balsure_033" target="_blank" title="Instagram"><i
+            class="fab fa-instagram"></i></a><br>
+        <a href="https://twitter.com" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a><br>
+        <a href="https://facebook.com" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+      </div>
+    </div>
+  </footer>
+  <script>
+    document.querySelectorAll('.slider-container').forEach(container => {
+      const track = container.querySelector('.slider-track');
+      const slides = Array.from(track.children);
+      const cloneCount = slides.length;
+      slides.forEach(slide => track.appendChild(slide.cloneNode(true)));
+    });
+  </script>
+</body>
+
+</html>
