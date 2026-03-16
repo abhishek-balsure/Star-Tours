@@ -1,18 +1,80 @@
 <?php
+function sanitize($data) {
+  return htmlspecialchars(trim($data), ENT_QUOTES, 'UTF-8');
+}
+
+function validateEmail($email) {
+  return filter_var($email, FILTER_VALIDATE_EMAIL);
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $name = $_POST['name'];
-  $email = $_POST['email'];
-  $destination = $_POST['destination'];
-  $days = (int)$_POST['days'];
-  $date = $_POST['date'];
-  $returnDate = $_POST['return'];
-  $people = (int)$_POST['people'];
-  $flight = $_POST['flight'];
-  $hotelType = $_POST['hotel'];
-  $meal = $_POST['meal'];
-  $guider = $_POST['guider'];
+  $errors = [];
+
+  $name = sanitize($_POST['name'] ?? '');
+  $email = sanitize($_POST['email'] ?? '');
+  $destination = sanitize($_POST['destination'] ?? '');
+  $days = (int)($_POST['days'] ?? 0);
+  $date = sanitize($_POST['date'] ?? '');
+  $returnDate = sanitize($_POST['return'] ?? '');
+  $people = (int)($_POST['people'] ?? 0);
+  $flight = sanitize($_POST['flight'] ?? 'economy');
+  $hotelType = sanitize($_POST['hotel'] ?? '3star');
+  $meal = sanitize($_POST['meal'] ?? 'veg');
+  $guider = sanitize($_POST['guider'] ?? 'no');
   $isInternational = isset($_POST['international']);
   $isLuxury = isset($_POST['luxury']);
+
+  if (empty($name) || strlen($name) < 2) {
+    $errors[] = "Please enter a valid name";
+  }
+  if (!validateEmail($email)) {
+    $errors[] = "Please enter a valid email address";
+  }
+  if (empty($destination)) {
+    $errors[] = "Please enter a destination";
+  }
+  if ($days < 1 || $days > 365) {
+    $errors[] = "Please enter valid number of days (1-365)";
+  }
+  if ($people < 1 || $people > 100) {
+    $errors[] = "Please enter valid number of people (1-100)";
+  }
+  if (empty($date)) {
+    $errors[] = "Please select a travel date";
+  }
+  if (empty($returnDate)) {
+    $errors[] = "Please select a return date";
+  }
+
+  $allowed_flight = ['economy', 'business', 'firstclass'];
+  if (!in_array($flight, $allowed_flight)) {
+    $flight = 'economy';
+  }
+  $allowed_hotel = ['3star', '4star', '5star'];
+  if (!in_array($hotelType, $allowed_hotel)) {
+    $hotelType = '3star';
+  }
+  $allowed_meal = ['veg', 'nonveg', 'both'];
+  if (!in_array($meal, $allowed_meal)) {
+    $meal = 'veg';
+  }
+  $allowed_guider = ['yes', 'no'];
+  if (!in_array($guider, $allowed_guider)) {
+    $guider = 'no';
+  }
+
+  if (!empty($errors)) {
+    echo "<div class='booking-error'>";
+    echo "<h2>Booking Failed</h2>";
+    echo "<ul>";
+    foreach ($errors as $error) {
+      echo "<li>" . $error . "</li>";
+    }
+    echo "</ul>";
+    echo "<a href='homepage.html' class='btn-home'>Back to Home</a>";
+    echo "</div>";
+    exit;
+  }
 
   // Calculate fees
   $travelFee = 2000 * $days;
@@ -264,6 +326,49 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 .booking-success .btn-home:hover {
+  background-color: #0056b3;
+}
+
+.booking-error {
+  max-width: 600px;
+  margin: 80px auto;
+  background: #ffe6e6;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(128, 0, 0, 0.2);
+  font-family: Arial, sans-serif;
+  text-align: center;
+  color: #4d0000;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.booking-error h2 {
+  color: #cc0000;
+  margin-bottom: 15px;
+}
+
+.booking-error ul {
+  text-align: left;
+  margin: 15px 0;
+}
+
+.booking-error li {
+  margin: 5px 0;
+  color: #cc0000;
+}
+
+.booking-error .btn-home {
+  display: inline-block;
+  margin: 10px 8px;
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  background-color: #007bff;
+  color: white;
+}
+
+.booking-error .btn-home:hover {
   background-color: #0056b3;
 }
 </style>
