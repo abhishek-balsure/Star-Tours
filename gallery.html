@@ -193,8 +193,8 @@
     .slider-track {
       display: flex;
       width: max-content;
-      animation: scroll 30s linear infinite;
       will-change: transform;
+      transform: translateZ(0); /* GPU acceleration */
     }
 
     .slide {
@@ -241,16 +241,6 @@
       background-color: lightskyblue;
       padding: 8px;
       border-radius: 6px;
-    }
-
-    @keyframes scroll {
-      0% {
-        transform: translateX(0);
-      }
-
-      100% {
-        transform: translateX(-50%);
-      }
     }
 
     .footer {
@@ -414,6 +404,25 @@
 
       .socials a {
         margin: 0 12px;
+      }
+
+      /* Mobile slider */
+      .slider-container {
+        padding: 10px 0;
+      }
+      
+      .slide {
+        width: 85vw;
+        max-width: 280px;
+      }
+      
+      .slide img {
+        height: 150px;
+      }
+      
+      .section-title {
+        font-size: 1.3rem;
+        padding: 0 15px;
       }
     }
   </style>
@@ -758,11 +767,35 @@
     </div>
   </footer>
   <script>
+    // Smooth optimized slider with CSS transforms
     document.querySelectorAll('.slider-container').forEach(container => {
       const track = container.querySelector('.slider-track');
       const slides = Array.from(track.children);
-      const cloneCount = slides.length;
-      slides.forEach(slide => track.appendChild(slide.cloneNode(true)));
+      
+      // Clone slides for infinite scroll
+      slides.forEach(slide => {
+        const clone = slide.cloneNode(true);
+        track.appendChild(clone);
+      });
+      
+      let pos = 0;
+      const speed = 0.5; // Adjust for speed
+      
+      function animate() {
+        pos -= speed;
+        if (Math.abs(pos) >= track.scrollWidth / 2) {
+          pos = 0;
+        }
+        track.style.transform = `translateX(${pos}px)`;
+        requestAnimationFrame(animate);
+      }
+      
+      // Start animation
+      animate();
+      
+      // Pause on hover
+      container.addEventListener('mouseenter', () => container.dataset.running = 'false');
+      container.addEventListener('mouseleave', () => container.dataset.running = 'true');
     });
   </script>
 </body>
