@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Book your dream tour with ST✪R Tours and Travels">
+  <title>Book Tour - ST✪R Tours</title>
+  <link rel="stylesheet" href="homepage.css">
+  <style>
+    .booking-form-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      overflow-y: auto;
+      z-index: 9999;
+      padding: 50px 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .booking-form-content {
+      background-color: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 600px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 0.3s ease-in-out;
+      margin-top: 20px;
+    }
+
+    .booking-form-content h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .booking-form-content label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 5px;
+      color: #444;
+    }
+
+    .booking-form-content input,
+    .booking-form-content select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    .booking-form-content input[type="submit"] {
+      background-color: #007BFF;
+      color: white;
+      padding: 12px 18px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      margin-top: 15px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .booking-form-content input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+
+    .close-btn {
+      float: right;
+      font-size: 24px;
+      cursor: pointer;
+      color: #aaa;
+    }
+
+    .close-btn:hover {
+      color: #000;
+    }
+
+    .booking-success {
+      max-width: 600px;
+      margin: 80px auto;
+      background: #e6ffe6;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 128, 0, 0.2);
+      font-family: Arial, sans-serif;
+      text-align: center;
+      color: #0a4d00;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .booking-success h2 {
+      color: #0f730c;
+      margin-bottom: 15px;
+    }
+
+    .booking-success .btn-home {
+      display: inline-block;
+      margin: 10px 8px;
+      padding: 10px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      background-color: #007bff;
+      color: white;
+    }
+
+    .booking-success .btn-home:hover {
+      background-color: #0056b3;
+    }
+
+    .booking-error {
+      max-width: 600px;
+      margin: 80px auto;
+      background: #ffe6e6;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(128, 0, 0, 0.2);
+      font-family: Arial, sans-serif;
+      text-align: center;
+      color: #4d0000;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .booking-error h2 {
+      color: #cc0000;
+      margin-bottom: 15px;
+    }
+
+    .booking-error ul {
+      text-align: left;
+      margin: 15px 0;
+    }
+
+    .booking-error li {
+      margin: 5px 0;
+      color: #cc0000;
+    }
+
+    .booking-error .btn-home {
+      display: inline-block;
+      margin: 10px 8px;
+      padding: 10px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      background-color: #007bff;
+      color: white;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="booking-form-modal" id="bookingModal">
+    <div class="booking-form-content">
+      <span class="close-btn" onclick="window.location.href='homepage.html'">&times;</span>
+      <h2>Travel Booking Form</h2>
+      <form onsubmit="event.preventDefault(); submitBooking();">
+        <label for="name">Full Name:</label>
+        <input type="text" id="name" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" required>
+
+        <label for="destination">Tour Destination:</label>
+        <input type="text" id="destination" required>
+
+        <label for="days">Number of Days:</label>
+        <input type="number" id="days" min="1" value="1" required>
+
+        <label for="people">Number of People:</label>
+        <input type="number" id="people" min="1" value="1" required>
+
+        <label for="date">Travel Date:</label>
+        <input type="date" id="date" required>
+
+        <label for="return">Return Date:</label>
+        <input type="date" id="return" readonly>
+
+        <label><input type="checkbox" id="international"> International Tour (Visa Required)</label>
+        <label><input type="checkbox" id="luxury"> Add Luxury Travel Package</label>
+
+        <label for="flight">Flight Type:</label>
+        <select id="flight">
+          <option value="economy">Economy</option>
+          <option value="business">Business</option>
+          <option value="firstclass">First Class</option>
+        </select>
+
+        <label for="hotel">Hotel Type:</label>
+        <select id="hotel">
+          <option value="3star">3-Star</option>
+          <option value="4star">4-Star</option>
+          <option value="5star">5-Star</option>
+        </select>
+
+        <label for="meal">Meal Preference:</label>
+        <select id="meal">
+          <option value="veg">Vegetarian</option>
+          <option value="nonveg">Non-Vegetarian</option>
+          <option value="both">Both</option>
+        </select>
+
+        <label for="guider">Require Tour Guider:</label>
+        <select id="guider">
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+
+        <p><strong>Estimated Total Cost:</strong> ₹<span id="estimatedCost">0</span></p>
+
+        <input type="submit" value="Book Now">
+      </form>
+    </div>
+  </div>
+
+  <script src="booking.js"></script>
+</body>
+</html>

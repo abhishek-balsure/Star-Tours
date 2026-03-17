@@ -33,7 +33,7 @@
     <div class="container">
         <h1>Visa Application Form</h1>
 
-        <form id="visaForm" method="POST" action="visa.php" enctype="multipart/form-data">
+        <form class="visa-form" onsubmit="event.preventDefault(); submitVisa();">
             <!-- Visa Type -->
             <label for="visaType">Visa Type:</label>
             <select id="visaType" name="visaType" onchange="populateCountries()" required>
@@ -365,6 +365,7 @@
             }
         }
     </script>
+  <script src="visa.js"></script>
 </body>
 
 </html>
