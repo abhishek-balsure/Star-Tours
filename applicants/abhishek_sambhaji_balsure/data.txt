@@ -1,8 +1,0 @@
-Visa Type: Tourist
-Destination Country: Canada
-Full Name: Abhishek Sambhaji Balsure
-Email: balsureabhishek@gmail.com
-Phone: 9021647454
-Passport Number: ABCabc123
-Nationality: Indian
-Travel Dates: 20 Aug 2025 - 25 Aug 2025
