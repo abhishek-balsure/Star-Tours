@@ -144,34 +144,45 @@ body {
 /* Responsive Navigation */
 @media (max-width: 768px) {
   .hamburger {
-    display: flex;
+    display: flex !important;
+  }
+
+  .navbar .brand {
+    width: 100%;
+    justify-content: space-between;
   }
 
   .nav-links {
-    flex-direction: column;
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background-color: #f1f6fe;
-    width: 100%;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease;
-    border-top: 1px solid #ddd;
+    flex-direction: column !important;
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
+    background-color: #fff !important;
+    width: 100% !important;
+    max-height: 0 !important;
+    overflow: hidden !important;
+    transition: max-height 0.3s ease !important;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important;
   }
 
   .nav-links.open {
-    max-height: 500px;
-    padding: 1rem 0;
+    max-height: 500px !important;
+    padding: 15px 0 !important;
   }
 
   .nav-links li {
+    width: 100%;
     text-align: center;
     padding: 12px 0;
   }
 
   .nav-links li a {
+    display: block;
+    width: 100%;
     font-size: 18px;
+    padding: 10px;
+  }
   }
 }
 

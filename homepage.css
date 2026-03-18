@@ -1149,23 +1149,28 @@ button {
     margin-right: 10px;
   }
   
-  .nav-links {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: #fff;
-    flex-direction: column;
+  .navbar .brand {
     width: 100%;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    justify-content: space-between;
+  }
+  
+  .nav-links {
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: #fff !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-height: 0 !important;
+    overflow: hidden !important;
+    transition: max-height 0.3s ease !important;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important;
   }
   
   .nav-links.open {
-    max-height: 400px;
-    padding: 10px 0;
+    max-height: 500px !important;
+    padding: 15px 0 !important;
   }
   
   .nav-links li {
