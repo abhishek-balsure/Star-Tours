@@ -402,4 +402,55 @@ form button:hover {
     .socials a {
         margin: 0 12px;
     }
-}
+    
+    /* Mobile Navigation */
+    .hamburger {
+        display: flex !important;
+    }
+    
+    .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #fff;
+        flex-direction: column;
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+    
+    .nav-links.open {
+        max-height: 400px;
+        padding: 10px 0;
+    }
+    
+    .nav-links li {
+        width: 100%;
+        text-align: center;
+        padding: 12px 0;
+    }
+    
+    /* Contact Form */
+    .contact-container {
+        flex-direction: column !important;
+        padding: 15px !important;
+    }
+    
+    .contact-info,
+    .contact-form {
+        width: 100% !important;
+        padding: 15px !important;
+    }
+    
+    .contact-form input,
+    .contact-form textarea {
+        font-size: 14px;
+        padding: 10px;
+    }
+    
+    .contact-form button {
+        width: 100%;
+    }
+}}

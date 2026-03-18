@@ -1110,3 +1110,241 @@ button {
 .book-btn:hover {
   background: #2466ff;
 }
+
+/* ========================================
+   COMPLETE MOBILE RESPONSIVE STYLES
+   ======================================== */
+@media (max-width: 768px) {
+  /* Reset & Base */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-size: 14px;
+    overflow-x: hidden;
+  }
+  
+  /* Navigation */
+  .navbar {
+    padding: 10px 15px;
+    flex-wrap: wrap;
+  }
+  
+  .navbar .brand img {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .brand-name {
+    font-size: 1.2rem !important;
+  }
+  
+  .hamburger {
+    display: flex !important;
+    width: 30px;
+    height: 20px;
+    margin-right: 10px;
+  }
+  
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    flex-direction: column;
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  
+  .nav-links.open {
+    max-height: 400px;
+    padding: 10px 0;
+  }
+  
+  .nav-links li {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .nav-links li a {
+    display: block;
+    padding: 12px;
+    font-size: 16px;
+  }
+  
+  /* Hero Section */
+  .hero {
+    height: 60vh !important;
+    min-height: 400px;
+    padding: 20px;
+  }
+  
+  .hero h1 {
+    font-size: 1.8rem !important;
+    line-height: 1.3;
+  }
+  
+  .hero p {
+    font-size: 1rem !important;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .hero-buttons button {
+    width: 100%;
+    max-width: 250px;
+  }
+  
+  /* Section Titles */
+  h2 {
+    font-size: 1.5rem !important;
+    padding: 15px !important;
+  }
+  
+  /* Destinations Grid */
+  .destinations-grid,
+  .packages-grid {
+    grid-template-columns: 1fr !important;
+    padding: 10px !important;
+    gap: 15px !important;
+  }
+  
+  .destination-card,
+  .package-card {
+    width: 100% !important;
+    margin: 0 !important;
+  }
+  
+  .destination-card img {
+    height: 180px !important;
+  }
+  
+  .destination-card h3,
+  .package-card h3 {
+    font-size: 1.1rem !important;
+  }
+  
+  .destination-card p {
+    font-size: 0.85rem !important;
+  }
+  
+  /* Carousel */
+  .carousel-container {
+    padding: 10px 0;
+  }
+  
+  .carousel-item {
+    min-width: 85vw !important;
+    margin-right: 10px !important;
+  }
+  
+  .carousel-item img {
+    height: 200px !important;
+  }
+  
+  .carousel-item p {
+    font-size: 0.9rem;
+  }
+  
+  .carousel-info {
+    display: none;
+  }
+  
+  .carousel-book-btn {
+    padding: 8px 15px;
+    font-size: 0.85rem;
+  }
+  
+  /* Footer */
+  .footer {
+    flex-direction: column !important;
+    padding: 30px 15px !important;
+    text-align: center;
+  }
+  
+  .footer-section {
+    width: 100% !important;
+    margin-bottom: 20px !important;
+    padding: 0 !important;
+  }
+  
+  .footer-section h4 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+  
+  .footer-section a {
+    font-size: 0.9rem;
+    display: block;
+    padding: 5px 0;
+  }
+  
+  .socials {
+    justify-content: center;
+  }
+  
+  /* Book Buttons */
+  .book-btn {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+  }
+  
+  /* Read More */
+  .more-info {
+    font-size: 0.85rem;
+  }
+  
+  /* Highlight Boxes */
+  .highlights {
+    flex-direction: column;
+    padding: 15px !important;
+    gap: 15px !important;
+  }
+  
+  .highlight-box {
+    width: 100% !important;
+    padding: 15px !important;
+  }
+  
+  /* Explore Section */
+  .explore-section {
+    padding: 20px 10px !important;
+  }
+  
+  .explore-section h2 {
+    font-size: 1.3rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 1.5rem !important;
+  }
+  
+  .hero-buttons button {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+  
+  .carousel-item {
+    min-width: 90vw !important;
+  }
+  
+  .carousel-item img {
+    height: 180px !important;
+  }
+  
+  .brand-name {
+    font-size: 1rem !important;
+  }
+}
