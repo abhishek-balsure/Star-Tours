@@ -1,304 +1,180 @@
-* {
-  margin: 0;
-  padding: 0;
+/* ============================================================
+   VISA.CSS — ST★R Tours & Travels
+   Page-specific styles only. Shared styles → shared.css
+   ============================================================ */
+
+/* Visa form container */
+.container {
+  max-width: 860px;
+  margin: 50px auto;
+  padding: 36px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(63, 81, 181, 0.1);
+}
+
+.container h1 {
+  text-align: center;
+  color: #002244;
+  font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+  font-weight: 800;
+  margin-bottom: 28px;
+}
+
+.container h3 {
+  text-align: center;
+  color: #003366;
+  font-size: 1.15rem;
+  margin: 24px 0 14px;
+  font-weight: 700;
+}
+
+/* Form fields */
+.visa-form label {
+  display: block;
+  font-weight: 600;
+  color: #333;
+  margin: 14px 0 5px;
+  font-size: 0.97rem;
+}
+
+.visa-form select,
+.visa-form input,
+.visa-form textarea {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 6px;
+  font-size: 1rem;
+  font-family: inherit;
+  border: 1.5px solid #e0e4ed;
+  border-radius: 8px;
+  background: #fafbff;
+  color: #333;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
   box-sizing: border-box;
 }
 
-body {
-  font-family: 'Segoe UI', sans-serif;
-  /* background-color: #f2f2f2; */
-  background-color: white;
+.visa-form select:focus,
+.visa-form input:focus,
+.visa-form textarea:focus {
+  border-color: #3f51b5;
+  box-shadow: 0 0 0 3px rgba(63, 81, 181, 0.1);
+  outline: none;
+  background: #fff;
 }
 
-/* Navigation Bar Styles */
-/* Import Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
-
-/* Navigation Bar Styles */
-.navbar {
-  background-color: #fff;
-  color: #000;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* Documents upload section */
+#documentsContainer {
+  background: #f5f8ff;
+  padding: 18px 20px;
+  border-radius: 10px;
+  border: 1px dashed #c5cae9;
+  margin: 10px 0 20px;
 }
 
-/* Brand Section */
-.navbar .brand {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.navbar .brand img {
-  width: 70px;
-  height: 70px;
-  object-fit: contain;
-  transition: transform 0.3s ease;
-}
-
-.navbar .brand img:hover {
-  transform: scale(1.08);
-}
-
-/* Brand Name Styling */
-.brand-name {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 2rem;
-  font-weight: 600;
-  letter-spacing: 2px;
-  background: linear-gradient(90deg, #283593, #5c6bc0);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-size: 200% auto;
-  animation: shimmer 4s linear infinite;
-  text-shadow: 0 0 6px rgba(42, 42, 114, 0.2);
-  transition: transform 0.3s ease;
-}
-
-.brand-name:hover {
-  transform: scale(1.03);
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: -100%;
-  }
-
-  100% {
-    background-position: 200%;
-  }
-}
-
-/* Navigation Links */
-.nav-links {
-  display: flex;
-  gap: 1.8rem;
-  list-style: none;
-  align-items: center;
-  margin: 0;
-  padding: 0;
-}
-
-.nav-links li a {
+#documentsContainer label {
+  margin: 10px 0 4px;
   color: #1a237e;
-  text-decoration: none;
-  font-size: 20px;
   font-weight: 600;
-  padding: 8px 14px;
-  border-radius: 6px;
-  transition: all 0.3s ease;
-  position: relative;
+  font-size: 0.93rem;
 }
 
-.nav-links li a::after {
-  content: '';
-  display: block;
-  width: 0;
-  height: 2px;
-  background: #3f51b5;
-  transition: width 0.3s ease;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-}
-
-.nav-links li a:hover {
-  background-color: rgba(63, 81, 181, 0.08);
-  color: #303f9f;
-  transform: translateY(-1px);
-}
-
-.nav-links li a:hover::after {
-  width: 100%;
-}
-
-.nav-links li a.active {
-  background-color: #c5cae9;
-  font-weight: bold;
-  color: #1a237e;
-  box-shadow: 0 2px 6px rgba(63, 81, 181, 0.15);
-}
-
-/* Hamburger Menu */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  background: none;
-  border: none;
+#documentsContainer input[type="file"] {
+  padding: 8px 10px;
+  background: #fff;
+  border-style: solid;
   cursor: pointer;
 }
 
-.hamburger span {
-  width: 25px;
-  height: 3px;
-  background-color: #000;
-  border-radius: 2px;
+/* Submit buttons */
+.visa-form button[type="submit"] {
+  display: block;
+  width: 200px;
+  margin: 20px auto 10px;
+  padding: 13px 24px;
+  background: linear-gradient(135deg, #003366, #0055a5);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 51, 102, 0.3);
 }
 
-/* Responsive Navigation */
-@media (max-width: 768px) {
-  .hamburger {
-    display: flex;
-  }
-
-  .nav-links {
-    flex-direction: column;
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background-color: #f1f6fe;
-    width: 100%;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease;
-    border-top: 1px solid #ddd;
-  }
-
-  .nav-links.open {
-    max-height: 500px;
-    padding: 1rem 0;
-  }
-
-  .nav-links li {
-    text-align: center;
-    padding: 12px 0;
-  }
-
-  .nav-links li a {
-    font-size: 18px;
-  }
+.visa-form button[type="submit"]:hover {
+  background: linear-gradient(135deg, #0055a5, #003366);
+  box-shadow: 0 6px 20px rgba(0, 51, 102, 0.45);
+  transform: translateY(-2px);
 }
 
-.container {
-  max-width: 900px;
-  margin: 80px auto;
-  padding: 30px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+.visa-form button[type="reset"] {
+  display: block;
+  width: 140px;
+  margin: 0 auto 10px;
+  padding: 11px 20px;
+  background: #e53935;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
 }
 
-h1,
-h3 {
-  text-align: center;
-  color: #333;
+.visa-form button[type="reset"]:hover {
+  background: #c62828;
+  transform: translateY(-1px);
 }
 
-select,
-input,
-textarea,
-button {
-  width: 100%;
-  padding: 12px;
-  margin-top: 10px;
-  margin-bottom: 20px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-}
-
-label {
-  font-weight: bold;
-}
-
+/* Visa info block (shown after selection) */
 .visa-info {
   display: none;
   background-color: #eef3fc;
-  padding: 15px;
-  border-radius: 6px;
+  padding: 14px 18px;
+  border-radius: 8px;
   margin-bottom: 20px;
+  border-left: 4px solid #3f51b5;
 }
 
 .visa-info.active {
   display: block;
 }
 
-button {
-  background-color: #0077cc;
-  color: white;
-  cursor: pointer;
-  transition: background 0.3s;
-  width: 200px;
-  margin: auto;
-  padding: auto;
-}
-
-button:hover {
-  background-color: #005fa3;
-}
-
-/* Mobile Responsive */
+/* ====================================================
+   RESPONSIVE — Visa Page
+   ==================================================== */
 @media (max-width: 768px) {
-  .hamburger {
-    display: flex !important;
-  }
-  
-  .navbar .brand {
-    width: 100%;
-    justify-content: space-between;
-  }
-  
-  .nav-links {
-    position: absolute !important;
-    top: 100% !important;
-    left: 0 !important;
-    right: 0 !important;
-    background: #fff !important;
-    flex-direction: column !important;
-    width: 100% !important;
-    max-height: 0 !important;
-    overflow: hidden !important;
-    transition: max-height 0.3s ease !important;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important;
-  }
-  
-  .nav-links.open {
-    max-height: 500px !important;
-    padding: 15px 0 !important;
-  }
-  
-  .nav-links li {
-    width: 100%;
-    text-align: center;
-    padding: 12px 0;
-  }
-  
-  .nav-links li a {
-    display: block;
-    width: 100%;
-  }
-    padding: 12px 0;
-  }
-  
   .container {
-    padding: 15px !important;
-    margin: 10px !important;
+    margin: 24px 16px;
+    padding: 24px 18px;
   }
-  
+}
+
+@media (max-width: 480px) {
+  .container {
+    margin: 14px 10px;
+    padding: 18px 14px;
+    border-radius: 10px;
+  }
+
   .container h1 {
-    font-size: 1.5rem !important;
+    font-size: 1.4rem;
   }
-  
-  .container label {
-    font-size: 14px;
+
+  .visa-form select,
+  .visa-form input {
+    padding: 10px 12px;
+    font-size: 0.95rem;
   }
-  
-  .container input,
-  .container select {
-    font-size: 14px;
-    padding: 8px;
-  }
-  
-  button {
-    width: 100% !important;
-    padding: 12px !important;
-    font-size: 14px;
+
+  .visa-form button[type="submit"],
+  .visa-form button[type="reset"] {
+    width: 100%;
   }
 }
