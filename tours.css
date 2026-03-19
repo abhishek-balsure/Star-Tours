@@ -1,523 +1,194 @@
-/* Navbar Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* ============================================================
+   TOURS.CSS — ST★R Tours & Travels
+   Page-specific styles only. Shared styles → shared.css
+   ============================================================ */
 
-body {
-    font-family: 'Segoe UI', sans-serif;
-    /* background-color: #f2f2f2; */
-    background-color: white;
-}
-/* Navigation Bar Styles */
-/* Import Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
-
-/* Navigation Bar Styles */
-.navbar {
-  background-color: #fff;
-  color: #000;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Brand Section */
-.navbar .brand {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.navbar .brand img {
-  width: 70px;
-  height: 70px;
-  object-fit: contain;
-  transition: transform 0.3s ease;
-}
-.navbar .brand img:hover {
-  transform: scale(1.08);
-}
-
-/* Brand Name Styling */
-.brand-name {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 2rem;
-  font-weight: 600;
-  letter-spacing: 2px;
-  background: linear-gradient(90deg, #283593, #5c6bc0);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-size: 200% auto;
-  animation: shimmer 4s linear infinite;
-  text-shadow: 0 0 6px rgba(42, 42, 114, 0.2);
-  transition: transform 0.3s ease;
-}
-.brand-name:hover {
-  transform: scale(1.03);
-}
-@keyframes shimmer {
-  0% {
-    background-position: -100%;
-  }
-  100% {
-    background-position: 200%;
-  }
-}
-
-/* Navigation Links */
-.nav-links {
-  display: flex;
-  gap: 1.8rem;
-  list-style: none;
-  align-items: center;
-  margin: 0;
-  padding: 0;
-}
-
-.nav-links li a {
-  color: #1a237e;
-  text-decoration: none;
-  font-size: 20px;
-  font-weight: 600;
-  padding: 8px 14px;
-  border-radius: 6px;
-  transition: all 0.3s ease;
-  position: relative;
-}
-
-.nav-links li a::after {
-  content: '';
-  display: block;
-  width: 0;
-  height: 2px;
-  background: #3f51b5;
-  transition: width 0.3s ease;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-}
-
-.nav-links li a:hover {
-  background-color: rgba(63, 81, 181, 0.08);
-  color: #303f9f;
-  transform: translateY(-1px);
-}
-
-.nav-links li a:hover::after {
-  width: 100%;
-}
-
-.nav-links li a.active {
-  background-color: #c5cae9;
-  font-weight: bold;
-  color: #1a237e;
-  box-shadow: 0 2px 6px rgba(63, 81, 181, 0.15);
-}
-
-/* Hamburger Menu */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-.hamburger span {
-  width: 25px;
-  height: 3px;
-  background-color: #000;
-  border-radius: 2px;
-}
-
-/* Responsive Navigation */
-@media (max-width: 768px) {
-  .hamburger {
-    display: flex;
-  }
-
-  .nav-links {
-    flex-direction: column;
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background-color: #f1f6fe;
-    width: 100%;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease;
-    border-top: 1px solid #ddd;
-  }
-
-  .nav-links.open {
-    max-height: 500px;
-    padding: 1rem 0;
-  }
-
-  .nav-links li {
-    text-align: center;
-    padding: 12px 0;
-  }
-
-  .nav-links li a {
-    font-size: 18px;
-  }
-}
-
-/* Main Container */
-.container {
-  width: 99%;
-  margin:  auto;
-  padding: 0 20px;
-}
-
-h1 {
+/* ---- Page Title ---- */
+.container h1,
+h1.page-title {
   text-align: center;
   color: #004080;
-  margin-bottom: 40px;
-  font-size: 2.8rem;
+  margin: 40px 0 16px;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 800;
   user-select: none;
 }
 
-/* Tour Section */
+/* ---- Main Container ---- */
+.container {
+  width: min(98%, 1300px);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ---- Tour Section Block ---- */
 .tour {
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 20px 25px;
-  margin-bottom: 40px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  padding: 28px 32px 24px;
+  margin-bottom: 36px;
+  border: 1px solid rgba(63, 81, 181, 0.07);
+  transition: box-shadow 0.3s ease;
+}
+
+.tour:hover {
+  box-shadow: 0 8px 28px rgba(0,0,0,0.12);
 }
 
 .tour h2 {
   color: #004080;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  font-weight: 700;
   user-select: none;
+  position: relative;
+  display: inline-block;
 }
 
-.tour p {
-  font-size: 1.1rem;
-  margin-bottom: 15px;
+.tour h2::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(90deg, #ff9800, #f9c851);
+  border-radius: 3px;
+  margin-top: 6px;
 }
 
-.budget {
-  /* font-weight: bold; */
-  margin-top: 10px;
-  margin-bottom: 6px;
+.tour > p {
+  font-size: 1rem;
+  margin-bottom: 20px;
+  color: #555;
+  font-style: italic;
 }
 
-/* Adventure Grid */
+/* ---- Adventure / Tour Grid ---- */
 .adventure-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* 3 per row on large screens */
-  gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
   margin-top: 20px;
 }
 
-/* Adventure Card */
+/* ---- Tour Card ---- */
 .adventure-card {
-  background-color: #f9f9f9;
-  padding: 15px;
-  border-radius: 8px;
+  background-color: #f9fbff;
+  padding: 0;
+  border-radius: 12px;
   text-align: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
-  transition: transform 0.3s ease;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.05);
 }
 
 .adventure-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.13);
 }
 
 .adventure-card img {
   width: 100%;
-  height: 100%;
-  max-height: 220px;
+  height: 200px;
   object-fit: cover;
-  border-radius: 5px;
+  display: block;
+  transition: transform 0.4s ease;
 }
 
-/* Card Text */
+.adventure-card:hover img {
+  transform: scale(1.05);
+}
+
 .adventure-card h4 {
-  margin: 10px 0 5px;
-  color: #333;
-  font-size: 1.1rem;
+  margin: 14px 12px 10px;
+  color: #003366;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
 }
 
 .adventure-card p {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: #555;
-  margin-bottom: 10px;
+  margin: 0 12px 10px;
 }
 
-/* Book Button */
-.book-btn {
+/* Book button inside tour cards */
+.adventure-card .book-btn {
+  margin: auto 16px 16px;
   display: inline-block;
-  padding: 8px 14px;
-  background-color: #007BFF;
-  color: white;
-  text-decoration: none;
-  border-radius: 4px;
-  font-weight: bold;
-  transition: background 0.3s ease;
+  align-self: center;
 }
 
-.book-btn:hover {
-  background-color: #0056b3;
-}
-
-/* Budget Box */
+/* ---- Budget Box ---- */
 .budget {
-  margin-top: 25px;
-  padding: 10px;
-  background: #f1f1f1;
-  border-left: 4px solid #007BFF;
-  border-radius: 6px;
+  margin-top: 24px;
+  padding: 14px 20px;
+  background: linear-gradient(135deg, #e8f0fe, #f0f4ff);
+  border-left: 4px solid #3f51b5;
+  border-radius: 8px;
+  font-size: 0.97rem;
+  color: #333;
 }
 
 .budget ul {
   margin-left: 20px;
+  margin-top: 8px;
 }
 
+.budget ul li {
+  margin-bottom: 6px;
+  color: #444;
+  line-height: 1.5;
+}
 
-/* ---------- Footer -------------- */
-.footer {
-    background: linear-gradient(145deg, #0d1b2a, #1e2a38);
-    color: #ffffff;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    padding: 60px 80px;
-    font-family: 'Segoe UI', sans-serif;
-    border-top: 5px solid #f9c851;
-    box-shadow: 0 -2px 10px rgba(255, 255, 255, 0.05);
-    animation: fadeInFooter 1.5s ease-in-out;
-    border-radius: 30px 30px 0 0;
-    backdrop-filter: blur(4px);
+/* ====================================================
+   RESPONSIVE — Tours Page
+   ==================================================== */
+@media (max-width: 1024px) {
+  .adventure-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
-  
-  @keyframes fadeInFooter {
-    from {
-      opacity: 0;
-      transform: translateY(50px);
-    }
-  
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  .footer-section {
-    flex: 1;
-    min-width: 260px;
-    margin-bottom: 30px;
-    animation: slideIn 1s ease forwards;
-    opacity: 0;
-  }
-  
-  .footer-section:nth-child(1) {
-    animation-delay: 0.4s;
-  }
-  
-  .footer-section:nth-child(2) {
-    animation-delay: 0.7s;
-  }
-  
-  .footer-section:nth-child(3) {
-    animation-delay: 1s;
-  }
-  
-  @keyframes slideIn {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-  
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  .footer-section.left img {
-    width: 60px;
-    height: 60px;
-    margin-bottom: 10px;
-    border-radius: 50%;
-    filter: drop-shadow(0 0 6px #f9c851aa);
-  }
-  
-  .footer-section.left span {
-    font-size: 1.8rem;
-    font-weight: bold;
-    display: block;
-    margin-bottom: 10px;
-    color: #f9c851;
-    text-shadow: 0 0 5px #f9c85177;
-  }
-  
-  .footer-section.left p {
-    font-size: 1rem;
-    color: #ccc;
-    font-style: italic;
-  }
-  
-  .footer-section.center h4,
-  .footer-section.right h4 {
-    margin-bottom: 15px;
-    font-size: 1.3rem;
-    border-bottom: 3px solid #f9c851;
-    display: inline-block;
-    padding-bottom: 6px;
-    color: #f9c851;
-  }
-  
-  .footer-section.center a {
-    display: block;
-    color: #ccc;
-    text-decoration: none;
-    margin: 12px 0;
-    font-size: 1.05rem;
-    transition: all 0.4s ease;
-    position: relative;
-  }
-  
-  .footer-section.center a::before {
-    content: '';
-    position: absolute;
-    width: 0%;
-    height: 2px;
-    background-color: #f9c851;
-    bottom: -4px;
-    left: 0;
-    transition: width 0.3s ease;
-  }
-  
-  .footer-section.center a:hover::before {
-    width: 100%;
-  }
-  
-  .footer-section.center a:hover {
-    color: #f9c851;
-    transform: translateX(10px);
-  }
-  
-  .footer-section.right p {
-    margin: 10px 0;
-    font-size: 1rem;
-    color: #ddd;
-  }
-  
-  .socials a {
-    display: inline-block;
-    margin-right: 15px;
-    color: #fff;
-    font-size: 1.5rem;
-    transition: transform 0.4s, color 0.4s, box-shadow 0.4s;
-    text-shadow: 0 0 5px #000;
-  }
-  
-  .socials a:hover {
-    color: #f9c851;
-    transform: scale(1.2) rotate(5deg);
-    box-shadow: 0 0 12px #f9c851aa;
-  }
-  
-  /* Responsive */
-  @media (max-width: 768px) {
-    .footer {
-      flex-direction: column;
-      padding: 40px 30px;
-      text-align: center;
-    }
-  
-    .footer-section {
-      margin-bottom: 25px;
-    }
-  
-    .footer-section.center a {
-      font-size: 1.1rem;
-    }
-  
-    .socials a {
-      margin: 0 12px;
-    }
+}
 
-    /* Mobile Navigation */
-    .hamburger {
-      display: flex !important;
-    }
-    
-    .navbar .brand {
-      width: 100%;
-      justify-content: space-between;
-    }
-    
-    .nav-links {
-      position: absolute !important;
-      top: 100% !important;
-      left: 0 !important;
-      right: 0 !important;
-      background: #fff !important;
-      flex-direction: column !important;
-      width: 100% !important;
-      max-height: 0 !important;
-      overflow: hidden !important;
-      transition: max-height 0.3s ease !important;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important;
-    }
-    
-    .nav-links.open {
-      max-height: 400px !important;
-      padding: 15px 0 !important;
-    }
-    
-    .nav-links li {
-      width: 100%;
-      text-align: center;
-      padding: 12px 0;
-    }
-    
-    .nav-links li a {
-      display: block;
-      width: 100%;
-      padding: 10px;
-    }
-    
-    /* Tour Cards */
-    .tour-card,
-    .package-card,
-    .destination-card {
-      width: 100% !important;
-      margin: 0 0 20px 0 !important;
-    }
-    
-    .tour-card img,
-    .package-card img {
-      height: 200px !important;
-    }
-    
-    .tour-info h3,
-    .package-info h3 {
-      font-size: 1.1rem !important;
-    }
-    
-    /* Container */
-    .container {
-      padding: 15px !important;
-    }
-    
-    h2 {
-      font-size: 1.5rem !important;
-    }
-}  }
+@media (max-width: 768px) {
+  .tour {
+    padding: 22px 20px;
+    margin-bottom: 24px;
+  }
+
+  .container {
+    padding: 0 14px;
+  }
+
+  .adventure-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .adventure-card img {
+    height: 180px;
+  }
+
+  h1.page-title,
+  .container h1 {
+    margin: 28px 0 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tour {
+    padding: 18px 14px;
+    border-radius: 10px;
+  }
+
+  .adventure-card {
+    border-radius: 10px;
+  }
+
+  .budget {
+    padding: 12px 14px;
+  }
+}
