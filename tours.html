@@ -26,9 +26,9 @@
         <span></span><span></span><span></span>
       </button>
     </div>
-  
+
     <ul class="nav-links" id="navbar-menu">
-      <li><a href="homepage.html">Home</a></li>
+      <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="gallery.html">Gallery</a></li>
       <li><a href="tours.html" class="active">Tours</a></li>
@@ -36,7 +36,7 @@
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </nav>
-  
+
   <div class="container">
     <!-- Adventure Tours -->
     <div class="tour">
@@ -456,7 +456,7 @@
 
     <div class="footer-section center">
       <h4>Quick Links</h4>
-      <a href="homepage.html"><i class="fas fa-home"></i> Home</a>
+      <a href="index.html"><i class="fas fa-home"></i> Home</a>
       <a href="about.html"><i class="fas fa-user-friends"></i> About</a>
       <a href="visa.html"><i class="fas fa-passport"></i> Visa</a>
       <a href="gallery.html"><i class="fas fa-images"></i> Gallery</a>
@@ -477,18 +477,7 @@
     </div>
   </footer>
 
-  <script>
-    // Mobile menu toggle
-    const hamburger = document.querySelector('.hamburger');
-    const navLinks = document.querySelector('.nav-links');
-    
-    if (hamburger && navLinks) {
-      hamburger.addEventListener('click', () => {
-        navLinks.classList.toggle('open');
-        hamburger.classList.toggle('active');
-      });
-    }
-  </script>
+  <script src="navbar.js"></script>
 </body>
 
 </html>

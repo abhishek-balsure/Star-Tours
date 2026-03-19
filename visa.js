@@ -42,7 +42,7 @@ function validateVisaForm() {
 
 function submitVisa() {
   const errors = validateVisaForm();
-  
+
   if (errors.length > 0) {
     showVisaError(errors);
     return false;
@@ -76,7 +76,7 @@ function submitVisa() {
 function showVisaError(errors) {
   const form = document.querySelector('.visa-form');
   if (!form) return;
-  
+
   const existingError = form.querySelector('.visa-error');
   if (existingError) existingError.remove();
 
@@ -91,7 +91,7 @@ function showVisaError(errors) {
       <button onclick="location.reload()" style="margin-top:15px;padding:10px 20px;background:#0077cc;color:white;border:none;border-radius:5px;cursor:pointer;">Try Again</button>
     </div>
   `;
-  
+
   form.prepend(errorDiv);
 }
 
@@ -107,7 +107,7 @@ function showVisaSuccess(application) {
         (<strong>${application.visaType}</strong>) has been received.</p>
       <p><em>Application ID: ${application.id}</em></p>
       <p>We will contact you via email or phone shortly.</p>
-      <a class="home-button" href="homepage.html">Back to Home</a>
+      <a class="home-button" href="index.html">Back to Home</a>
     </div>
   `;
 }

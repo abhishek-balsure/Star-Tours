@@ -51,7 +51,7 @@ function saveContact() {
         <h2 style="color:#2e7d32;margin-bottom:15px;">Message Sent!</h2>
         <p>Thank you, <strong>${name}</strong>!</p>
         <p>We have received your message and will contact you soon.</p>
-        <a href="homepage.html" style="display:inline-block;margin-top:15px;padding:10px 20px;background:#0077cc;color:white;text-decoration:none;border-radius:5px;">Back to Home</a>
+        <a href="index.html" style="display:inline-block;margin-top:15px;padding:10px 20px;background:#0077cc;color:white;text-decoration:none;border-radius:5px;">Back to Home</a>
       </div>
     `;
   }

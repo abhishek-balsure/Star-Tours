@@ -14,7 +14,7 @@ A modern travel agency website for booking tours, visas, and travel packages wor
 
 | Page | Description |
 |------|-------------|
-| `homepage.html` | Main landing page with tours carousel |
+| `index.html` | Main landing page with tours carousel |
 | `about.html` | About the company |
 | `tours.html` | Available tour packages |
 | `gallery.html` | Photo gallery of destinations |
@@ -37,7 +37,7 @@ A modern travel agency website for booking tours, visas, and travel packages wor
 4. Visit `https://yourusername.github.io/Star-Tours/`
 
 **Option 2: Local**
-Simply open `homepage.html` in your browser - no server needed!
+Simply open `index.html` in your browser - no server needed!
 
 ```bash
 # Or use any static server

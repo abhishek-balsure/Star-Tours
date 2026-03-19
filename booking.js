@@ -44,9 +44,9 @@ function calculateCost() {
   let visaFee = isInternational ? 50000 : 0;
   let luxuryFee = isLuxury ? 3000 * days : 0;
   let restaurantFee = 2000 * days;
-  
+
   let hotelFee;
-  switch(hotelType) {
+  switch (hotelType) {
     case '3star': hotelFee = 1500 * days; break;
     case '4star': hotelFee = 2500 * days; break;
     case '5star': hotelFee = 4000 * days; break;
@@ -55,14 +55,14 @@ function calculateCost() {
 
   let flightFee;
   if (isInternational) {
-    switch(flight) {
+    switch (flight) {
       case 'economy': flightFee = 10000; break;
       case 'business': flightFee = 25000; break;
       case 'firstclass': flightFee = 35000; break;
       default: flightFee = 20000;
     }
   } else {
-    switch(flight) {
+    switch (flight) {
       case 'economy': flightFee = 5000; break;
       case 'business': flightFee = 10000; break;
       case 'firstclass': flightFee = 15000; break;
@@ -78,7 +78,7 @@ function calculateCost() {
 
 function submitBooking() {
   const errors = validateForm();
-  
+
   if (errors.length > 0) {
     showError(errors);
     return false;
@@ -122,7 +122,7 @@ function submitBooking() {
 function showError(errors) {
   const modal = document.getElementById('bookingModal');
   if (!modal) return;
-  
+
   const existingError = modal.querySelector('.booking-error');
   if (existingError) existingError.remove();
 
@@ -133,7 +133,7 @@ function showError(errors) {
     <ul>${errors.map(e => `<li>${e}</li>`).join('')}</ul>
     <a href="#" onclick="location.reload()" class="btn-home">Try Again</a>
   `;
-  
+
   modal.querySelector('.booking-form-content').prepend(errorDiv);
   modal.scrollIntoView({ behavior: 'smooth' });
 }
@@ -143,14 +143,14 @@ function showSuccess(booking) {
   if (!modal) return;
 
   const { costs } = booking;
-  
+
   modal.innerHTML = `
     <div class="booking-form-content booking-success">
       <h2>Booking Successful!</h2>
       <p>Thank you, <strong>${booking.name}</strong>. Your tour to <strong>${booking.destination}</strong> is confirmed from <strong>${booking.date}</strong> to <strong>${booking.returnDate}</strong>.</p>
       <p><strong>Total People:</strong> ${booking.people}<br><strong>Total Cost:</strong> ₹${costs.totalCost.toLocaleString()}</p>
       <p><em>Booking ID: ${booking.id}</em></p>
-      <a href="homepage.html" class="btn-home">Back to Home</a>
+      <a href="index.html" class="btn-home">Back to Home</a>
     </div>
   `;
 }
@@ -180,14 +180,14 @@ window.addEventListener('DOMContentLoaded', () => {
   const destInput = document.getElementById('destination');
   const daysInput = document.getElementById('days');
   const dateInput = document.getElementById('date');
-  
+
   if (params.has('destination') && destInput) destInput.value = params.get('destination');
   if (params.has('duration') && daysInput) daysInput.value = params.get('duration');
   if (params.has('date') && dateInput) {
     dateInput.value = params.get('date');
     calculateReturnDate();
   }
-  
+
   // Add event listeners
   const dateField = document.getElementById('date');
   const daysField = document.getElementById('days');
