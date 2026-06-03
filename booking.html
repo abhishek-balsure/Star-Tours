@@ -167,6 +167,58 @@
       box-shadow: 0 8px 25px rgba(255, 152, 0, 0.5);
     }
 
+    #bookingMessage {
+      display: none;
+      grid-column: 1 / -1;
+      padding: 15px;
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+    }
+    #bookingMessage.show {
+      display: block;
+    }
+    #bookingMessage.error {
+      background: #fff0f0;
+      border: 1px solid #ffcdd2;
+      color: #c62828;
+    }
+    #bookingMessage.error ul {
+      margin: 8px 0 0 20px;
+      padding-left: 20px;
+    }
+    .success-card {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .success-card .success-icon {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+    .success-card h2 {
+      color: var(--primary);
+      font-family: 'Orbitron', sans-serif;
+      margin-bottom: 15px;
+    }
+    .success-card p {
+      color: var(--text-mid);
+      margin: 8px 0;
+      line-height: 1.6;
+    }
+    .success-card .btn {
+      margin-top: 20px;
+    }
+    .btn-home {
+      display: inline-block;
+      margin-top: 15px;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .btn-home:hover {
+      text-decoration: underline;
+    }
+
     @media (max-width: 600px) {
       .booking-form {
         grid-template-columns: 1fr;
@@ -195,6 +247,7 @@
     </div>
 
     <form class="booking-form" onsubmit="event.preventDefault(); submitBooking();">
+      <div id="bookingMessage"></div>
       <div class="form-group full-width">
         <label for="name">Full Name</label>
         <input type="text" id="name" placeholder="John Doe" required>
@@ -283,6 +336,7 @@
     </form>
   </div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script src="booking.js"></script>
 </body>
 

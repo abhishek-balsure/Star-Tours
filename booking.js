@@ -120,39 +120,105 @@ function submitBooking() {
 }
 
 function showError(errors) {
-  const modal = document.getElementById('bookingModal');
-  if (!modal) return;
-
-  const existingError = modal.querySelector('.booking-error');
-  if (existingError) existingError.remove();
-
-  const errorDiv = document.createElement('div');
-  errorDiv.className = 'booking-error';
-  errorDiv.innerHTML = `
-    <h2>Booking Failed</h2>
-    <ul>${errors.map(e => `<li>${e}</li>`).join('')}</ul>
-    <a href="#" onclick="location.reload()" class="btn-home">Try Again</a>
-  `;
-
-  modal.querySelector('.booking-form-content').prepend(errorDiv);
-  modal.scrollIntoView({ behavior: 'smooth' });
+  const msg = document.getElementById('bookingMessage');
+  if (!msg) return;
+  msg.className = 'show error';
+  msg.innerHTML = `<strong>Please fix the following:</strong><ul>${errors.map(e => `<li>${e}</li>`).join('')}</ul>`;
+  msg.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function showSuccess(booking) {
-  const modal = document.getElementById('bookingModal');
-  if (!modal) return;
-
+  window.lastBooking = booking;
+  const form = document.querySelector('.booking-form');
+  if (!form) return;
   const { costs } = booking;
-
-  modal.innerHTML = `
-    <div class="booking-form-content booking-success">
+  form.innerHTML = `
+    <div class="success-card">
+      <div class="success-icon">&#9989;</div>
       <h2>Booking Successful!</h2>
       <p>Thank you, <strong>${booking.name}</strong>. Your tour to <strong>${booking.destination}</strong> is confirmed from <strong>${booking.date}</strong> to <strong>${booking.returnDate}</strong>.</p>
-      <p><strong>Total People:</strong> ${booking.people}<br><strong>Total Cost:</strong> ₹${costs.totalCost.toLocaleString()}</p>
+      <p><strong>Travelers:</strong> ${booking.people}<br><strong>Total Cost:</strong> &#8377;${costs.totalCost.toLocaleString()}</p>
       <p><em>Booking ID: ${booking.id}</em></p>
-      <a href="index.html" class="btn-home">Back to Home</a>
+      <button onclick="downloadInvoice()" class="btn">&#128196; Download Invoice</button>
+      <br>
+      <a href="index.html" class="btn-home">&larr; Back to Home</a>
     </div>
   `;
+}
+
+function downloadInvoice() {
+  const booking = window.lastBooking;
+  if (!booking) return;
+  const { costs } = booking;
+
+  const el = document.createElement('div');
+  el.innerHTML = `
+    <div style="padding:40px;font-family:Arial,sans-serif;max-width:800px;margin:0 auto;color:#333;">
+      <div style="text-align:center;border-bottom:3px solid #003366;padding-bottom:20px;margin-bottom:30px;">
+        <h1 style="color:#003366;margin:0;font-size:28px;">ST&#9733;R Tours &amp; Travels</h1>
+        <p style="color:#666;margin:5px 0;">Your journey begins with us</p>
+      </div>
+      <h2 style="color:#003366;">Booking Invoice</h2>
+      <table style="width:100%;border-collapse:collapse;margin-bottom:20px;">
+        <tr><td style="padding:6px 10px;width:150px;"><strong>Booking ID:</strong></td><td style="padding:6px 10px;">${booking.id}</td></tr>
+        <tr><td style="padding:6px 10px;"><strong>Date:</strong></td><td style="padding:6px 10px;">${new Date(booking.timestamp).toLocaleDateString()}</td></tr>
+      </table>
+      <h3 style="color:#003366;border-bottom:1px solid #ddd;padding-bottom:5px;">Customer Details</h3>
+      <table style="width:100%;border-collapse:collapse;margin-bottom:20px;">
+        <tr><td style="padding:6px 10px;width:150px;"><strong>Name:</strong></td><td style="padding:6px 10px;">${booking.name}</td></tr>
+        <tr><td style="padding:6px 10px;"><strong>Email:</strong></td><td style="padding:6px 10px;">${booking.email}</td></tr>
+      </table>
+      <h3 style="color:#003366;border-bottom:1px solid #ddd;padding-bottom:5px;">Trip Details</h3>
+      <table style="width:100%;border-collapse:collapse;margin-bottom:20px;">
+        <tr><td style="padding:6px 10px;width:150px;"><strong>Destination:</strong></td><td style="padding:6px 10px;">${booking.destination}</td></tr>
+        <tr><td style="padding:6px 10px;"><strong>Travel Date:</strong></td><td style="padding:6px 10px;">${booking.date}</td></tr>
+        <tr><td style="padding:6px 10px;"><strong>Return Date:</strong></td><td style="padding:6px 10px;">${booking.returnDate}</td></tr>
+        <tr><td style="padding:6px 10px;"><strong>Duration:</strong></td><td style="padding:6px 10px;">${booking.days} days</td></tr>
+        <tr><td style="padding:6px 10px;"><strong>Travelers:</strong></td><td style="padding:6px 10px;">${booking.people}</td></tr>
+        <tr><td style="padding:6px 10px;"><strong>Flight:</strong></td><td style="padding:6px 10px;">${booking.flight.charAt(0).toUpperCase() + booking.flight.slice(1)}</td></tr>
+        <tr><td style="padding:6px 10px;"><strong>Hotel:</strong></td><td style="padding:6px 10px;">${booking.hotelType}</td></tr>
+        <tr><td style="padding:6px 10px;"><strong>Meal:</strong></td><td style="padding:6px 10px;">${booking.meal}</td></tr>
+        <tr><td style="padding:6px 10px;"><strong>Guide:</strong></td><td style="padding:6px 10px;">${booking.guider === 'yes' ? 'Yes' : 'No'}</td></tr>
+      </table>
+      <h3 style="color:#003366;border-bottom:1px solid #ddd;padding-bottom:5px;">Cost Breakdown</h3>
+      <table style="width:100%;border-collapse:collapse;">
+        <tr style="background:#003366;color:#fff;">
+          <th style="padding:10px;text-align:left;">Item</th>
+          <th style="padding:10px;text-align:right;">Amount</th>
+        </tr>
+        <tr style="border-bottom:1px solid #eee;"><td style="padding:8px 10px;">Travel Fee (${booking.days} days)</td><td style="padding:8px 10px;text-align:right;">&#8377;${costs.travelFee.toLocaleString()}</td></tr>
+        <tr style="border-bottom:1px solid #eee;"><td style="padding:8px 10px;">Hotel Fee</td><td style="padding:8px 10px;text-align:right;">&#8377;${costs.hotelFee.toLocaleString()}</td></tr>
+        <tr style="border-bottom:1px solid #eee;"><td style="padding:8px 10px;">Flight Fee</td><td style="padding:8px 10px;text-align:right;">&#8377;${costs.flightFee.toLocaleString()}</td></tr>
+        <tr style="border-bottom:1px solid #eee;"><td style="padding:8px 10px;">Meals Fee</td><td style="padding:8px 10px;text-align:right;">&#8377;${costs.restaurantFee.toLocaleString()}</td></tr>
+        ${costs.guiderFee > 0 ? '<tr style="border-bottom:1px solid #eee;"><td style="padding:8px 10px;">Guide Fee</td><td style="padding:8px 10px;text-align:right;">&#8377;' + costs.guiderFee.toLocaleString() + '</td></tr>' : ''}
+        ${costs.visaFee > 0 ? '<tr style="border-bottom:1px solid #eee;"><td style="padding:8px 10px;">Visa Fee</td><td style="padding:8px 10px;text-align:right;">&#8377;' + costs.visaFee.toLocaleString() + '</td></tr>' : ''}
+        ${costs.luxuryFee > 0 ? '<tr style="border-bottom:1px solid #eee;"><td style="padding:8px 10px;">Luxury Package</td><td style="padding:8px 10px;text-align:right;">&#8377;' + costs.luxuryFee.toLocaleString() + '</td></tr>' : ''}
+        <tr style="background:#f0f7ff;font-weight:bold;">
+          <td style="padding:12px 10px;font-size:1.1em;">Grand Total</td>
+          <td style="padding:12px 10px;text-align:right;font-size:1.1em;">&#8377;${costs.totalCost.toLocaleString()}</td>
+        </tr>
+      </table>
+      <div style="margin-top:40px;padding-top:20px;border-top:2px solid #003366;text-align:center;color:#999;font-size:12px;">
+        <p>Thank you for choosing ST&#9733;R Tours &amp; Travels!</p>
+        <p>This is a computer-generated invoice.</p>
+      </div>
+    </div>
+  `;
+  el.style.position = 'fixed';
+  el.style.left = '-9999px';
+  el.style.top = '0';
+  document.body.appendChild(el);
+
+  html2pdf().from(el).set({
+    margin: [10, 10, 10, 10],
+    filename: `STAR-Tours-Invoice-${booking.id}.pdf`,
+    html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+  }).save().then(() => {
+    document.body.removeChild(el);
+  }).catch(() => {
+    document.body.removeChild(el);
+  });
 }
 
 function calculateReturnDate() {
