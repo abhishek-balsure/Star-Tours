@@ -204,19 +204,33 @@ function downloadInvoice() {
       </div>
     </div>
   `;
-  el.style.position = 'fixed';
-  el.style.left = '-9999px';
-  el.style.top = '0';
   document.body.appendChild(el);
 
-  html2pdf().from(el).set({
+  // Temporarily position in-viewport for html2canvas to capture
+  const origDisplay = el.style.display;
+  el.style.position = 'fixed';
+  el.style.top = '0';
+  el.style.left = '0';
+  el.style.width = '800px';
+  el.style.zIndex = '-1';
+  el.style.pointerEvents = 'none';
+
+  html2pdf().set({
     margin: [10, 10, 10, 10],
     filename: `STAR-Tours-Invoice-${booking.id}.pdf`,
-    html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: {
+      scale: 2,
+      useCORS: true,
+      letterRendering: true,
+      width: el.scrollWidth,
+      height: el.scrollHeight
+    },
     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-  }).save().then(() => {
+  }).from(el).save().then(() => {
     document.body.removeChild(el);
-  }).catch(() => {
+  }).catch((err) => {
+    console.error('PDF failed:', err);
     document.body.removeChild(el);
   });
 }
