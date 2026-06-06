@@ -96,18 +96,84 @@ function showVisaError(errors) {
 }
 
 function showVisaSuccess(application) {
+  window.lastVisa = application;
   const container = document.querySelector('.container');
   if (!container) return;
 
   container.innerHTML = `
-    <div class="submission-success">
+    <div class="success-card">
+      <div class="success-icon">&#9989;</div>
       <h2>Application Submitted Successfully</h2>
       <p>Thank you, <strong>${application.fullName}</strong>.</p>
       <p>Your visa application for <strong>${application.country}</strong> 
         (<strong>${application.visaType}</strong>) has been received.</p>
       <p><em>Application ID: ${application.id}</em></p>
       <p>We will contact you via email or phone shortly.</p>
-      <a class="home-button" href="index.html">Back to Home</a>
+      <button onclick="downloadVisaInvoice()" class="btn">&#128196; Download Invoice</button>
+      <br>
+      <a href="index.html" class="btn-home">&larr; Back to Home</a>
     </div>
   `;
+}
+
+function downloadVisaInvoice() {
+  let app = window.lastVisa;
+  if (!app) {
+    const stored = JSON.parse(localStorage.getItem('visaApplications') || '[]');
+    if (stored.length) app = stored[stored.length - 1];
+  }
+  if (!app) return;
+
+  const el = document.createElement('div');
+  el.innerHTML = `
+    <div style="padding:40px;font-family:Arial,sans-serif;max-width:800px;margin:0 auto;color:#333;">
+      <div style="text-align:center;border-bottom:3px solid #003366;padding-bottom:20px;margin-bottom:30px;">
+        <h1 style="color:#003366;margin:0;font-size:28px;">ST&#9733;R Tours &amp; Travels</h1>
+        <p style="color:#666;margin:5px 0;">Your journey begins with us</p>
+      </div>
+      <h2 style="color:#003366;">Visa Application Invoice</h2>
+      <table style="width:100%;border-collapse:collapse;margin-bottom:20px;">
+        <tr><td style="padding:6px 10px;width:150px;"><strong>Application ID:</strong></td><td style="padding:6px 10px;">${app.id}</td></tr>
+        <tr><td style="padding:6px 10px;"><strong>Date:</strong></td><td style="padding:6px 10px;">${new Date(app.timestamp).toLocaleDateString()}</td></tr>
+        <tr><td style="padding:6px 10px;"><strong>Status:</strong></td><td style="padding:6px 10px;">Pending</td></tr>
+      </table>
+      <h3 style="color:#003366;border-bottom:1px solid #ddd;padding-bottom:5px;">Applicant Details</h3>
+      <table style="width:100%;border-collapse:collapse;margin-bottom:20px;">
+        <tr><td style="padding:6px 10px;width:150px;"><strong>Full Name:</strong></td><td style="padding:6px 10px;">${app.fullName || ''}</td></tr>
+        <tr><td style="padding:6px 10px;"><strong>Email:</strong></td><td style="padding:6px 10px;">${app.email || ''}</td></tr>
+        <tr><td style="padding:6px 10px;"><strong>Phone:</strong></td><td style="padding:6px 10px;">${app.phone || ''}</td></tr>
+        <tr><td style="padding:6px 10px;"><strong>Nationality:</strong></td><td style="padding:6px 10px;">${app.nationality || ''}</td></tr>
+        <tr><td style="padding:6px 10px;"><strong>Passport:</strong></td><td style="padding:6px 10px;">${app.passport || ''}</td></tr>
+      </table>
+      <h3 style="color:#003366;border-bottom:1px solid #ddd;padding-bottom:5px;">Visa Details</h3>
+      <table style="width:100%;border-collapse:collapse;margin-bottom:20px;">
+        <tr><td style="padding:6px 10px;width:150px;"><strong>Visa Type:</strong></td><td style="padding:6px 10px;">${app.visaType || ''}</td></tr>
+        <tr><td style="padding:6px 10px;"><strong>Destination:</strong></td><td style="padding:6px 10px;">${app.country || ''}</td></tr>
+        <tr><td style="padding:6px 10px;"><strong>Travel Dates:</strong></td><td style="padding:6px 10px;">${app.travelDates || ''}</td></tr>
+      </table>
+      <div style="margin-top:40px;padding-top:20px;border-top:2px solid #003366;text-align:center;color:#999;font-size:12px;">
+        <p>Thank you for choosing ST&#9733;R Tours &amp; Travels!</p>
+        <p>This is a computer-generated invoice.</p>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(el);
+  el.style.position = 'fixed';
+  el.style.top = '0';
+  el.style.left = '0';
+  el.style.width = '800px';
+  el.style.zIndex = '-1';
+  el.style.pointerEvents = 'none';
+
+  html2pdf().set({
+    margin: [10, 10, 10, 10],
+    filename: `STAR-Visa-Invoice-${app.id}.pdf`,
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+  }).from(el).save().then(() => {
+    document.body.removeChild(el);
+  }).catch(() => {
+    document.body.removeChild(el);
+  });
 }
