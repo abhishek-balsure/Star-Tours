@@ -41,8 +41,7 @@
   </nav>
 
 
-  <!-- Welcome message -->
-  <div id="welcomeMessage"></div>
+
 
   <section class="hero" id="main-content">
     <div class="hero-overlay">
@@ -192,7 +191,7 @@
         <p><strong>Budget:</strong> ₹150,000 - ₹200,000 <strong>Duration:</strong> 15 Days</p>
         <p class="desc hidden">Historic cities, alpine scenery, art, and gourmet experiences.</p>
 
-        <button onclick="toggleDescription(this)">Read More</button>
+        <button onclick="toggleInfo(this)">Read More</button>
         <a href="booking.html?destination=Europe&duration=10" class="book-btn">Book Now</a>
       </div>
 
@@ -205,7 +204,7 @@
         <p><strong>Budget:</strong> ₹2,10,000 | <strong>Duration:</strong> 15 Days</p>
         <p class="desc hidden">Explore the pristine Arctic wilderness, majestic icebergs, Northern Lights, and unique
           Inuit culture in Greenland’s breathtaking landscapes.</p>
-        <button onclick="toggleDescription(this)">Read More</button>
+        <button onclick="toggleInfo(this)">Read More</button>
         <a href="booking.html?destination=Greenland&duration=12" class="book-btn">Book Now</a>
       </div>
 
@@ -218,7 +217,7 @@
         <h3>America</h3>
         <p><strong>Budget:</strong> ₹2,22,000 | <strong>Duration:</strong> 15 Days</p>
         <p class="desc hidden">Cities, national parks, culture, food and landmarks of the U.S.A.</p>
-        <button onclick="toggleDescription(this)">Read More</button>
+        <button onclick="toggleInfo(this)">Read More</button>
         <a href="booking.html?destination=America&duration=10" class="book-btn">Book Now</a>
       </div>
 
@@ -229,7 +228,7 @@
         <p><strong>Budget:</strong> ₹2,10,000 | <strong>Duration:</strong> 15 Days</p>
         <p class="desc hidden">Admire breathtaking fjords, the Northern Lights, and charming Nordic culture in scenic
           Norway.</p>
-        <button onclick="toggleDescription(this)">Read More</button>
+        <button onclick="toggleInfo(this)">Read More</button>
         <a href="booking.html?destination=Norway&duration=10" class="book-btn">Book Now</a>
       </div>
 
@@ -242,7 +241,7 @@
         <p><strong>Budget:</strong> ₹2,50,000 | <strong>Duration:</strong> 15 Days</p>
         <p class="desc hidden">Discover the stunning natural beauty of New Zealand, from majestic mountains and fjords
           to vibrant cities and Maori culture.</p>
-        <button onclick="toggleDescription(this)">Read More</button>
+        <button onclick="toggleInfo(this)">Read More</button>
         <a href="booking.html?destination=NewZealand&duration=12" class="book-btn">Book Now</a>
       </div>
 
@@ -255,7 +254,7 @@
         <p><strong>Budget:</strong> ₹4,80,000 | <strong>Duration:</strong> 15 Days</p>
         <p class="desc hidden">Journey through the Andes, explore Machu Picchu, the Atacama Desert, ancient Inca
           culture, and vibrant South American cities.</p>
-        <button onclick="toggleDescription(this)">Read More</button>
+        <button onclick="toggleInfo(this)">Read More</button>
         <a href="booking.html?destination=Chile and Peru&duration=14" class="book-btn">Book Now</a>
       </div>
 
@@ -267,7 +266,7 @@
         <h3>Bali</h3>
         <p><strong>Budget:</strong> ₹3,30,000 | <strong>Duration:</strong> 15 Days</p>
         <p class="desc hidden">Beaches, waterfalls, temples, and tropical peace in Bali.</p>
-        <button onclick="toggleDescription(this)">Read More</button>
+        <button onclick="toggleInfo(this)">Read More</button>
         <a href="booking.html?destination=Bali&duration=7" class="book-btn">Book Now</a>
       </div>
 
@@ -279,7 +278,7 @@
         <h3>Switzerland</h3>
         <p><strong>Budget:</strong> ₹4,30,000 | <strong>Duration:</strong> 15 Days</p>
         <p class="desc hidden">Alps, train rides, Swiss towns, and chocolate await you.</p>
-        <button onclick="toggleDescription(this)">Read More</button>
+        <button onclick="toggleInfo(this)">Read More</button>
         <a href="booking.html?destination=Switzerland&duration=7" class="book-btn">Book Now</a>
       </div>
 
@@ -493,7 +492,6 @@
   </section>
 
   <!--=============================================================================
-  <!--=============================================================================
   ================================= Image Slidebar ================================ 
   ==============================================================================-->
   <div class="carousel-container">
@@ -508,9 +506,7 @@
         <p class="carousel-duration">Duration: 7 Days</p>
         <div class="carousel-info">Discover the romance of the Eiffel Tower, stroll the Seine, and indulge in French
           cuisine.</div>
-        <a href="booking.html?destination=Paris&duration=7">
-          <button class="carousel-book-btn">Book Now</button>
-        </a>
+        <a href="booking.html?destination=Paris&duration=7" class="carousel-book-btn">Book Now</a>
       </div>
 
       <!-- 2. Santorini -->
@@ -521,9 +517,7 @@
         <p>Santorini</p>
         <p class="carousel-duration">Duration: 7 Days</p>
         <div class="carousel-info">Enjoy stunning sunsets, whitewashed buildings, and crystal-clear waters.</div>
-        <a href="booking.html?destination=Santorini&duration=7">
-          <button class="carousel-book-btn">Book Now</button>
-        </a>
+        <a href="booking.html?destination=Santorini&duration=7" class="carousel-book-btn">Book Now</a>
       </div>
 
       <!-- 3. Maldives -->
@@ -534,9 +528,7 @@
         <p>Maldives</p>
         <p class="carousel-duration">Duration: 7 Days</p>
         <div class="carousel-info">Experience pristine white beaches, turquoise waters, and luxury resorts.</div>
-        <a href="booking.html?destination=Maldives&duration=7">
-          <button class="carousel-book-btn">Book Now</button>
-        </a>
+        <a href="booking.html?destination=Maldives&duration=7" class="carousel-book-btn">Book Now</a>
       </div>
 
       <!-- 4. Kyoto -->
@@ -547,9 +539,7 @@
         <p>Kyoto</p>
         <p class="carousel-duration">Duration: 7 Days</p>
         <div class="carousel-info">Discover ancient temples, serene gardens, and traditional tea ceremonies.</div>
-        <a href="booking.html?destination=Kyoto&duration=7">
-          <button class="carousel-book-btn">Book Now</button>
-        </a>
+        <a href="booking.html?destination=Kyoto&duration=7" class="carousel-book-btn">Book Now</a>
       </div>
 
       <!-- 5. New York -->
@@ -560,9 +550,7 @@
         <p>New York City</p>
         <p class="carousel-duration">Duration: 7 Days</p>
         <div class="carousel-info">Explore Times Square, Central Park, and the vibrant city life of NYC.</div>
-        <a href="booking.html?destination=New York City&duration=7">
-          <button class="carousel-book-btn">Book Now</button>
-        </a>
+        <a href="booking.html?destination=New York City&duration=7" class="carousel-book-btn">Book Now</a>
       </div>
 
       <!-- 6. Rome -->
@@ -573,9 +561,7 @@
         <p>Rome</p>
         <p class="carousel-duration">Duration: 7 Days</p>
         <div class="carousel-info">Step back in time at the Colosseum, Vatican, and charming piazzas.</div>
-        <a href="booking.html?destination=Rome&duration=7">
-          <button class="carousel-book-btn">Book Now</button>
-        </a>
+        <a href="booking.html?destination=Rome&duration=7" class="carousel-book-btn">Book Now</a>
       </div>
 
       <!-- 7. Dubai -->
@@ -586,9 +572,7 @@
         <p>Dubai</p>
         <p class="carousel-duration">Duration: 7 Days</p>
         <div class="carousel-info">See the Burj Khalifa, desert safaris, and luxury shopping in Dubai.</div>
-        <a href="booking.html?destination=Dubai&duration=7">
-          <button class="carousel-book-btn">Book Now</button>
-        </a>
+        <a href="booking.html?destination=Dubai&duration=7" class="carousel-book-btn">Book Now</a>
       </div>
 
       <!-- 8. Barcelona -->
@@ -599,9 +583,7 @@
         <p>Barcelona</p>
         <p class="carousel-duration">Duration: 7 Days</p>
         <div class="carousel-info">Discover Gaudí’s architecture, sandy beaches, and vibrant culture.</div>
-        <a href="booking.html?destination=Barcelona&duration=7">
-          <button class="carousel-book-btn">Book Now</button>
-        </a>
+        <a href="booking.html?destination=Barcelona&duration=7" class="carousel-book-btn">Book Now</a>
       </div>
 
       <!-- 9. Cape Town -->
@@ -612,9 +594,7 @@
         <p>Cape Town</p>
         <p class="carousel-duration">Duration: 7 Days</p>
         <div class="carousel-info">Enjoy breathtaking views from Table Mountain and the vibrant waterfront.</div>
-        <a href="booking.html?destination=Cape Town&duration=7">
-          <button class="carousel-book-btn">Book Now</button>
-        </a>
+        <a href="booking.html?destination=Cape Town&duration=7" class="carousel-book-btn">Book Now</a>
       </div>
 
       <!-- 10. Iceland -->
@@ -625,9 +605,7 @@
         <p>Iceland</p>
         <p class="carousel-duration">Duration: 7 Days</p>
         <div class="carousel-info">Experience stunning waterfalls, glaciers, and the Northern Lights.</div>
-        <a href="booking.html?destination=Iceland&duration=7">
-          <button class="carousel-book-btn">Book Now</button>
-        </a>
+        <a href="booking.html?destination=Iceland&duration=7" class="carousel-book-btn">Book Now</a>
       </div>
 
       <!-- 11. Sydney -->
@@ -638,9 +616,7 @@
         <p>Sydney</p>
         <p class="carousel-duration">Duration: 7 Days</p>
         <div class="carousel-info">Visit the Sydney Opera House, Bondi Beach, and experience Aussie culture.</div>
-        <a href="booking.html?destination=Sydney&duration=7">
-          <button class="carousel-book-btn">Book Now</button>
-        </a>
+        <a href="booking.html?destination=Sydney&duration=7" class="carousel-book-btn">Book Now</a>
       </div>
 
       <!-- 12. London -->
@@ -651,9 +627,7 @@
         <p>London</p>
         <p class="carousel-duration">Duration: 7 Days</p>
         <div class="carousel-info">Explore London’s iconic landmarks and rich history.</div>
-        <a href="booking.html?destination=London&duration=7">
-          <button class="carousel-book-btn">Book Now</button>
-        </a>
+        <a href="booking.html?destination=London&duration=7" class="carousel-book-btn">Book Now</a>
       </div>
 
       <!-- 13. Amsterdam -->
@@ -664,9 +638,7 @@
         <p>Amsterdam</p>
         <p class="carousel-duration">Duration: 7 Days</p>
         <div class="carousel-info">Enjoy scenic canals, art museums, and vibrant nightlife.</div>
-        <a href="booking.html?destination=Amsterdam&duration=7">
-          <button class="carousel-book-btn">Book Now</button>
-        </a>
+        <a href="booking.html?destination=Amsterdam&duration=7" class="carousel-book-btn">Book Now</a>
       </div>
 
       <!-- 14. Marrakech -->
@@ -677,9 +649,7 @@
         <p>Marrakech</p>
         <p class="carousel-duration">Duration: 7 Days</p>
         <div class="carousel-info">Explore lively souks, palaces, and rich Moroccan culture.</div>
-        <a href="booking.html?destination=Marrakech&duration=7">
-          <button class="carousel-book-btn">Book Now</button>
-        </a>
+        <a href="booking.html?destination=Marrakech&duration=7" class="carousel-book-btn">Book Now</a>
       </div>
 
       <!-- 15. Venice -->
@@ -690,17 +660,10 @@
         <p>Venice</p>
         <p class="carousel-duration">Duration: 7 Days</p>
         <div class="carousel-info">Experience romantic gondola rides and beautiful canals.</div>
-        <a href="booking.html?destination=Venice&duration=7">
-          <button class="carousel-book-btn">Book Now</button>
-        </a>
+        <a href="booking.html?destination=Venice&duration=7" class="carousel-book-btn">Book Now</a>
       </div>
 
     </div>
-    <div class="carousel-nav">
-      <button id="prevBtn">&#10094;</button>
-      <button id="nextBtn">&#10095;</button>
-    </div>
-
   </div>
 
   <!--============================================================================
@@ -747,7 +710,9 @@
       // Read More Toggle Logic
       // ==========================
       function toggleInfo(button) {
-        const info = button.nextElementSibling;
+        const card = button.closest('.destination-card, .trend-card');
+        const info = card ? card.querySelector('.desc, .more-info') : null;
+        if (!info) return;
         const isVisible = info.style.display === "block";
         info.style.display = isVisible ? "none" : "block";
         button.textContent = isVisible ? "Read More" : "Read Less";
@@ -812,6 +777,11 @@
       // Start carousel
       updateSlide();
       startAutoSlide();
+
+      // Wire up trend card read-more buttons
+      document.querySelectorAll('.trend-card .read-more').forEach(btn => {
+        btn.onclick = function () { toggleInfo(this); };
+      });
 
       // Expose for inline button toggle
       window.toggleInfo = toggleInfo;

@@ -96,7 +96,7 @@ function showVisaError(errors) {
 }
 
 function showVisaSuccess(application) {
-  const container = document.querySelector('.visa-application');
+  const container = document.querySelector('.container');
   if (!container) return;
 
   container.innerHTML = `

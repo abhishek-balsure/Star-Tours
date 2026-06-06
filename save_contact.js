@@ -11,6 +11,7 @@ function validateEmail(email) {
 function saveContact() {
   const name = sanitize(document.getElementById('name')?.value?.trim() || '');
   const email = sanitize(document.getElementById('email')?.value?.trim() || '');
+  const subject = sanitize(document.getElementById('subject')?.value?.trim() || '');
   const message = sanitize(document.getElementById('message')?.value?.trim() || '');
 
   const errors = [];
@@ -34,6 +35,7 @@ function saveContact() {
     id: Date.now(),
     name,
     email,
+    subject,
     message,
     timestamp: new Date().toISOString()
   };

@@ -26,7 +26,6 @@
       font-size: 14px;
     }
   </style>
-  <script src="booking.js"></script>
 </head>
 
 <body>
@@ -86,7 +85,7 @@
   <section class="story-section">
     <h2>Our Story</h2>
     <p class="intro">
-      Founded in 2018 by passionate travelers, <strong>ＳＴ ✪ Ｒ Tours And Travels</strong> began as a small family-run
+      Founded in 2015 by passionate travelers, <strong>ＳＴ ✪ Ｒ Tours And Travels</strong> began as a small family-run
       venture with a big dream — to make travel joyful, seamless, and personal.
     </p>
     <ul class="milestones">
@@ -266,7 +265,7 @@
   <!-- Multilingual Support -->
   <section class="language-selector" style="text-align: center; padding: 30px 20px;">
     <label for="language" style="font-size: 1.2rem; font-weight: 500;">🌐 Choose Language: </label>
-    <select id="language" onchange="changeLanguage()" style="padding: 8px 12px; font-size: 1rem;">
+    <select id="language" style="padding: 8px 12px; font-size: 1rem;">
       <option value="en">English</option>
       <option value="hi">हिन्दी</option>
       <option value="mr">मराठी</option>
@@ -274,7 +273,7 @@
     </select>
   </section>
 
-  <!-- <div id="google_translate_element"></div> -->
+  <div id="google_translate_element" style="display:none;"></div>
   <script type="text/javascript">
     function googleTranslateElementInit() {
       new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
