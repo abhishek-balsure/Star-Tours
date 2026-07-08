@@ -192,3 +192,342 @@ h1.page-title {
     padding: 12px 14px;
   }
 }
+
+/* ============================================================
+   SEARCH & FILTER BAR
+   ============================================================ */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  max-width: 1300px;
+  width: min(98%, 1300px);
+  margin: 20px auto;
+  padding: 16px 24px;
+  background: var(--bg-card);
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  border: 1px solid var(--border-light);
+  align-items: center;
+}
+
+.filter-input,
+.filter-select {
+  padding: 10px 16px;
+  font-size: 0.95rem;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  background: var(--bg-page);
+  color: var(--text-dark);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  font-family: inherit;
+}
+
+.filter-input {
+  flex: 2;
+  min-width: 200px;
+}
+
+.filter-select {
+  flex: 1;
+  min-width: 150px;
+  cursor: pointer;
+}
+
+.filter-input:focus,
+.filter-select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.15);
+}
+
+body.dark-mode .filter-bar {
+  background: var(--bg-card);
+  border-color: var(--border-light);
+}
+
+body.dark-mode .filter-input,
+body.dark-mode .filter-select {
+  background: var(--bg-page);
+  color: var(--text-dark);
+  border-color: var(--border-light);
+}
+
+/* ============================================================
+   WISHLIST HEART OVERLAY
+   ============================================================ */
+.adventure-card {
+  position: relative;
+}
+
+.wishlist-heart {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.6rem;
+  cursor: pointer;
+  color: #ff4444;
+  text-shadow: 0 0 6px rgba(0,0,0,0.4);
+  transition: transform 0.3s ease;
+  z-index: 2;
+  user-select: none;
+  line-height: 1;
+}
+
+.wishlist-heart:hover {
+  transform: scale(1.25);
+}
+
+/* ============================================================
+   REVIEWS & RATINGS
+   ============================================================ */
+.reviews-section {
+  margin: 6px 12px 8px;
+  font-size: 0.85rem;
+}
+
+.star-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+  color: var(--text-mid);
+}
+
+.stars-display {
+  color: #f5a623;
+  font-size: 1rem;
+  letter-spacing: 2px;
+}
+
+.avg-rating {
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.review-count {
+  color: var(--text-light);
+  font-size: 0.8rem;
+}
+
+.rate-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.8rem;
+  margin-left: auto;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.rate-link:hover {
+  text-decoration: underline;
+}
+
+.review-form {
+  margin-top: 8px;
+  padding: 10px 12px;
+  background: var(--bg-light);
+  border-radius: 8px;
+  border: 1px solid var(--border-light);
+}
+
+.star-input {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 6px;
+}
+
+.star-input span {
+  cursor: pointer;
+  font-size: 1.4rem;
+  color: #ccc;
+  transition: color 0.2s ease, transform 0.2s ease;
+  user-select: none;
+}
+
+.star-input span:hover {
+  transform: scale(1.2);
+}
+
+.star-input span[data-value] {
+  color: #ccc;
+}
+
+.star-input span[data-value].active,
+.star-input span[data-value]:hover,
+.star-input span[data-value]:hover ~ span[data-value] {
+  color: #f5a623;
+}
+
+.star-input[data-selected] span[data-value] {
+  color: #f5a623;
+}
+
+.review-form textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  resize: vertical;
+  font-family: inherit;
+  font-size: 0.85rem;
+  background: var(--bg-page);
+  color: var(--text-dark);
+  margin-bottom: 6px;
+}
+
+.review-form textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.submit-review {
+  padding: 6px 16px;
+  font-size: 0.85rem;
+}
+
+body.dark-mode .review-form {
+  background: var(--bg-card);
+}
+
+body.dark-mode .star-input span {
+  color: #666;
+}
+
+body.dark-mode .avg-rating {
+  color: var(--text-dark);
+}
+
+/* ============================================================
+   CHECK PRICES BUTTON
+   ============================================================ */
+.check-price-btn {
+  margin: 6px 16px 12px;
+  display: inline-block;
+  align-self: center;
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.85rem;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.35);
+}
+
+.check-price-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+}
+
+/* ============================================================
+   PRICING CALENDAR POPUP
+   ============================================================ */
+.price-calendar {
+  margin: 8px 16px 12px;
+  padding: 12px;
+  background: var(--bg-card);
+  border-radius: 10px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.15);
+  border: 1px solid var(--border-light);
+  font-size: 0.8rem;
+}
+
+.cal-header {
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+  color: var(--text-dark);
+}
+
+.cal-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.7rem;
+  color: var(--text-light);
+  margin-bottom: 4px;
+}
+
+.cal-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.cal-day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-height: 28px;
+}
+
+.cal-day:hover {
+  transform: scale(1.15);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  z-index: 1;
+}
+
+.cal-empty {
+  min-height: 28px;
+}
+
+.cal-legend {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+  font-size: 0.7rem;
+  color: var(--text-mid);
+}
+
+.cal-legend span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.cal-price-display {
+  text-align: center;
+  font-weight: 700;
+  margin-top: 8px;
+  padding: 6px;
+  background: var(--bg-light);
+  border-radius: 6px;
+  color: var(--text-dark);
+  font-size: 0.85rem;
+}
+
+body.dark-mode .price-calendar {
+  background: var(--bg-card);
+  border-color: var(--border-light);
+}
+
+body.dark-mode .cal-price-display {
+  background: var(--bg-page);
+  color: var(--text-dark);
+}
+
+body.dark-mode .cal-header {
+  color: var(--text-dark);
+}

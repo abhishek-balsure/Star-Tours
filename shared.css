@@ -23,8 +23,11 @@
   --text-dark:      #222;
   --text-mid:       #444;
   --text-light:     #777;
+  --bg-card:        #ffffff;
   --bg-white:       #ffffff;
   --bg-light:       #f5f7fa;
+  --bg-page:        #ffffff;
+  --border-light:   rgba(0,0,0,0.08);
   --shadow-sm:      0 4px 8px rgba(0,0,0,0.08);
   --shadow-md:      0 8px 20px rgba(0,0,0,0.12);
   --shadow-lg:      0 16px 40px rgba(0,0,0,0.16);
@@ -35,17 +38,95 @@
   --navbar-h:       90px;
 }
 
+body.dark-mode {
+  --primary:        #4fc3f7;
+  --primary-mid:    #29b6f6;
+  --primary-light:  #81d4fa;
+  --accent:         #ffa726;
+  --accent-dark:    #fb8c00;
+  --gold:           #ffd54f;
+  --text-dark:      #e0e0e0;
+  --text-mid:       #bdbdbd;
+  --text-light:     #999;
+  --bg-card:        #1e2a3a;
+  --bg-white:       #121820;
+  --bg-light:       #1a2330;
+  --bg-page:        #0d1520;
+  --border-light:   rgba(255,255,255,0.08);
+  --shadow-sm:      0 4px 8px rgba(0,0,0,0.3);
+  --shadow-md:      0 8px 20px rgba(0,0,0,0.4);
+  --shadow-lg:      0 16px 40px rgba(0,0,0,0.5);
+}
+
 html {
   scroll-behavior: smooth;
 }
 
 body {
   font-family: 'Inter', 'Segoe UI', sans-serif;
-  background-color: var(--bg-white);
+  background-color: var(--bg-page);
   color: var(--text-dark);
   line-height: 1.6;
+  transition: background-color var(--transition), color var(--transition);
   /* NOTE: overflow-x hidden is NOT set here — it breaks position:sticky navbar.
      Instead we clip overflow on a wrapper or use clip-path if needed. */
+}
+
+/* Dark mode overrides for common elements */
+body.dark-mode .navbar {
+  background-color: var(--bg-card);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+
+body.dark-mode .nav-links li a {
+  color: var(--text-dark);
+}
+
+body.dark-mode .nav-links li a:hover {
+  background-color: rgba(79, 195, 247, 0.15);
+  color: var(--primary);
+}
+
+body.dark-mode .nav-links li a.active {
+  background-color: rgba(79, 195, 247, 0.2);
+  color: var(--primary);
+}
+
+body.dark-mode .hamburger span {
+  background-color: var(--text-dark);
+}
+
+body.dark-mode .footer {
+  background: linear-gradient(145deg, #0a121c 0%, #121820 100%);
+}
+
+body.dark-mode .tour,
+body.dark-mode .adventure-card,
+body.dark-mode .card,
+body.dark-mode .trend-card,
+body.dark-mode .destination-card,
+body.dark-mode .booking-container,
+body.dark-mode .visa-form,
+body.dark-mode .contact-form {
+  background-color: var(--bg-card) !important;
+  border-color: var(--border-light) !important;
+}
+
+body.dark-mode .budget {
+  background: linear-gradient(135deg, #1a2330, #1e2a3a) !important;
+  border-left-color: var(--primary) !important;
+  color: var(--text-mid) !important;
+}
+
+body.dark-mode .tour > p,
+body.dark-mode .adventure-card h4,
+body.dark-mode .budget ul li,
+body.dark-mode .features .card p {
+  color: var(--text-mid) !important;
+}
+
+body.dark-mode .features .card {
+  background: var(--bg-card) !important;
 }
 
 img {
@@ -184,6 +265,29 @@ img {
   background-color: #c5cae9;
   color: var(--primary-light);
   box-shadow: 0 2px 8px rgba(63, 81, 181, 0.2);
+}
+
+/* Dark Mode Toggle */
+.dark-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px 10px;
+  border-radius: 50%;
+  color: var(--primary-light);
+  font-size: 1.15rem;
+  transition: all var(--transition);
+  margin-left: 6px;
+}
+.dark-toggle:hover {
+  background: rgba(63, 81, 181, 0.1);
+  transform: rotate(20deg);
+}
+body.dark-mode .dark-toggle {
+  color: var(--primary);
+}
+body.dark-mode .dark-toggle:hover {
+  background: rgba(79, 195, 247, 0.15);
 }
 
 /* Hamburger */

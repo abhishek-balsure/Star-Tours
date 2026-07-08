@@ -32,38 +32,130 @@
       <li><a href="tours.html" class="active">Tours</a></li>
       <li><a href="visa.html">Visa</a></li>
       <li><a href="contact.html">Contact</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><button class="dark-toggle" id="darkModeToggle" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button></li>
     </ul>
   </nav>
 
+  <!-- Search & Filter Bar -->
+  <div class="filter-bar">
+    <input type="text" id="searchInput" placeholder="Search destinations..." class="filter-input">
+    <select id="categoryFilter" class="filter-select">
+      <option value="all">All Categories</option>
+      <option value="adventure">Adventure</option>
+      <option value="family">Family</option>
+      <option value="historical">Historical</option>
+      <option value="culinary">Culinary</option>
+      <option value="luxury">Luxury</option>
+      <option value="nature">Nature</option>
+      <option value="educational">Educational</option>
+      <option value="seasonal">Seasonal</option>
+      <option value="wildlife">Wildlife</option>
+      <option value="honeymoon">Honeymoon</option>
+    </select>
+    <select id="priceFilter" class="filter-select">
+      <option value="all">All Prices</option>
+      <option value="low">Budget (under ₹10,000)</option>
+      <option value="mid">Mid-Range (₹10,000-₹100,000)</option>
+      <option value="high">Premium (over ₹100,000)</option>
+    </select>
+  </div>
+
   <div class="container">
     <!-- Adventure Tours -->
-    <div class="tour">
+    <div class="tour" data-category="adventure" data-price="mid">
       <h2>1. Adventure Tours</h2>
       <p><strong>Focus:</strong>"Thrilling escapes for the brave-hearted and nature lovers."</p>
       <div class="adventure-grid">
-        <div class="adventure-card">
+        <div class="adventure-card" data-destination="Rishikesh, India — River Rafting">
           <img
             src="https://images.unsplash.com/photo-1711992437606-bd676fb6fdf2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8UmlzaGlrZXNoJTIwUmFmdGluZ3xlbnwwfHwwfHx8MA%3D%3D"
             alt="Rishikesh Rafting">
+          <span class="wishlist-heart">♡</span>
           <h4>Rishikesh, India — River Rafting</h4>
+          <div class="reviews-section">
+            <div class="star-rating">
+              <span class="stars-display">☆☆☆☆☆</span>
+              <span class="avg-rating">0.0</span>
+              <span class="review-count">(0 reviews)</span>
+              <a href="#" class="rate-link">Rate this tour</a>
+            </div>
+            <div class="review-form" style="display:none;">
+              <div class="star-input">
+                <span data-value="1">☆</span>
+                <span data-value="2">☆</span>
+                <span data-value="3">☆</span>
+                <span data-value="4">☆</span>
+                <span data-value="5">☆</span>
+              </div>
+              <textarea placeholder="Write your review..." rows="2"></textarea>
+              <button class="submit-review btn" style="padding:6px 16px;font-size:0.85rem;">Submit</button>
+            </div>
+          </div>
           <a href="booking.html?destination=Rishikesh" class="book-btn">Book Now</a>
+          <button class="check-price-btn">Check Prices</button>
+          <div class="price-calendar" style="display:none;"></div>
         </div>
 
-        <div class="adventure-card">
+        <div class="adventure-card" data-destination="Manali, India — Paragliding">
           <img
             src="https://images.unsplash.com/photo-1719949122509-74d0a1d08b44?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bWFuYWxpJTIwcGFyYWdsaWRpbmd8ZW58MHx8MHx8fDA%3D"
             alt="Manali Paragliding">
+          <span class="wishlist-heart">♡</span>
           <h4>Manali, India — Paragliding</h4>
+          <div class="reviews-section">
+            <div class="star-rating">
+              <span class="stars-display">☆☆☆☆☆</span>
+              <span class="avg-rating">0.0</span>
+              <span class="review-count">(0 reviews)</span>
+              <a href="#" class="rate-link">Rate this tour</a>
+            </div>
+            <div class="review-form" style="display:none;">
+              <div class="star-input">
+                <span data-value="1">☆</span>
+                <span data-value="2">☆</span>
+                <span data-value="3">☆</span>
+                <span data-value="4">☆</span>
+                <span data-value="5">☆</span>
+              </div>
+              <textarea placeholder="Write your review..." rows="2"></textarea>
+              <button class="submit-review btn" style="padding:6px 16px;font-size:0.85rem;">Submit</button>
+            </div>
+          </div>
           <a href="booking.html?destination=Manali" class="book-btn">Book Now</a>
+          <button class="check-price-btn">Check Prices</button>
+          <div class="price-calendar" style="display:none;"></div>
         </div>
 
-        <div class="adventure-card">
+        <div class="adventure-card" data-destination="Thar Desert, India — Safari">
           <img
             src="https://images.unsplash.com/photo-1662217134917-264a5e248581?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fFRoYXIlMjBEZXNlcnQlMjBKZWVwJTIwU2FmYXJpfGVufDB8fDB8fHww"
             alt="Thar Desert Safari">
+          <span class="wishlist-heart">♡</span>
           <h4>
             Thar Desert, India — Safari</h4>
+          <div class="reviews-section">
+            <div class="star-rating">
+              <span class="stars-display">☆☆☆☆☆</span>
+              <span class="avg-rating">0.0</span>
+              <span class="review-count">(0 reviews)</span>
+              <a href="#" class="rate-link">Rate this tour</a>
+            </div>
+            <div class="review-form" style="display:none;">
+              <div class="star-input">
+                <span data-value="1">☆</span>
+                <span data-value="2">☆</span>
+                <span data-value="3">☆</span>
+                <span data-value="4">☆</span>
+                <span data-value="5">☆</span>
+              </div>
+              <textarea placeholder="Write your review..." rows="2"></textarea>
+              <button class="submit-review btn" style="padding:6px 16px;font-size:0.85rem;">Submit</button>
+            </div>
+          </div>
           <a href="booking.html?destination=Thar Desert" class="book-btn">Book Now</a>
+          <button class="check-price-btn">Check Prices</button>
+          <div class="price-calendar" style="display:none;"></div>
         </div>
       </div>
 
@@ -79,32 +171,98 @@
 
   <!-- Family Tours -->
   <div class="container">
-    <div class="tour">
+    <div class="tour" data-category="family" data-price="low">
       <h2>2. Family Tour</h2>
       <p><strong>Focus:</strong>"Create lasting memories on fun-filled family vacations."</p>
       <div class="adventure-grid">
-        <div class="adventure-card">
+        <div class="adventure-card" data-destination="Kerala – Backwaters & Nature Tour">
           <img
             src="https://plus.unsplash.com/premium_photo-1694475205503-d6c6a71f03bc?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8S2VyYWxhJTIwJUUyJTgwJTkzJTIwQmFja3dhdGVycyUyMCUyNiUyME5hdHVyZSUyMFRvdXJ8ZW58MHx8MHx8fDA%3D"
             alt="Kerala Backwaters">
+          <span class="wishlist-heart">♡</span>
           <h4>Kerala – Backwaters & Nature Tour</h4>
+          <div class="reviews-section">
+            <div class="star-rating">
+              <span class="stars-display">☆☆☆☆☆</span>
+              <span class="avg-rating">0.0</span>
+              <span class="review-count">(0 reviews)</span>
+              <a href="#" class="rate-link">Rate this tour</a>
+            </div>
+            <div class="review-form" style="display:none;">
+              <div class="star-input">
+                <span data-value="1">☆</span>
+                <span data-value="2">☆</span>
+                <span data-value="3">☆</span>
+                <span data-value="4">☆</span>
+                <span data-value="5">☆</span>
+              </div>
+              <textarea placeholder="Write your review..." rows="2"></textarea>
+              <button class="submit-review btn" style="padding:6px 16px;font-size:0.85rem;">Submit</button>
+            </div>
+          </div>
           <a href="booking.html?destination=Kerala – Backwaters & Nature Tour" class="book-btn">Book Now</a>
+          <button class="check-price-btn">Check Prices</button>
+          <div class="price-calendar" style="display:none;"></div>
         </div>
 
-        <div class="adventure-card">
+        <div class="adventure-card" data-destination="Agra – Taj Mahal & Heritage Tour">
           <img
             src="https://plus.unsplash.com/premium_photo-1723809635838-d4c02e969f37?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8QWdyYSUyMCVFMiU4MCU5MyUyMFRhaiUyME1haGFsJTIwJTI2JTIwSGVyaXRhZ2UlMjBUb3VyfGVufDB8fDB8fHww"
             alt="Agra Taj Mahal">
+          <span class="wishlist-heart">♡</span>
           <h4>Agra – Taj Mahal & Heritage Tour</h4>
+          <div class="reviews-section">
+            <div class="star-rating">
+              <span class="stars-display">☆☆☆☆☆</span>
+              <span class="avg-rating">0.0</span>
+              <span class="review-count">(0 reviews)</span>
+              <a href="#" class="rate-link">Rate this tour</a>
+            </div>
+            <div class="review-form" style="display:none;">
+              <div class="star-input">
+                <span data-value="1">☆</span>
+                <span data-value="2">☆</span>
+                <span data-value="3">☆</span>
+                <span data-value="4">☆</span>
+                <span data-value="5">☆</span>
+              </div>
+              <textarea placeholder="Write your review..." rows="2"></textarea>
+              <button class="submit-review btn" style="padding:6px 16px;font-size:0.85rem;">Submit</button>
+            </div>
+          </div>
           <a href="booking.html?destination=Agra – Taj Mahal" class="book-btn">Book Now</a>
+          <button class="check-price-btn">Check Prices</button>
+          <div class="price-calendar" style="display:none;"></div>
         </div>
 
-        <div class="adventure-card">
+        <div class="adventure-card" data-destination="Ooty – Hill Station Family Retreat">
           <img
             src="https://images.unsplash.com/photo-1628457818636-c758a470d18c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8T290eSUyMCVFMiU4MCU5MyUyMEhpbGwlMjBTdGF0aW9uJTIwRmFtaWx5JTIwUmV0cmVhdHxlbnwwfHwwfHx8MA%3D%3D"
             alt="Ooty – Hill Station Family Retreat">
+          <span class="wishlist-heart">♡</span>
           <h4> Ooty – Hill Station Family Retreat</h4>
+          <div class="reviews-section">
+            <div class="star-rating">
+              <span class="stars-display">☆☆☆☆☆</span>
+              <span class="avg-rating">0.0</span>
+              <span class="review-count">(0 reviews)</span>
+              <a href="#" class="rate-link">Rate this tour</a>
+            </div>
+            <div class="review-form" style="display:none;">
+              <div class="star-input">
+                <span data-value="1">☆</span>
+                <span data-value="2">☆</span>
+                <span data-value="3">☆</span>
+                <span data-value="4">☆</span>
+                <span data-value="5">☆</span>
+              </div>
+              <textarea placeholder="Write your review..." rows="2"></textarea>
+              <button class="submit-review btn" style="padding:6px 16px;font-size:0.85rem;">Submit</button>
+            </div>
+          </div>
           <a href="booking.html?destination= Ooty – Hill Station Family Retreat" class="book-btn">Book Now</a>
+          <button class="check-price-btn">Check Prices</button>
+          <div class="price-calendar" style="display:none;"></div>
         </div>
       </div>
 
@@ -120,32 +278,98 @@
 
   <!-- Historical / Cultural Tours -->
   <div class="container">
-    <div class="tour">
+    <div class="tour" data-category="historical" data-price="mid">
       <h2>3. Historical / Cultural Tours</h2>
       <p><strong>Focus:</strong>"Immerse in local traditions, arts, and vibrant cultures and history."</p>
       <div class="adventure-grid">
-        <div class="adventure-card">
+        <div class="adventure-card" data-destination="Varanasi – Culture & Spiritual Trail">
           <img
             src="https://images.unsplash.com/photo-1673418854201-f7dd85539055?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8VmFyYW5hc2klMjAlRTIlODAlOTMlMjBDdWx0dXJlJTIwJTI2JTIwU3Bpcml0dWFsJTIwVHJhaWx8ZW58MHx8MHx8fDA%3D"
             alt=" Varanasi – Culture & Spiritual Trail">
+          <span class="wishlist-heart">♡</span>
           <h4> Varanasi – Culture & Spiritual Trail</h4>
+          <div class="reviews-section">
+            <div class="star-rating">
+              <span class="stars-display">☆☆☆☆☆</span>
+              <span class="avg-rating">0.0</span>
+              <span class="review-count">(0 reviews)</span>
+              <a href="#" class="rate-link">Rate this tour</a>
+            </div>
+            <div class="review-form" style="display:none;">
+              <div class="star-input">
+                <span data-value="1">☆</span>
+                <span data-value="2">☆</span>
+                <span data-value="3">☆</span>
+                <span data-value="4">☆</span>
+                <span data-value="5">☆</span>
+              </div>
+              <textarea placeholder="Write your review..." rows="2"></textarea>
+              <button class="submit-review btn" style="padding:6px 16px;font-size:0.85rem;">Submit</button>
+            </div>
+          </div>
           <a href="booking.html?destination= Varanasi – Culture & Spiritual Trail" class="book-btn">Book Now</a>
+          <button class="check-price-btn">Check Prices</button>
+          <div class="price-calendar" style="display:none;"></div>
         </div>
 
-        <div class="adventure-card">
+        <div class="adventure-card" data-destination="Hampi – Ancient Ruins Exploration">
           <img
             src="https://plus.unsplash.com/premium_photo-1733259783041-279db9015860?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8SGFtcGklMjAlRTIlODAlOTMlMjBBbmNpZW50JTIwUnVpbnMlMjBFeHBsb3JhdGlvbnxlbnwwfHwwfHx8MA%3D%3D"
             alt="Hampi – Ancient Ruins Exploration">
+          <span class="wishlist-heart">♡</span>
           <h4>Hampi – Ancient Ruins Exploration</h4>
+          <div class="reviews-section">
+            <div class="star-rating">
+              <span class="stars-display">☆☆☆☆☆</span>
+              <span class="avg-rating">0.0</span>
+              <span class="review-count">(0 reviews)</span>
+              <a href="#" class="rate-link">Rate this tour</a>
+            </div>
+            <div class="review-form" style="display:none;">
+              <div class="star-input">
+                <span data-value="1">☆</span>
+                <span data-value="2">☆</span>
+                <span data-value="3">☆</span>
+                <span data-value="4">☆</span>
+                <span data-value="5">☆</span>
+              </div>
+              <textarea placeholder="Write your review..." rows="2"></textarea>
+              <button class="submit-review btn" style="padding:6px 16px;font-size:0.85rem;">Submit</button>
+            </div>
+          </div>
           <a href="booking.html?destination=Hampi – Ancient Ruins Exploration" class="book-btn">Book Now</a>
+          <button class="check-price-btn">Check Prices</button>
+          <div class="price-calendar" style="display:none;"></div>
         </div>
 
-        <div class="adventure-card">
+        <div class="adventure-card" data-destination="Jaipur – Royal Heritage Tour">
           <img
             src="https://plus.unsplash.com/premium_photo-1691031429261-aeb324882888?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fEphaXB1ciUyMCVFMiU4MCU5MyUyMFJveWFsJTIwSGVyaXRhZ2UlMjBUb3VyfGVufDB8fDB8fHww"
             alt=" Jaipur – Royal Heritage Tour">
+          <span class="wishlist-heart">♡</span>
           <h4> Jaipur – Royal Heritage Tour</h4>
+          <div class="reviews-section">
+            <div class="star-rating">
+              <span class="stars-display">☆☆☆☆☆</span>
+              <span class="avg-rating">0.0</span>
+              <span class="review-count">(0 reviews)</span>
+              <a href="#" class="rate-link">Rate this tour</a>
+            </div>
+            <div class="review-form" style="display:none;">
+              <div class="star-input">
+                <span data-value="1">☆</span>
+                <span data-value="2">☆</span>
+                <span data-value="3">☆</span>
+                <span data-value="4">☆</span>
+                <span data-value="5">☆</span>
+              </div>
+              <textarea placeholder="Write your review..." rows="2"></textarea>
+              <button class="submit-review btn" style="padding:6px 16px;font-size:0.85rem;">Submit</button>
+            </div>
+          </div>
           <a href="booking.html?destination= Jaipur – Royal Heritage Tour" class="book-btn">Book Now</a>
+          <button class="check-price-btn">Check Prices</button>
+          <div class="price-calendar" style="display:none;"></div>
         </div>
       </div>
 
@@ -161,32 +385,98 @@
 
   <!-- Culinary & Wine Tours -->
   <div class="container">
-    <div class="tour">
+    <div class="tour" data-category="culinary" data-price="mid">
       <h2>4. Culinary & Wine Tours</h2>
       <p><strong>Focus:</strong>“Savor authentic flavors and fine wines around the globe.”</p>
       <div class="adventure-grid">
-        <div class="adventure-card">
+        <div class="adventure-card" data-destination="Kerala – Spice Trail Tour">
           <img
             src="https://plus.unsplash.com/premium_photo-1675280735161-febe15d7ffae?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8S2VyYWxhJTIwJUUyJTgwJTkzJTIwU3BpY2UlMjBUcmFpbCUyMFRvdXJ8ZW58MHx8MHx8fDA%3D"
             alt="Kerala – Spice Trail Tour">
+          <span class="wishlist-heart">♡</span>
           <h4>Kerala – Spice Trail Tour</h4>
+          <div class="reviews-section">
+            <div class="star-rating">
+              <span class="stars-display">☆☆☆☆☆</span>
+              <span class="avg-rating">0.0</span>
+              <span class="review-count">(0 reviews)</span>
+              <a href="#" class="rate-link">Rate this tour</a>
+            </div>
+            <div class="review-form" style="display:none;">
+              <div class="star-input">
+                <span data-value="1">☆</span>
+                <span data-value="2">☆</span>
+                <span data-value="3">☆</span>
+                <span data-value="4">☆</span>
+                <span data-value="5">☆</span>
+              </div>
+              <textarea placeholder="Write your review..." rows="2"></textarea>
+              <button class="submit-review btn" style="padding:6px 16px;font-size:0.85rem;">Submit</button>
+            </div>
+          </div>
           <a href="booking.html?destination=Kerala – Spice Trail Tour" class="book-btn">Book Now</a>
+          <button class="check-price-btn">Check Prices</button>
+          <div class="price-calendar" style="display:none;"></div>
         </div>
 
-        <div class="adventure-card">
+        <div class="adventure-card" data-destination="Nashik – India's Wine Capital Tour">
           <img
             src="https://plus.unsplash.com/premium_photo-1737963761488-7c6322ba0099?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8TmFzaGlrJTIwJUUyJTgwJTkzJTIwSW5kaWElRTIlODAlOTlzJTIwV2luZSUyMENhcGl0YWwlMjBUb3VyfGVufDB8fDB8fHww"
             alt="Nashik – India’s Wine Capital Tour">
+          <span class="wishlist-heart">♡</span>
           <h4>Nashik – India’s Wine Capital Tour</h4>
+          <div class="reviews-section">
+            <div class="star-rating">
+              <span class="stars-display">☆☆☆☆☆</span>
+              <span class="avg-rating">0.0</span>
+              <span class="review-count">(0 reviews)</span>
+              <a href="#" class="rate-link">Rate this tour</a>
+            </div>
+            <div class="review-form" style="display:none;">
+              <div class="star-input">
+                <span data-value="1">☆</span>
+                <span data-value="2">☆</span>
+                <span data-value="3">☆</span>
+                <span data-value="4">☆</span>
+                <span data-value="5">☆</span>
+              </div>
+              <textarea placeholder="Write your review..." rows="2"></textarea>
+              <button class="submit-review btn" style="padding:6px 16px;font-size:0.85rem;">Submit</button>
+            </div>
+          </div>
           <a href="booking.html?destination=Nashik – India’s Wine Capital Tour" class="book-btn">Book Now</a>
+          <button class="check-price-btn">Check Prices</button>
+          <div class="price-calendar" style="display:none;"></div>
         </div>
 
-        <div class="adventure-card">
+        <div class="adventure-card" data-destination="Punjab – Flavors of the North Tour">
           <img
             src="https://images.unsplash.com/photo-1585036561901-5ed3731992e8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8UHVuamFiJTIwJUUyJTgwJTkzJTIwRmxhdm9ycyUyMG9mJTIwdGhlJTIwTm9ydGglMjBUb3VyfGVufDB8fDB8fHww"
             alt=" Punjab – Flavors of the North Tour">
+          <span class="wishlist-heart">♡</span>
           <h4> Punjab – Flavors of the North Tour</h4>
+          <div class="reviews-section">
+            <div class="star-rating">
+              <span class="stars-display">☆☆☆☆☆</span>
+              <span class="avg-rating">0.0</span>
+              <span class="review-count">(0 reviews)</span>
+              <a href="#" class="rate-link">Rate this tour</a>
+            </div>
+            <div class="review-form" style="display:none;">
+              <div class="star-input">
+                <span data-value="1">☆</span>
+                <span data-value="2">☆</span>
+                <span data-value="3">☆</span>
+                <span data-value="4">☆</span>
+                <span data-value="5">☆</span>
+              </div>
+              <textarea placeholder="Write your review..." rows="2"></textarea>
+              <button class="submit-review btn" style="padding:6px 16px;font-size:0.85rem;">Submit</button>
+            </div>
+          </div>
           <a href="booking.html?destination= Punjab – Flavors of the North Tour" class="book-btn">Book Now</a>
+          <button class="check-price-btn">Check Prices</button>
+          <div class="price-calendar" style="display:none;"></div>
         </div>
       </div>
 
@@ -202,32 +492,98 @@
 
   <!-- Luxury Tours -->
   <div class="container">
-    <div class="tour">
+    <div class="tour" data-category="luxury" data-price="high">
       <h2>5. Luxury Tours</h2>
       <p><strong>Focus:</strong>"Indulge in lavish escapes with first-class experiences."</p>
       <div class="adventure-grid">
-        <div class="adventure-card">
+        <div class="adventure-card" data-destination="Maldives – Overwater Paradise Escape">
           <img
             src="https://images.unsplash.com/photo-1619382590986-e2ac189b0658?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fE1hbGRpdmVzJTIwJUUyJTgwJTkzJTIwT3ZlcndhdGVyJTIwUGFyYWRpc2UlMjBFc2NhcGV8ZW58MHx8MHx8fDA%3D"
             alt=" Maldives – Overwater Paradise Escape">
+          <span class="wishlist-heart">♡</span>
           <h4> Maldives – Overwater Paradise Escape</h4>
+          <div class="reviews-section">
+            <div class="star-rating">
+              <span class="stars-display">☆☆☆☆☆</span>
+              <span class="avg-rating">0.0</span>
+              <span class="review-count">(0 reviews)</span>
+              <a href="#" class="rate-link">Rate this tour</a>
+            </div>
+            <div class="review-form" style="display:none;">
+              <div class="star-input">
+                <span data-value="1">☆</span>
+                <span data-value="2">☆</span>
+                <span data-value="3">☆</span>
+                <span data-value="4">☆</span>
+                <span data-value="5">☆</span>
+              </div>
+              <textarea placeholder="Write your review..." rows="2"></textarea>
+              <button class="submit-review btn" style="padding:6px 16px;font-size:0.85rem;">Submit</button>
+            </div>
+          </div>
           <a href="booking.html?destination= Maldives – Overwater Paradise Escape" class="book-btn">Book Now</a>
+          <button class="check-price-btn">Check Prices</button>
+          <div class="price-calendar" style="display:none;"></div>
         </div>
 
-        <div class="adventure-card">
+        <div class="adventure-card" data-destination="Udaipur – Royal Palace Retreat">
           <img
             src="https://images.unsplash.com/photo-1740382242941-e3e2499b42d2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8VWRhaXB1ciUyMCVFMiU4MCU5MyUyMFJveWFsJTIwUGFsYWNlJTIwUmV0cmVhdHxlbnwwfHwwfHx8MA%3D%3D"
             alt=" Udaipur – Royal Palace Retreat">
+          <span class="wishlist-heart">♡</span>
           <h4> Udaipur – Royal Palace Retreat</h4>
+          <div class="reviews-section">
+            <div class="star-rating">
+              <span class="stars-display">☆☆☆☆☆</span>
+              <span class="avg-rating">0.0</span>
+              <span class="review-count">(0 reviews)</span>
+              <a href="#" class="rate-link">Rate this tour</a>
+            </div>
+            <div class="review-form" style="display:none;">
+              <div class="star-input">
+                <span data-value="1">☆</span>
+                <span data-value="2">☆</span>
+                <span data-value="3">☆</span>
+                <span data-value="4">☆</span>
+                <span data-value="5">☆</span>
+              </div>
+              <textarea placeholder="Write your review..." rows="2"></textarea>
+              <button class="submit-review btn" style="padding:6px 16px;font-size:0.85rem;">Submit</button>
+            </div>
+          </div>
           <a href="booking.html?destination= Udaipur – Royal Palace Retreat" class="book-btn">Book Now</a>
+          <button class="check-price-btn">Check Prices</button>
+          <div class="price-calendar" style="display:none;"></div>
         </div>
 
-        <div class="adventure-card">
+        <div class="adventure-card" data-destination="Switzerland – Alps & Elegance Tour">
           <img
             src="https://images.unsplash.com/photo-1667682343189-35937293fb66?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8U3dpdHplcmxhbmQlMjAlRTIlODAlOTMlMjBBbHBzJTIwJTI2JTIwRWxlZ2FuY2UlMjBUb3VyfGVufDB8fDB8fHww"
             alt="Switzerland – Alps & Elegance Tour">
+          <span class="wishlist-heart">♡</span>
           <h4>Switzerland – Alps & Elegance Tour</h4>
+          <div class="reviews-section">
+            <div class="star-rating">
+              <span class="stars-display">☆☆☆☆☆</span>
+              <span class="avg-rating">0.0</span>
+              <span class="review-count">(0 reviews)</span>
+              <a href="#" class="rate-link">Rate this tour</a>
+            </div>
+            <div class="review-form" style="display:none;">
+              <div class="star-input">
+                <span data-value="1">☆</span>
+                <span data-value="2">☆</span>
+                <span data-value="3">☆</span>
+                <span data-value="4">☆</span>
+                <span data-value="5">☆</span>
+              </div>
+              <textarea placeholder="Write your review..." rows="2"></textarea>
+              <button class="submit-review btn" style="padding:6px 16px;font-size:0.85rem;">Submit</button>
+            </div>
+          </div>
           <a href="booking.html?destination=Switzerland – Alps & Elegance Tour" class="book-btn">Book Now</a>
+          <button class="check-price-btn">Check Prices</button>
+          <div class="price-calendar" style="display:none;"></div>
         </div>
       </div>
 
@@ -243,32 +599,98 @@
 
   <!-- Nature & Eco Tours -->
   <div class="container">
-    <div class="tour">
+    <div class="tour" data-category="nature" data-price="low">
       <h2>6. Nature & Eco Tours</h2>
       <p><strong>Focus:</strong>“Explore the planet’s beauty through sustainable, green journeys.”</p>
       <div class="adventure-grid">
-        <div class="adventure-card">
+        <div class="adventure-card" data-destination="Andaman – Island Eco-Experience">
           <img
             src="https://images.unsplash.com/photo-1698319880142-215996845ba6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8QW5kYW1hbiUyMCVFMiU4MCU5MyUyMElzbGFuZCUyMEVjbyUyMEV4cGVyaWVuY2UlNUN8ZW58MHx8MHx8fDA%3D"
             alt=" Andaman – Island Eco-Experience">
+          <span class="wishlist-heart">♡</span>
           <h4> Andaman – Island Eco-Experience</h4>
+          <div class="reviews-section">
+            <div class="star-rating">
+              <span class="stars-display">☆☆☆☆☆</span>
+              <span class="avg-rating">0.0</span>
+              <span class="review-count">(0 reviews)</span>
+              <a href="#" class="rate-link">Rate this tour</a>
+            </div>
+            <div class="review-form" style="display:none;">
+              <div class="star-input">
+                <span data-value="1">☆</span>
+                <span data-value="2">☆</span>
+                <span data-value="3">☆</span>
+                <span data-value="4">☆</span>
+                <span data-value="5">☆</span>
+              </div>
+              <textarea placeholder="Write your review..." rows="2"></textarea>
+              <button class="submit-review btn" style="padding:6px 16px;font-size:0.85rem;">Submit</button>
+            </div>
+          </div>
           <a href="booking.html?destination= Andaman – Island Eco-Experience" class="book-btn">Book Now</a>
+          <button class="check-price-btn">Check Prices</button>
+          <div class="price-calendar" style="display:none;"></div>
         </div>
 
-        <div class="adventure-card">
+        <div class="adventure-card" data-destination="Coorg – Coffee Trails & Waterfalls Tour">
           <img
             src="https://plus.unsplash.com/premium_photo-1664361480990-8d3d325ed3fd?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fENvb3JnJTIwJUUyJTgwJTkzJTIwQ29mZmVlJTIwVHJhaWxzJTIwJTI2JTIwV2F0ZXJmYWxscyUyMFRvdXJ8ZW58MHx8MHx8fDA%3D"
             alt=" Coorg – Coffee Trails & Waterfalls Tour">
+          <span class="wishlist-heart">♡</span>
           <h4> Coorg – Coffee Trails & Waterfalls Tour</h4>
+          <div class="reviews-section">
+            <div class="star-rating">
+              <span class="stars-display">☆☆☆☆☆</span>
+              <span class="avg-rating">0.0</span>
+              <span class="review-count">(0 reviews)</span>
+              <a href="#" class="rate-link">Rate this tour</a>
+            </div>
+            <div class="review-form" style="display:none;">
+              <div class="star-input">
+                <span data-value="1">☆</span>
+                <span data-value="2">☆</span>
+                <span data-value="3">☆</span>
+                <span data-value="4">☆</span>
+                <span data-value="5">☆</span>
+              </div>
+              <textarea placeholder="Write your review..." rows="2"></textarea>
+              <button class="submit-review btn" style="padding:6px 16px;font-size:0.85rem;">Submit</button>
+            </div>
+          </div>
           <a href="booking.html?destination= Coorg – Coffee Trails & Waterfalls Tour" class="book-btn">Book Now</a>
+          <button class="check-price-btn">Check Prices</button>
+          <div class="price-calendar" style="display:none;"></div>
         </div>
 
-        <div class="adventure-card">
+        <div class="adventure-card" data-destination="Jim Corbett – Wildlife & Forest Adventure">
           <img
             src="https://plus.unsplash.com/premium_photo-1726863120414-4bc4ee123054?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fEppbSUyMENvcmJldHQlMjAlRTIlODAlOTMlMjBXaWxkbGlmZSUyMCUyNiUyMEZvcmVzdCUyMEFkdmVudHVyZXxlbnwwfHwwfHx8MA%3D%3D"
             alt=" Jim Corbett – Wildlife & Forest Adventure">
+          <span class="wishlist-heart">♡</span>
           <h4> Jim Corbett – Wildlife & Forest Adventure</h4>
+          <div class="reviews-section">
+            <div class="star-rating">
+              <span class="stars-display">☆☆☆☆☆</span>
+              <span class="avg-rating">0.0</span>
+              <span class="review-count">(0 reviews)</span>
+              <a href="#" class="rate-link">Rate this tour</a>
+            </div>
+            <div class="review-form" style="display:none;">
+              <div class="star-input">
+                <span data-value="1">☆</span>
+                <span data-value="2">☆</span>
+                <span data-value="3">☆</span>
+                <span data-value="4">☆</span>
+                <span data-value="5">☆</span>
+              </div>
+              <textarea placeholder="Write your review..." rows="2"></textarea>
+              <button class="submit-review btn" style="padding:6px 16px;font-size:0.85rem;">Submit</button>
+            </div>
+          </div>
           <a href="booking.html?destination= Jim Corbett – Wildlife & Forest Adventure" class="book-btn">Book Now</a>
+          <button class="check-price-btn">Check Prices</button>
+          <div class="price-calendar" style="display:none;"></div>
         </div>
       </div>
 
@@ -284,30 +706,96 @@
 
   <!-- Educational Tours -->
   <div class="container">
-    <div class="tour">
+    <div class="tour" data-category="educational" data-price="mid">
       <h2>7. Educational Tours</h2>
       <p><strong>Focus:</strong>“Learn beyond books through real-world, hands-on experiences.”</p>
       <div class="adventure-grid">
-        <div class="adventure-card">
+        <div class="adventure-card" data-destination="NASA Campus , USA - Educational Tour">
           <img
             src="https://images.unsplash.com/photo-1656321717360-be568acc171b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fE5BU0ElMjBDYW1wdXN8ZW58MHx8MHx8fDA%3D"
             alt="NASA Tour">
+          <span class="wishlist-heart">♡</span>
           <h4>NASA Campus , USA - Educational Tour</h4>
+          <div class="reviews-section">
+            <div class="star-rating">
+              <span class="stars-display">☆☆☆☆☆</span>
+              <span class="avg-rating">0.0</span>
+              <span class="review-count">(0 reviews)</span>
+              <a href="#" class="rate-link">Rate this tour</a>
+            </div>
+            <div class="review-form" style="display:none;">
+              <div class="star-input">
+                <span data-value="1">☆</span>
+                <span data-value="2">☆</span>
+                <span data-value="3">☆</span>
+                <span data-value="4">☆</span>
+                <span data-value="5">☆</span>
+              </div>
+              <textarea placeholder="Write your review..." rows="2"></textarea>
+              <button class="submit-review btn" style="padding:6px 16px;font-size:0.85rem;">Submit</button>
+            </div>
+          </div>
           <a href="booking.html?destination=NASA Campus" class="book-btn">Book Now</a>
+          <button class="check-price-btn">Check Prices</button>
+          <div class="price-calendar" style="display:none;"></div>
         </div>
 
-        <div class="adventure-card">
+        <div class="adventure-card" data-destination="ISRO Campus , India - Educational Tour">
           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJ753V-mFwJdE7cfoDbP5UtHkBQ-xX04W0-A&s"
             alt="ISRO Tour">
+          <span class="wishlist-heart">♡</span>
           <h4>ISRO Campus , India - Educational Tour</h4>
+          <div class="reviews-section">
+            <div class="star-rating">
+              <span class="stars-display">☆☆☆☆☆</span>
+              <span class="avg-rating">0.0</span>
+              <span class="review-count">(0 reviews)</span>
+              <a href="#" class="rate-link">Rate this tour</a>
+            </div>
+            <div class="review-form" style="display:none;">
+              <div class="star-input">
+                <span data-value="1">☆</span>
+                <span data-value="2">☆</span>
+                <span data-value="3">☆</span>
+                <span data-value="4">☆</span>
+                <span data-value="5">☆</span>
+              </div>
+              <textarea placeholder="Write your review..." rows="2"></textarea>
+              <button class="submit-review btn" style="padding:6px 16px;font-size:0.85rem;">Submit</button>
+            </div>
+          </div>
           <a href="booking.html?destination=ISRO Campus" class="book-btn">Book Now</a>
+          <button class="check-price-btn">Check Prices</button>
+          <div class="price-calendar" style="display:none;"></div>
         </div>
 
-        <div class="adventure-card">
+        <div class="adventure-card" data-destination="MIT Campus , USA - Educational Tour">
           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaKTuTa-yk8pXnvEl1--RiwiTc6Ie7kHJZNw&s"
             alt="MIT Campus">
+          <span class="wishlist-heart">♡</span>
           <h4>MIT Campus , USA - Educational Tour</h4>
+          <div class="reviews-section">
+            <div class="star-rating">
+              <span class="stars-display">☆☆☆☆☆</span>
+              <span class="avg-rating">0.0</span>
+              <span class="review-count">(0 reviews)</span>
+              <a href="#" class="rate-link">Rate this tour</a>
+            </div>
+            <div class="review-form" style="display:none;">
+              <div class="star-input">
+                <span data-value="1">☆</span>
+                <span data-value="2">☆</span>
+                <span data-value="3">☆</span>
+                <span data-value="4">☆</span>
+                <span data-value="5">☆</span>
+              </div>
+              <textarea placeholder="Write your review..." rows="2"></textarea>
+              <button class="submit-review btn" style="padding:6px 16px;font-size:0.85rem;">Submit</button>
+            </div>
+          </div>
           <a href="booking.html?destination=MIT Campus" class="book-btn">Book Now</a>
+          <button class="check-price-btn">Check Prices</button>
+          <div class="price-calendar" style="display:none;"></div>
         </div>
       </div>
 
@@ -323,32 +811,98 @@
 
   <!--  Seasonal Tours  -->
   <div class="container">
-    <div class="tour">
+    <div class="tour" data-category="seasonal" data-price="mid">
       <h2>8. Seasonal Tours </h2>
       <p><strong>Focus:</strong>"Experience the magic of each season in stunning locations."</p>
       <div class="adventure-grid">
-        <div class="adventure-card">
+        <div class="adventure-card" data-destination="Tulip Bloom Tour: Kashmir">
           <img
             src="https://images.unsplash.com/photo-1494024438537-66fdbab4a403?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8VHVsaXAlMjBCbG9vbSUyMFRvdXIlM0ElMjBLYXNobWlyfGVufDB8fDB8fHww"
             alt="Tulip Bloom Tour: Kashmir">
+          <span class="wishlist-heart">♡</span>
           <h4>Tulip Bloom Tour: Kashmir</h4>
+          <div class="reviews-section">
+            <div class="star-rating">
+              <span class="stars-display">☆☆☆☆☆</span>
+              <span class="avg-rating">0.0</span>
+              <span class="review-count">(0 reviews)</span>
+              <a href="#" class="rate-link">Rate this tour</a>
+            </div>
+            <div class="review-form" style="display:none;">
+              <div class="star-input">
+                <span data-value="1">☆</span>
+                <span data-value="2">☆</span>
+                <span data-value="3">☆</span>
+                <span data-value="4">☆</span>
+                <span data-value="5">☆</span>
+              </div>
+              <textarea placeholder="Write your review..." rows="2"></textarea>
+              <button class="submit-review btn" style="padding:6px 16px;font-size:0.85rem;">Submit</button>
+            </div>
+          </div>
           <a href="booking.html?destination=Tulip Bloom Tour: Kashmir" class="book-btn">Book Now</a>
+          <button class="check-price-btn">Check Prices</button>
+          <div class="price-calendar" style="display:none;"></div>
         </div>
 
-        <div class="adventure-card">
+        <div class="adventure-card" data-destination="Golden Leaves: North East India">
           <img
             src="https://plus.unsplash.com/premium_photo-1669985168729-571894001a2e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fEdvbGRlbiUyMExlYXZlcyUzQSUyME5vcnRoJTIwRWFzdCUyMEluZGlhfGVufDB8fDB8fHww"
             alt="Golden Leaves: North East India">
+          <span class="wishlist-heart">♡</span>
           <h4>Golden Leaves: North East India</h4>
+          <div class="reviews-section">
+            <div class="star-rating">
+              <span class="stars-display">☆☆☆☆☆</span>
+              <span class="avg-rating">0.0</span>
+              <span class="review-count">(0 reviews)</span>
+              <a href="#" class="rate-link">Rate this tour</a>
+            </div>
+            <div class="review-form" style="display:none;">
+              <div class="star-input">
+                <span data-value="1">☆</span>
+                <span data-value="2">☆</span>
+                <span data-value="3">☆</span>
+                <span data-value="4">☆</span>
+                <span data-value="5">☆</span>
+              </div>
+              <textarea placeholder="Write your review..." rows="2"></textarea>
+              <button class="submit-review btn" style="padding:6px 16px;font-size:0.85rem;">Submit</button>
+            </div>
+          </div>
           <a href="booking.html?destination=Golden Leaves: North East India" class="book-btn">Book Now</a>
+          <button class="check-price-btn">Check Prices</button>
+          <div class="price-calendar" style="display:none;"></div>
         </div>
 
-        <div class="adventure-card">
+        <div class="adventure-card" data-destination="Snowy Getaway: Manali & Auli">
           <img
             src="https://images.unsplash.com/photo-1506978520653-bb3accebb1a3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8U25vd3klMjBHZXRhd2F5JTNBJTIwTWFuYWxpJTIwJTI2JTIwQXVsaXxlbnwwfHwwfHx8MA%3D%3D"
             alt="Snowy Getaway: Manali & Auli">
+          <span class="wishlist-heart">♡</span>
           <h4>Snowy Getaway: Manali & Auli</h4>
+          <div class="reviews-section">
+            <div class="star-rating">
+              <span class="stars-display">☆☆☆☆☆</span>
+              <span class="avg-rating">0.0</span>
+              <span class="review-count">(0 reviews)</span>
+              <a href="#" class="rate-link">Rate this tour</a>
+            </div>
+            <div class="review-form" style="display:none;">
+              <div class="star-input">
+                <span data-value="1">☆</span>
+                <span data-value="2">☆</span>
+                <span data-value="3">☆</span>
+                <span data-value="4">☆</span>
+                <span data-value="5">☆</span>
+              </div>
+              <textarea placeholder="Write your review..." rows="2"></textarea>
+              <button class="submit-review btn" style="padding:6px 16px;font-size:0.85rem;">Submit</button>
+            </div>
+          </div>
           <a href="booking.html?destination=Snowy Getaway: Manali & Auli" class="book-btn">Book Now</a>
+          <button class="check-price-btn">Check Prices</button>
+          <div class="price-calendar" style="display:none;"></div>
         </div>
       </div>
 
@@ -364,32 +918,98 @@
 
   <!--  Wildlife & Safari Tours  -->
   <div class="container">
-    <div class="tour">
+    <div class="tour" data-category="wildlife" data-price="high">
       <h2>9. Wildlife & Safari Tours </h2>
       <p><strong>Focus:</strong>“Get up close with majestic wildlife in their natural world.”</p>
       <div class="adventure-grid">
-        <div class="adventure-card">
+        <div class="adventure-card" data-destination="Masai Mara National Reserve (Kenya)">
           <img
             src="https://images.unsplash.com/photo-1705465442928-32030d22aed6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8TWFzYWklMjBNYXJhJTIwTmF0aW9uYWwlMjBSZXNlcnZlJTIwKEtlbnlhKXxlbnwwfHwwfHx8MA%3D%3D"
             alt="Masai Mara National Reserve (Kenya)">
+          <span class="wishlist-heart">♡</span>
           <h4>Masai Mara National Reserve (Kenya)</h4>
+          <div class="reviews-section">
+            <div class="star-rating">
+              <span class="stars-display">☆☆☆☆☆</span>
+              <span class="avg-rating">0.0</span>
+              <span class="review-count">(0 reviews)</span>
+              <a href="#" class="rate-link">Rate this tour</a>
+            </div>
+            <div class="review-form" style="display:none;">
+              <div class="star-input">
+                <span data-value="1">☆</span>
+                <span data-value="2">☆</span>
+                <span data-value="3">☆</span>
+                <span data-value="4">☆</span>
+                <span data-value="5">☆</span>
+              </div>
+              <textarea placeholder="Write your review..." rows="2"></textarea>
+              <button class="submit-review btn" style="padding:6px 16px;font-size:0.85rem;">Submit</button>
+            </div>
+          </div>
           <a href="booking.html?destination=Masai Mara National Reserve (Kenya)" class="book-btn">Book Now</a>
+          <button class="check-price-btn">Check Prices</button>
+          <div class="price-calendar" style="display:none;"></div>
         </div>
 
-        <div class="adventure-card">
+        <div class="adventure-card" data-destination="Kaziranga National Park (India)">
           <img
             src="https://plus.unsplash.com/premium_photo-1664302746108-821cd9c6963c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fEthemlyYW5nYSUyME5hdGlvbmFsJTIwUGFyayUyMChJbmRpYSl8ZW58MHx8MHx8fDA%3D"
             alt="Kaziranga National Park (India)">
+          <span class="wishlist-heart">♡</span>
           <h4>Kaziranga National Park (India)</h4>
+          <div class="reviews-section">
+            <div class="star-rating">
+              <span class="stars-display">☆☆☆☆☆</span>
+              <span class="avg-rating">0.0</span>
+              <span class="review-count">(0 reviews)</span>
+              <a href="#" class="rate-link">Rate this tour</a>
+            </div>
+            <div class="review-form" style="display:none;">
+              <div class="star-input">
+                <span data-value="1">☆</span>
+                <span data-value="2">☆</span>
+                <span data-value="3">☆</span>
+                <span data-value="4">☆</span>
+                <span data-value="5">☆</span>
+              </div>
+              <textarea placeholder="Write your review..." rows="2"></textarea>
+              <button class="submit-review btn" style="padding:6px 16px;font-size:0.85rem;">Submit</button>
+            </div>
+          </div>
           <a href="booking.html?destination= Kaziranga National Park (India)" class="book-btn">Book Now</a>
+          <button class="check-price-btn">Check Prices</button>
+          <div class="price-calendar" style="display:none;"></div>
         </div>
 
-        <div class="adventure-card">
+        <div class="adventure-card" data-destination="Ranthambore National Park (India)">
           <img
             src="https://images.unsplash.com/photo-1725990076174-a3448eb86e76?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fFJhbnRoYW1ib3JlJTIwTmF0aW9uYWwlMjBQYXJrJTIwKEluZGlhKXxlbnwwfHwwfHx8MA%3D%3D"
             alt="Ranthambore National Park (India)">
+          <span class="wishlist-heart">♡</span>
           <h4>Ranthambore National Park (India)</h4>
+          <div class="reviews-section">
+            <div class="star-rating">
+              <span class="stars-display">☆☆☆☆☆</span>
+              <span class="avg-rating">0.0</span>
+              <span class="review-count">(0 reviews)</span>
+              <a href="#" class="rate-link">Rate this tour</a>
+            </div>
+            <div class="review-form" style="display:none;">
+              <div class="star-input">
+                <span data-value="1">☆</span>
+                <span data-value="2">☆</span>
+                <span data-value="3">☆</span>
+                <span data-value="4">☆</span>
+                <span data-value="5">☆</span>
+              </div>
+              <textarea placeholder="Write your review..." rows="2"></textarea>
+              <button class="submit-review btn" style="padding:6px 16px;font-size:0.85rem;">Submit</button>
+            </div>
+          </div>
           <a href="booking.html?destination=Ranthambore National Park (India)" class="book-btn">Book Now</a>
+          <button class="check-price-btn">Check Prices</button>
+          <div class="price-calendar" style="display:none;"></div>
         </div>
       </div>
 
@@ -403,34 +1023,100 @@
     </div>
   </div>
 
-  <!--  Wildlife & Safari Tours  -->
+  <!--  Honeymoon Tours -->
   <div class="container">
-    <div class="tour">
+    <div class="tour" data-category="honeymoon" data-price="high">
       <h2>10. Honeymoon Tours</h2>
       <p><strong>Focus:</strong>"Celebrate love with romantic getaways made just for two."</p>
       <div class="adventure-grid">
-        <div class="adventure-card">
+        <div class="adventure-card" data-destination="Island Bliss Honeymoon , Maldives">
           <img
             src="https://images.unsplash.com/photo-1657038419394-193f62403d03?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fElzbGFuZCUyMEJsaXNzJTIwSG9uZXltb29ufGVufDB8fDB8fHww"
             alt="Island Bliss Honeymoon, Maldives	">
+          <span class="wishlist-heart">♡</span>
           <h4>Island Bliss Honeymoon , Maldives </h4>
+          <div class="reviews-section">
+            <div class="star-rating">
+              <span class="stars-display">☆☆☆☆☆</span>
+              <span class="avg-rating">0.0</span>
+              <span class="review-count">(0 reviews)</span>
+              <a href="#" class="rate-link">Rate this tour</a>
+            </div>
+            <div class="review-form" style="display:none;">
+              <div class="star-input">
+                <span data-value="1">☆</span>
+                <span data-value="2">☆</span>
+                <span data-value="3">☆</span>
+                <span data-value="4">☆</span>
+                <span data-value="5">☆</span>
+              </div>
+              <textarea placeholder="Write your review..." rows="2"></textarea>
+              <button class="submit-review btn" style="padding:6px 16px;font-size:0.85rem;">Submit</button>
+            </div>
+          </div>
           <a href="booking.html?destination=Island Bliss Honeymoon, Maldives	" class="book-btn">Book Now</a>
+          <button class="check-price-btn">Check Prices</button>
+          <div class="price-calendar" style="display:none;"></div>
         </div>
 
-        <div class="adventure-card">
+        <div class="adventure-card" data-destination="Alpine Dream Honeymoon, Switzerland">
           <img
             src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fEFscGluZSUyMERyZWFtJTIwSG9uZXltb29ufGVufDB8fDB8fHww"
             alt="Alpine Dream Honeymoon, Switzerland">
+          <span class="wishlist-heart">♡</span>
           <h4>Alpine Dream Honeymoon, Switzerland</h4>
+          <div class="reviews-section">
+            <div class="star-rating">
+              <span class="stars-display">☆☆☆☆☆</span>
+              <span class="avg-rating">0.0</span>
+              <span class="review-count">(0 reviews)</span>
+              <a href="#" class="rate-link">Rate this tour</a>
+            </div>
+            <div class="review-form" style="display:none;">
+              <div class="star-input">
+                <span data-value="1">☆</span>
+                <span data-value="2">☆</span>
+                <span data-value="3">☆</span>
+                <span data-value="4">☆</span>
+                <span data-value="5">☆</span>
+              </div>
+              <textarea placeholder="Write your review..." rows="2"></textarea>
+              <button class="submit-review btn" style="padding:6px 16px;font-size:0.85rem;">Submit</button>
+            </div>
+          </div>
           <a href="booking.html?destination=Alpine Dream Honeymoon, Switzerland" class="book-btn">Book Now</a>
+          <button class="check-price-btn">Check Prices</button>
+          <div class="price-calendar" style="display:none;"></div>
         </div>
 
-        <div class="adventure-card">
+        <div class="adventure-card" data-destination="Himalayan Hideaway Honeymoon, Shimla–Manali">
           <img
             src="https://images.unsplash.com/photo-1566838318109-a8bffb91d082?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8SGltYWxheWFuJTIwSGlkZWF3YXklMjBIb25leW1vb258ZW58MHx8MHx8fDA%3D"
             alt="Himalayan Hideaway Honeymoon, Shimla–Manal">
+          <span class="wishlist-heart">♡</span>
           <h4>Himalayan Hideaway Honeymoon, Shimla–Manali </h4>
+          <div class="reviews-section">
+            <div class="star-rating">
+              <span class="stars-display">☆☆☆☆☆</span>
+              <span class="avg-rating">0.0</span>
+              <span class="review-count">(0 reviews)</span>
+              <a href="#" class="rate-link">Rate this tour</a>
+            </div>
+            <div class="review-form" style="display:none;">
+              <div class="star-input">
+                <span data-value="1">☆</span>
+                <span data-value="2">☆</span>
+                <span data-value="3">☆</span>
+                <span data-value="4">☆</span>
+                <span data-value="5">☆</span>
+              </div>
+              <textarea placeholder="Write your review..." rows="2"></textarea>
+              <button class="submit-review btn" style="padding:6px 16px;font-size:0.85rem;">Submit</button>
+            </div>
+          </div>
           <a href="booking.html?destination=Himalayan Hideaway Honeymoon, Shimla–Manali	" class="book-btn">Book Now</a>
+          <button class="check-price-btn">Check Prices</button>
+          <div class="price-calendar" style="display:none;"></div>
         </div>
       </div>
 
@@ -474,6 +1160,225 @@
       </div>
     </div>
   </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // ========== 1. SEARCH & FILTER ==========
+  const searchInput = document.getElementById('searchInput');
+  const categoryFilter = document.getElementById('categoryFilter');
+  const priceFilter = document.getElementById('priceFilter');
+
+  function filterTours() {
+    const search = searchInput.value.toLowerCase().trim();
+    const category = categoryFilter.value;
+    const price = priceFilter.value;
+
+    document.querySelectorAll('.tour').forEach(function (section) {
+      const sectionCategory = section.dataset.category;
+      const sectionPrice = section.dataset.price;
+      const catMatch = category === 'all' || sectionCategory === category;
+      const priceMatch = price === 'all' || sectionPrice === price;
+      const sectionMatch = catMatch && priceMatch;
+
+      section.style.display = sectionMatch ? '' : 'none';
+
+      if (sectionMatch) {
+        section.querySelectorAll('.adventure-card').forEach(function (card) {
+          const dest = (card.dataset.destination || '').toLowerCase();
+          card.style.display = (!search || dest.includes(search)) ? '' : 'none';
+        });
+      }
+    });
+  }
+
+  searchInput.addEventListener('input', filterTours);
+  categoryFilter.addEventListener('change', filterTours);
+  priceFilter.addEventListener('change', filterTours);
+
+  // ========== 2. WISHLIST ==========
+  function initWishlist() {
+    let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+
+    document.querySelectorAll('.wishlist-heart').forEach(function (heart) {
+      const card = heart.closest('.adventure-card');
+      const dest = card.dataset.destination;
+      if (wishlist.includes(dest)) {
+        heart.textContent = '\u2665';
+      }
+
+      heart.addEventListener('click', function (e) {
+        e.stopPropagation();
+        let wl = JSON.parse(localStorage.getItem('wishlist') || '[]');
+        if (wl.includes(dest)) {
+          wl = wl.filter(function (d) { return d !== dest; });
+          heart.textContent = '\u2661';
+        } else {
+          wl.push(dest);
+          heart.textContent = '\u2665';
+        }
+        localStorage.setItem('wishlist', JSON.stringify(wl));
+      });
+    });
+  }
+  initWishlist();
+
+  // ========== 3. REVIEWS ==========
+  function loadReviews() {
+    const allReviews = JSON.parse(localStorage.getItem('reviews') || '{}');
+
+    document.querySelectorAll('.adventure-card').forEach(function (card) {
+      const dest = card.dataset.destination;
+      const destReviews = allReviews[dest] || [];
+      const avg = destReviews.length
+        ? destReviews.reduce(function (s, r) { return s + r.rating; }, 0) / destReviews.length
+        : 0;
+      const rounded = Math.round(avg);
+      const starsStr = '\u2605'.repeat(rounded) + '\u2606'.repeat(5 - rounded);
+
+      card.querySelector('.stars-display').textContent = starsStr;
+      card.querySelector('.avg-rating').textContent = avg.toFixed(1);
+      card.querySelector('.review-count').textContent = '(' + destReviews.length + ' review' + (destReviews.length !== 1 ? 's' : '') + ')';
+    });
+  }
+
+  document.querySelectorAll('.rate-link').forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      const form = this.closest('.reviews-section').querySelector('.review-form');
+      form.style.display = form.style.display === 'none' ? 'block' : 'none';
+    });
+  });
+
+  document.querySelectorAll('.star-input span').forEach(function (star) {
+    star.addEventListener('click', function () {
+      const value = parseInt(this.dataset.value);
+      const container = this.closest('.star-input');
+      container.dataset.selected = value;
+      container.querySelectorAll('span').forEach(function (s) {
+        const sv = parseInt(s.dataset.value);
+        s.textContent = sv <= value ? '\u2605' : '\u2606';
+      });
+    });
+  });
+
+  document.querySelectorAll('.submit-review').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      const card = this.closest('.adventure-card');
+      const dest = card.dataset.destination;
+      const container = this.closest('.review-form');
+      const starInput = container.querySelector('.star-input');
+      const selected = parseInt(starInput.dataset.selected) || 0;
+      const comment = container.querySelector('textarea').value.trim();
+
+      if (!selected) { alert('Please select a star rating.'); return; }
+
+      const allReviews = JSON.parse(localStorage.getItem('reviews') || '{}');
+      if (!allReviews[dest]) allReviews[dest] = [];
+      allReviews[dest].push({
+        rating: selected,
+        comment: comment,
+        date: new Date().toISOString().split('T')[0]
+      });
+      localStorage.setItem('reviews', JSON.stringify(allReviews));
+
+      starInput.dataset.selected = '0';
+      starInput.querySelectorAll('span').forEach(function (s) { s.textContent = '\u2606'; });
+      container.querySelector('textarea').value = '';
+      container.style.display = 'none';
+      loadReviews();
+    });
+  });
+
+  loadReviews();
+
+  // ========== 4. PRICING CALENDAR ==========
+  function generatePricingData(dest) {
+    var now = new Date();
+    var year = now.getFullYear();
+    var month = now.getMonth();
+    var daysInMonth = new Date(year, month + 1, 0).getDate();
+    var prices = {};
+    for (var d = 1; d <= daysInMonth; d++) {
+      var date = new Date(year, month, d);
+      var day = date.getDay();
+      var seed = d * 7 + month * 13 + year;
+      var variance = (seed * 31 + 17) % 4000;
+      if (day === 0 || day === 6) {
+        prices[d] = 8000 + variance;
+      } else {
+        prices[d] = 3000 + (variance % 5000);
+      }
+    }
+    return prices;
+  }
+
+  function getPriceColor(price) {
+    if (price >= 3000 && price <= 5000) return '#4caf50';
+    if (price > 5000 && price <= 8000) return '#ffeb3b';
+    return '#f44336';
+  }
+
+  document.querySelectorAll('.check-price-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var card = this.closest('.adventure-card');
+      var calendar = card.querySelector('.price-calendar');
+      var dest = card.dataset.destination;
+
+      if (calendar.style.display === 'block') {
+        calendar.style.display = 'none';
+        return;
+      }
+
+      var now = new Date();
+      var monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      var month = now.getMonth();
+      var year = now.getFullYear();
+      var daysInMonth = new Date(year, month + 1, 0).getDate();
+      var firstDay = new Date(year, month, 1).getDay();
+      var prices = generatePricingData(dest);
+
+      var html = '<div class="cal-header">' + monthNames[month] + ' ' + year + '</div>';
+      html += '<div class="cal-weekdays"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>';
+      html += '<div class="cal-days">';
+
+      for (var i = 0; i < firstDay; i++) {
+        html += '<span class="cal-empty"></span>';
+      }
+
+      for (var d = 1; d <= daysInMonth; d++) {
+        var price = prices[d];
+        var color = getPriceColor(price);
+        html += '<span class="cal-day" data-price="' + price + '" style="background:' + color + ';">' + d + '</span>';
+      }
+
+      html += '</div>';
+      html += '<div class="cal-legend"><span><span class="dot" style="background:#4caf50"></span>Low ₹3k-5k</span><span><span class="dot" style="background:#ffeb3b"></span>Mid ₹5k-8k</span><span><span class="dot" style="background:#f44336"></span>Peak ₹8k-12k</span></div>';
+      html += '<div class="cal-price-display">Click a date to see price</div>';
+
+      calendar.innerHTML = html;
+      calendar.style.display = 'block';
+
+      calendar.querySelectorAll('.cal-day').forEach(function (dayEl) {
+        dayEl.addEventListener('click', function () {
+          var price = this.dataset.price;
+          var dayNum = this.textContent;
+          var display = calendar.querySelector('.cal-price-display');
+          display.textContent = dayNum + ' ' + monthNames[month] + ': \u20B9' + parseInt(price).toLocaleString();
+        });
+      });
+    });
+  });
+
+  // Close calendars when clicking outside
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.adventure-card')) {
+      document.querySelectorAll('.price-calendar').forEach(function (cal) {
+        cal.style.display = 'none';
+      });
+    }
+  });
+});
+</script>
 
   <script src="navbar.js"></script>
 </body>

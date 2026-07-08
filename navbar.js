@@ -30,4 +30,29 @@
       hamburger.classList.remove('active');
     }
   });
+
+  // ============================================================
+  // DARK MODE TOGGLE
+  // ============================================================
+  const toggle = document.getElementById('darkModeToggle');
+  const icon = toggle ? toggle.querySelector('i') : null;
+
+  function applyTheme(isDark) {
+    document.body.classList.toggle('dark-mode', isDark);
+    if (icon) {
+      icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+    }
+    localStorage.setItem('star-dark-mode', isDark ? '1' : '0');
+  }
+
+  // Restore saved preference
+  if (localStorage.getItem('star-dark-mode') === '1') {
+    applyTheme(true);
+  }
+
+  if (toggle) {
+    toggle.addEventListener('click', () => {
+      applyTheme(!document.body.classList.contains('dark-mode'));
+    });
+  }
 })();
