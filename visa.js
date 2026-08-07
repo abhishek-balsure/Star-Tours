@@ -58,18 +58,32 @@ function submitVisa() {
   const travelDates = sanitize(document.getElementById('travelDates').value);
 
   const application = {
-    id: Date.now(),
-    visaType, country, fullName, email, phone, passport, nationality, travelDates,
-    timestamp: new Date().toISOString()
+    visaType, country, fullName, email, phone, passport, nationality, travelDates
   };
 
-  // Save to localStorage
-  const applications = JSON.parse(localStorage.getItem('visaApplications') || '[]');
-  applications.push(application);
-  localStorage.setItem('visaApplications', JSON.stringify(applications));
+  const token = localStorage.getItem('star_token');
+  if (!token) {
+    showVisaError(['You must be logged in to apply for a visa. Please login from the menu.']);
+    return false;
+  }
 
-  // Show success
-  showVisaSuccess(application);
+  fetch('http://localhost:5000/api/visas', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify(application)
+  })
+    .then(async (res) => {
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to submit application');
+      showVisaSuccess(data.visa);
+    })
+    .catch((err) => {
+      showVisaError([err.message]);
+    });
+
   return false;
 }
 
@@ -107,7 +121,7 @@ function showVisaSuccess(application) {
       <p>Thank you, <strong>${application.fullName}</strong>.</p>
       <p>Your visa application for <strong>${application.country}</strong> 
         (<strong>${application.visaType}</strong>) has been received.</p>
-      <p><em>Application ID: ${application.id}</em></p>
+      <p><em>Application ID: ${application._id || application.id}</em></p>
       <p>We will contact you via email or phone shortly.</p>
       <button onclick="downloadVisaInvoice()" class="btn">&#128196; Download Invoice</button>
       <br>
@@ -118,11 +132,9 @@ function showVisaSuccess(application) {
 
 function downloadVisaInvoice() {
   let app = window.lastVisa;
-  if (!app) {
-    const stored = JSON.parse(localStorage.getItem('visaApplications') || '[]');
-    if (stored.length) app = stored[stored.length - 1];
-  }
   if (!app) return;
+  const appId = app._id || app.id;
+  const appDate = app.createdAt || app.timestamp || new Date().toISOString();
 
   const el = document.createElement('div');
   el.innerHTML = `
@@ -133,9 +145,9 @@ function downloadVisaInvoice() {
       </div>
       <h2 style="color:#003366;">Visa Application Invoice</h2>
       <table style="width:100%;border-collapse:collapse;margin-bottom:20px;">
-        <tr><td style="padding:6px 10px;width:150px;"><strong>Application ID:</strong></td><td style="padding:6px 10px;">${app.id}</td></tr>
-        <tr><td style="padding:6px 10px;"><strong>Date:</strong></td><td style="padding:6px 10px;">${new Date(app.timestamp).toLocaleDateString()}</td></tr>
-        <tr><td style="padding:6px 10px;"><strong>Status:</strong></td><td style="padding:6px 10px;">Pending</td></tr>
+        <tr><td style="padding:6px 10px;width:150px;"><strong>Application ID:</strong></td><td style="padding:6px 10px;">${appId}</td></tr>
+        <tr><td style="padding:6px 10px;"><strong>Date:</strong></td><td style="padding:6px 10px;">${new Date(appDate).toLocaleDateString()}</td></tr>
+        <tr><td style="padding:6px 10px;"><strong>Status:</strong></td><td style="padding:6px 10px;">${(app.status || 'pending').charAt(0).toUpperCase() + (app.status || 'pending').slice(1)}</td></tr>
       </table>
       <h3 style="color:#003366;border-bottom:1px solid #ddd;padding-bottom:5px;">Applicant Details</h3>
       <table style="width:100%;border-collapse:collapse;margin-bottom:20px;">
@@ -167,7 +179,7 @@ function downloadVisaInvoice() {
 
   html2pdf().set({
     margin: [10, 10, 10, 10],
-    filename: `STAR-Visa-Invoice-${app.id}.pdf`,
+    filename: `STAR-Visa-Invoice-${appId}.pdf`,
     image: { type: 'jpeg', quality: 0.98 },
     html2canvas: { scale: 2, useCORS: true, letterRendering: true },
     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }

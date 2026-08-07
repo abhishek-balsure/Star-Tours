@@ -15,3 +15,16 @@ Thumbs.db
 bookings/
 applicants/
 uploads/
+
+# MongoDB local data + binaries
+mongodb-data/
+mongo70/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Backend env
+server_python/.env
