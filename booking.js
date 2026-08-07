@@ -280,6 +280,21 @@
 
   // Pre-fill from URL and event listeners
   window.addEventListener('DOMContentLoaded', () => {
+    // Block past dates on the travel date picker
+    const today = new Date();
+    const todayStr = today.toISOString().split('T')[0];
+    const dateField = document.getElementById('date');
+    if (dateField) {
+      dateField.min = todayStr;
+      dateField.addEventListener('change', function() {
+        if (this.value && this.value < todayStr) {
+          alert('Travel date cannot be in the past.');
+          this.value = '';
+          calculateReturnDate();
+        }
+      });
+    }
+
     // Attach form submit
     const form = document.getElementById('bookingForm');
     if (form) {
@@ -302,7 +317,6 @@
     }
 
     // Add event listeners
-    const dateField = document.getElementById('date');
     const daysField = document.getElementById('days');
     const peopleField = document.getElementById('people');
     const intlCheck = document.getElementById('international');
@@ -311,7 +325,6 @@
     const hotelSel = document.getElementById('hotel');
     const guiderSel = document.getElementById('guider');
 
-    if (dateField) dateField.addEventListener('change', calculateReturnDate);
     if (daysField) daysField.addEventListener('input', calculateReturnDate);
     if (peopleField) peopleField.addEventListener('input', calculateCostDisplay);
     if (intlCheck) intlCheck.addEventListener('change', calculateCostDisplay);

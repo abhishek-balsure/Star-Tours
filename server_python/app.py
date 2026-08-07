@@ -13,6 +13,7 @@ from routes.visas import bp as visas_bp
 from routes.reviews import bp as reviews_bp
 from routes.wishlist import bp as wishlist_bp
 from routes.admin import bp as admin_bp
+from routes.contacts import bp as contacts_bp
 
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}}, supports_credentials=True)
@@ -23,6 +24,7 @@ app.register_blueprint(visas_bp)
 app.register_blueprint(reviews_bp)
 app.register_blueprint(wishlist_bp)
 app.register_blueprint(admin_bp)
+app.register_blueprint(contacts_bp)
 
 
 @app.get("/api/health")

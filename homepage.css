@@ -59,6 +59,25 @@
   text-shadow: 0 1px 4px rgba(0,0,0,0.4);
 }
 
+.typed-word {
+  color: var(--accent, #ff9800);
+  font-weight: 700;
+  border-bottom: 2px solid var(--accent, #ff9800);
+  padding-bottom: 2px;
+}
+
+.typed-cursor {
+  color: var(--accent, #ff9800);
+  font-weight: 700;
+  animation: blink 0.8s infinite;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
 /* Welcome message */
 #welcomeMessage {
   min-height: 0;
@@ -522,6 +541,34 @@
   background: rgba(255, 255, 255, 0.35);
   border-color: rgba(255,255,255,0.7);
   transform: scale(1.08);
+}
+
+/* Dots indicator */
+.carousel-dots {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+.carousel-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+
+.carousel-dot.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: scale(1.3);
 }
 
 /* ====================================================

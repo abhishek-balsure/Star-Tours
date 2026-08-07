@@ -32,20 +32,41 @@ function saveContact() {
   }
 
   const contact = {
-    id: Date.now(),
     name,
     email,
     subject,
-    message,
-    timestamp: new Date().toISOString()
+    message
   };
 
-  // Save to localStorage
-  const contacts = JSON.parse(localStorage.getItem('contactMessages') || '[]');
-  contacts.push(contact);
-  localStorage.setItem('contactMessages', JSON.stringify(contacts));
+  const btn = document.querySelector('.submit-btn');
+  const originalText = btn ? btn.textContent : '';
+  if (btn) {
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+  }
 
-  // Show success message
+  fetch('http://localhost:5000/api/contacts', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(contact)
+  })
+    .then(async (res) => {
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to send message');
+      showContactSuccess(name);
+    })
+    .catch((err) => {
+      alert('Error: ' + err.message);
+      if (btn) {
+        btn.textContent = originalText;
+        btn.disabled = false;
+      }
+    });
+
+  return false;
+}
+
+function showContactSuccess(name) {
   const form = document.getElementById('contactForm');
   if (form) {
     form.innerHTML = `
@@ -57,8 +78,6 @@ function saveContact() {
       </div>
     `;
   }
-
-  return false;
 }
 
 // For inline usage

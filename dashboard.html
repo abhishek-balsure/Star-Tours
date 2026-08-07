@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Your personal dashboard for ST★R Tours — manage bookings and visa applications." />
+    <link rel="icon" type="image/png" href="Logo/Logoo.png">
   <title>Dashboard | ＳＴ ✪ Ｒ Tours And Travels</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -163,6 +164,137 @@
       background: var(--accent-dark);
       transform: translateY(-2px);
     }
+
+    /* Admin section */
+    .admin-section {
+      display: none;
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 2rem 3rem;
+    }
+    .admin-section.visible {
+      display: block;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.2rem;
+      margin-bottom: 2rem;
+    }
+    .stat-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-light);
+      animation: fadeInUp 0.5s ease both;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .stat-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+    .stat-card i {
+      font-size: 2rem;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .stat-card .stat-value {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    .stat-card .stat-label {
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-light);
+    }
+    .admin-table th,
+    .admin-table td {
+      padding: 0.8rem 1rem;
+      text-align: left;
+      font-size: 0.9rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .admin-table th {
+      background: var(--primary);
+      color: #fff;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      letter-spacing: 0.5px;
+    }
+    .admin-table tr:hover td {
+      background: var(--bg-light);
+    }
+    .admin-table .btn-del {
+      padding: 4px 12px;
+      background: #e74c3c;
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.78rem;
+      cursor: pointer;
+    }
+    .admin-table .btn-del:hover {
+      background: #c0392b;
+    }
+    .admin-section-title {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--primary);
+      font-size: 1.5rem;
+      margin: 0 0 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .admin-section-title i {
+      color: var(--accent);
+    }
+    .admin-block {
+      margin-bottom: 2.5rem;
+    }
+    .admin-block h3 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .admin-block h3 i {
+      color: var(--accent);
+    }
+    .status-select {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border-light);
+      font-size: 0.82rem;
+      background: var(--bg-light);
+      color: var(--text-dark);
+    }
+    @media (max-width: 900px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .admin-section {
+        padding: 0 1rem 2rem;
+      }
+      .admin-table {
+        display: block;
+        overflow-x: auto;
+      }
+    }
     @media (max-width: 800px) {
       .dashboard-grid {
         grid-template-columns: 1fr;
@@ -193,6 +325,33 @@
     <div class="dashboard-section">
       <h2><i class="fas fa-passport"></i> My Visa Applications</h2>
       <div class="card-list" id="visaList"></div>
+    </div>
+  </div>
+
+  <!-- Admin Panel -->
+  <div class="admin-section" id="adminSection">
+    <h2 class="admin-section-title"><i class="fas fa-shield-alt"></i> Admin Panel</h2>
+
+    <div class="stats-grid" id="adminStats"></div>
+
+    <div class="admin-block">
+      <h3><i class="fas fa-users"></i> All Users</h3>
+      <div class="table-wrap" id="adminUsersTable"></div>
+    </div>
+
+    <div class="admin-block">
+      <h3><i class="fas fa-suitcase-rolling"></i> All Bookings</h3>
+      <div class="table-wrap" id="adminBookingsTable"></div>
+    </div>
+
+    <div class="admin-block">
+      <h3><i class="fas fa-passport"></i> All Visa Applications</h3>
+      <div class="table-wrap" id="adminVisasTable"></div>
+    </div>
+
+    <div class="admin-block">
+      <h3><i class="fas fa-envelope"></i> Contact Messages</h3>
+      <div class="table-wrap" id="adminContactsTable"></div>
     </div>
   </div>
 

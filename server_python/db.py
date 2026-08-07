@@ -17,6 +17,7 @@ bookings = db.bookings
 visaApplications = db.visaApplications
 reviews = db.reviews
 wishlistItems = db.wishlistItems
+contacts = db.contacts
 
 
 def serialize(doc):

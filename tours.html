@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" href="Logo/Logoo.png">
   <title>ＳＴ ✪ Ｒ Tours - Tour Types Guide</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -1149,27 +1150,54 @@ document.addEventListener('DOMContentLoaded', function () {
   priceFilter.addEventListener('change', filterTours);
 
   // ========== 2. WISHLIST ==========
+  const API = 'http://localhost:5000/api';
+
+  async function apiFetch(path, options) {
+    const token = localStorage.getItem('star_token');
+    const res = await fetch(API + path, {
+      ...options,
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token ? { 'Authorization': 'Bearer ' + token } : {}),
+        ...(options?.headers || {})
+      }
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Request failed');
+    return data;
+  }
+
   function initWishlist() {
-    let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+    let wishlist = [];
+    apiFetch('/wishlist').then(function (data) {
+      wishlist = data.wishlist || [];
+      document.querySelectorAll('.wishlist-heart').forEach(function (heart) {
+        const card = heart.closest('.adventure-card');
+        const dest = card.dataset.destination;
+        if (wishlist.includes(dest)) heart.textContent = '\u2665';
+      });
+    }).catch(function () { /* not logged in */ });
 
     document.querySelectorAll('.wishlist-heart').forEach(function (heart) {
-      const card = heart.closest('.adventure-card');
-      const dest = card.dataset.destination;
-      if (wishlist.includes(dest)) {
-        heart.textContent = '\u2665';
-      }
-
       heart.addEventListener('click', function (e) {
         e.stopPropagation();
-        let wl = JSON.parse(localStorage.getItem('wishlist') || '[]');
-        if (wl.includes(dest)) {
-          wl = wl.filter(function (d) { return d !== dest; });
-          heart.textContent = '\u2661';
-        } else {
-          wl.push(dest);
-          heart.textContent = '\u2665';
+        const card = heart.closest('.adventure-card');
+        const dest = card.dataset.destination;
+        const token = localStorage.getItem('star_token');
+        if (!token) {
+          alert('Please login to save tours to your wishlist.');
+          return;
         }
-        localStorage.setItem('wishlist', JSON.stringify(wl));
+        const isSaved = heart.textContent === '\u2665';
+        const method = isSaved ? 'DELETE' : 'POST';
+        apiFetch(isSaved ? '/wishlist/' + encodeURIComponent(dest) : '/wishlist', {
+          method: method,
+          body: isSaved ? undefined : JSON.stringify({ destination: dest })
+        })
+          .then(function () {
+            heart.textContent = isSaved ? '\u2661' : '\u2665';
+          })
+          .catch(function (err) { alert(err.message); });
       });
     });
   }
@@ -1177,20 +1205,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // ========== 3. REVIEWS ==========
   function loadReviews() {
-    const allReviews = JSON.parse(localStorage.getItem('reviews') || '{}');
+    const destinations = Array.from(document.querySelectorAll('.adventure-card'))
+      .map(function (card) { return card.dataset.destination; });
 
-    document.querySelectorAll('.adventure-card').forEach(function (card) {
-      const dest = card.dataset.destination;
-      const destReviews = allReviews[dest] || [];
-      const avg = destReviews.length
-        ? destReviews.reduce(function (s, r) { return s + r.rating; }, 0) / destReviews.length
-        : 0;
-      const rounded = Math.round(avg);
-      const starsStr = '\u2605'.repeat(rounded) + '\u2606'.repeat(5 - rounded);
+    Promise.all(destinations.map(function (dest) {
+      return apiFetch('/reviews?destination=' + encodeURIComponent(dest))
+        .then(function (data) { return data.reviews || []; })
+        .catch(function () { return []; });
+    })).then(function (allResults) {
+      document.querySelectorAll('.adventure-card').forEach(function (card, idx) {
+        const destReviews = allResults[idx] || [];
+        const avg = destReviews.length
+          ? destReviews.reduce(function (s, r) { return s + Number(r.rating); }, 0) / destReviews.length
+          : 0;
+        const rounded = Math.round(avg);
+        const starsStr = '\u2605'.repeat(rounded) + '\u2606'.repeat(5 - rounded);
 
-      card.querySelector('.stars-display').textContent = starsStr;
-      card.querySelector('.avg-rating').textContent = avg.toFixed(1);
-      card.querySelector('.review-count').textContent = '(' + destReviews.length + ' review' + (destReviews.length !== 1 ? 's' : '') + ')';
+        card.querySelector('.stars-display').textContent = starsStr;
+        card.querySelector('.avg-rating').textContent = avg.toFixed(1);
+        card.querySelector('.review-count').textContent = '(' + destReviews.length + ' review' + (destReviews.length !== 1 ? 's' : '') + ')';
+      });
     });
   }
 
@@ -1225,20 +1259,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
       if (!selected) { alert('Please select a star rating.'); return; }
 
-      const allReviews = JSON.parse(localStorage.getItem('reviews') || '{}');
-      if (!allReviews[dest]) allReviews[dest] = [];
-      allReviews[dest].push({
-        rating: selected,
-        comment: comment,
-        date: new Date().toISOString().split('T')[0]
-      });
-      localStorage.setItem('reviews', JSON.stringify(allReviews));
+      const token = localStorage.getItem('star_token');
+      if (!token) {
+        alert('Please login to submit a review.');
+        return;
+      }
 
-      starInput.dataset.selected = '0';
-      starInput.querySelectorAll('span').forEach(function (s) { s.textContent = '\u2606'; });
-      container.querySelector('textarea').value = '';
-      container.style.display = 'none';
-      loadReviews();
+      apiFetch('/reviews', {
+        method: 'POST',
+        body: JSON.stringify({ destination: dest, rating: selected, comment: comment })
+      })
+        .then(function () {
+          starInput.dataset.selected = '0';
+          starInput.querySelectorAll('span').forEach(function (s) { s.textContent = '\u2606'; });
+          container.querySelector('textarea').value = '';
+          container.style.display = 'none';
+          loadReviews();
+        })
+        .catch(function (err) { alert(err.message); });
     });
   });
 

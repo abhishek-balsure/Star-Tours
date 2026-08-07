@@ -7,6 +7,7 @@
   <meta name="description"
     content="ST✪R Tours and Travels - Your journey begins with us. Book tours, visas, and travel packages worldwide." />
   <meta name="keywords" content="travel, tours, visa, booking, holiday, trip" />
+    <link rel="icon" type="image/png" href="Logo/Logoo.png">
   <title>ST✪R Tours and Travels - Home</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -30,7 +31,7 @@
     <div class="hero-overlay">
       <div class="hero-content">
         <h1>Your Journey Begins With ＳＴ ✪ Ｒ Tours!</h1>
-        <p>Explore breathtaking destinations with comfort, style, and unforgettable experiences.</p>
+        <p>Explore <span id="typed-word" class="typed-word"></span><span class="typed-cursor">|</span></p>
         <a href="#destinations" class="btn">Explore Now</a>
       </div>
     </div>
@@ -674,6 +675,28 @@
       }
 
       // ==========================
+      // Typing Effect
+      // ==========================
+      const typedWords = ['breathtaking destinations', 'comfort and style', 'unforgettable experiences', 'the world with ease'];
+      let typedIdx = 0, charIdx = 0, deleting = false;
+      const typedEl = document.getElementById('typed-word');
+
+      function typeLoop() {
+        if (!typedEl) return;
+        const word = typedWords[typedIdx];
+        if (!deleting) {
+          typedEl.textContent = word.slice(0, ++charIdx);
+          if (charIdx === word.length) { deleting = true; setTimeout(typeLoop, 1800); return; }
+          setTimeout(typeLoop, 70);
+        } else {
+          typedEl.textContent = word.slice(0, --charIdx);
+          if (charIdx === 0) { deleting = false; typedIdx = (typedIdx + 1) % typedWords.length; }
+          setTimeout(typeLoop, 35);
+        }
+      }
+      typeLoop();
+
+      // ==========================
       // Carousel Functionality
       // ==========================
       const slide = document.getElementById("carouselSlide");
@@ -685,6 +708,7 @@
 
       function updateSlide() {
         slide.style.transform = `translateX(-${currentIndex * 100}%)`;
+        dots.forEach((dot, i) => dot.classList.toggle("active", i === currentIndex));
       }
 
       function nextSlide() {
@@ -698,6 +722,7 @@
       }
 
       function startAutoSlide() {
+        stopAutoSlide();
         autoSlide = setInterval(nextSlide, intervalTime);
       }
 
@@ -711,23 +736,41 @@
 
       const prevBtn = document.createElement("button");
       prevBtn.innerHTML = "&#10094;";
-      prevBtn.onclick = () => {
-        stopAutoSlide();
-        prevSlide();
-        startAutoSlide();
-      };
+      prevBtn.onclick = () => { stopAutoSlide(); prevSlide(); startAutoSlide(); };
 
       const nextBtn = document.createElement("button");
       nextBtn.innerHTML = "&#10095;";
-      nextBtn.onclick = () => {
-        stopAutoSlide();
-        nextSlide();
-        startAutoSlide();
-      };
+      nextBtn.onclick = () => { stopAutoSlide(); nextSlide(); startAutoSlide(); };
 
       nav.appendChild(prevBtn);
       nav.appendChild(nextBtn);
       document.querySelector(".carousel-container").appendChild(nav);
+
+      // Dots indicator
+      const dotsWrap = document.createElement("div");
+      dotsWrap.className = "carousel-dots";
+      const dots = [];
+      for (let i = 0; i < totalItems; i++) {
+        const dot = document.createElement("button");
+        dot.className = "carousel-dot" + (i === 0 ? " active" : "");
+        dot.setAttribute("aria-label", "Go to slide " + (i + 1));
+        dot.onclick = () => { stopAutoSlide(); currentIndex = i; updateSlide(); startAutoSlide(); };
+        dots.push(dot);
+        dotsWrap.appendChild(dot);
+      }
+      document.querySelector(".carousel-container").appendChild(dotsWrap);
+
+      // Touch swipe support
+      const carousel = document.querySelector(".carousel-container");
+      let touchStartX = 0;
+      carousel.addEventListener("touchstart", (e) => { touchStartX = e.changedTouches[0].clientX; stopAutoSlide(); }, { passive: true });
+      carousel.addEventListener("touchend", (e) => {
+        const diff = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(diff) > 40) {
+          diff < 0 ? nextSlide() : prevSlide();
+        }
+        startAutoSlide();
+      }, { passive: true });
 
       // Start carousel
       updateSlide();
