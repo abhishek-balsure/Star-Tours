@@ -35,7 +35,7 @@ def health():
 def seed():
     import bcrypt
 
-    from db import users, bookings, visaApplications, now_iso
+    from db import users
 
     admin_email = os.getenv("ADMIN_EMAIL", "admin@startours.com")
     admin_pass = os.getenv("ADMIN_PASSWORD", "admin123")
@@ -50,67 +50,7 @@ def seed():
                 "createdAt": now_iso(),
             }
         )
-        print(f"Admin seeded: {admin_email} / {admin_pass}")
-
-    if not users.find_one({"email": "demo@test.com"}):
-        hashed = bcrypt.hashpw(b"demo123", bcrypt.gensalt(12))
-        user = users.insert_one(
-            {
-                "name": "Demo User",
-                "email": "demo@test.com",
-                "password": hashed.decode("utf-8"),
-                "phone": "9876543210",
-                "role": "user",
-                "createdAt": now_iso(),
-            }
-        )
-        uid = str(user.inserted_id)
-        bookings.insert_one(
-            {
-                "user": uid,
-                "name": "Demo User",
-                "email": "demo@test.com",
-                "destination": "Maldives – Overwater Paradise Escape",
-                "days": 5,
-                "people": 2,
-                "date": "2026-08-15",
-                "returnDate": "2026-08-20",
-                "flight": "business",
-                "hotelType": "5-star",
-                "meal": "premium",
-                "guider": "yes",
-                "isInternational": True,
-                "isLuxury": True,
-                "costs": {
-                    "travelFee": 75000,
-                    "hotelFee": 50000,
-                    "flightFee": 120000,
-                    "restaurantFee": 25000,
-                    "guiderFee": 15000,
-                    "visaFee": 5000,
-                    "luxuryFee": 30000,
-                    "totalCost": 320000,
-                },
-                "status": "confirmed",
-                "createdAt": now_iso(),
-            }
-        )
-        visaApplications.insert_one(
-            {
-                "user": uid,
-                "visaType": "Tourist",
-                "country": "Maldives",
-                "fullName": "Demo User",
-                "email": "demo@test.com",
-                "phone": "9876543210",
-                "passport": "M1234567",
-                "nationality": "Indian",
-                "travelDates": "15 Aug 2026 – 20 Aug 2026",
-                "status": "pending",
-                "createdAt": now_iso(),
-            }
-        )
-        print("Demo user seeded: demo@test.com / demo123")
+        print(f"Admin seeded: {admin_email}")
 
 
 if __name__ == "__main__":

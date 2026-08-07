@@ -49,14 +49,15 @@ pip install -r requirements.txt
 python app.py
 ```
 
-The API runs on `http://localhost:5000`. Admin and demo users are seeded automatically on first start.
+The API runs on `http://localhost:5000`. The admin account is created automatically from environment variables on first start.
 
-**Accounts (seeded):**
+**Accounts (from `.env`):**
 
 | Role | Email | Password |
 |------|-------|----------|
 | Admin | `admin@startours.com` | `admin123` |
-| Demo | `demo@test.com` | `demo123` |
+
+> **Security:** never commit `server_python/.env`. Copy `.env.example` to `.env` and set your own secrets, especially `JWT_SECRET` and `ADMIN_PASSWORD`.
 
 ### API Endpoints
 
