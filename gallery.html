@@ -113,6 +113,81 @@
       transform: scale(1.05);
     }
 
+    .gallery-slide img {
+      cursor: zoom-in;
+    }
+
+    /* ---- Lightbox ---- */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.92);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      flex-direction: column;
+    }
+    .lightbox.open {
+      display: flex;
+    }
+    .lightbox-figure {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      max-width: 90vw;
+      max-height: 85vh;
+    }
+    .lightbox-figure img {
+      max-width: 90vw;
+      max-height: 78vh;
+      border-radius: 10px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+    }
+    .lightbox-figure figcaption {
+      color: #e0e0e0;
+      font-size: 1.05rem;
+      font-weight: 600;
+      text-align: center;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 18px;
+      right: 24px;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 2.2rem;
+      cursor: pointer;
+      line-height: 1;
+      z-index: 10;
+    }
+    .lightbox-close:hover { opacity: 0.7; }
+    .lightbox-prev,
+    .lightbox-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.12);
+      border: none;
+      color: #fff;
+      font-size: 1.8rem;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s ease;
+    }
+    .lightbox-prev { left: 20px; }
+    .lightbox-next { right: 20px; }
+    .lightbox-prev:hover,
+    .lightbox-next:hover { background: rgba(255, 255, 255, 0.3); }
+
     .gallery-caption {
       padding: 12px 14px 6px;
       font-weight: 600;
@@ -223,6 +298,53 @@
         height: 38px;
         font-size: 0.95rem;
       }
+    }
+
+    /* ---- Dark Mode Overrides ---- */
+    body.dark-mode .gallery-page {
+      background: linear-gradient(180deg, var(--bg-page), var(--bg-white));
+    }
+
+    body.dark-mode .gallery-page-title {
+      color: var(--text-dark);
+    }
+
+    body.dark-mode .gallery-page-subtitle {
+      color: var(--text-mid);
+    }
+
+    body.dark-mode .gallery-slide {
+      background: var(--bg-card);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    }
+
+    body.dark-mode .gallery-caption {
+      color: var(--text-dark);
+    }
+
+    body.dark-mode .gallery-review {
+      color: var(--text-mid);
+    }
+
+    body.dark-mode .gallery-dots span {
+      background: #3a4a63;
+    }
+
+    body.dark-mode .gallery-dots span.active {
+      background: var(--accent-2, #f9c851);
+    }
+
+    body.dark-mode .gallery-prev,
+    body.dark-mode .gallery-next {
+      background: var(--bg-card);
+      border-color: rgba(255, 255, 255, 0.15);
+      color: var(--text-dark);
+    }
+
+    body.dark-mode .gallery-prev:hover,
+    body.dark-mode .gallery-next:hover {
+      background: #003366;
+      color: #fff;
     }
   </style>
 </head>
@@ -605,6 +727,17 @@
 
   </main>
 
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+    <button class="lightbox-prev" id="lightboxPrev" aria-label="Previous">&#10094;</button>
+    <figure class="lightbox-figure">
+      <img id="lightboxImg" src="" alt="">
+      <figcaption id="lightboxCaption"></figcaption>
+    </figure>
+    <button class="lightbox-next" id="lightboxNext" aria-label="Next">&#10095;</button>
+  </div>
+
   <!-- Footer -->
   <div id="footer-placeholder"></div>
 
@@ -691,6 +824,68 @@
       });
 
       buildDots();
+    });
+
+    // ============================================================
+    // Lightbox — click any gallery image to view fullscreen
+    // ============================================================
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxCaption = document.getElementById('lightboxCaption');
+    const allSlides = Array.from(document.querySelectorAll('.gallery-slide'));
+    let currentSlide = 0;
+
+    function showSlide(index) {
+      const img = allSlides[index].querySelector('img');
+      const caption = allSlides[index].querySelector('.gallery-caption');
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightboxCaption.textContent = caption ? caption.textContent.trim() : '';
+    }
+
+    function openLightbox(slide) {
+      currentSlide = slide;
+      showSlide(currentSlide);
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    function navigateSlide(dir) {
+      currentSlide = (currentSlide + dir + allSlides.length) % allSlides.length;
+      showSlide(currentSlide);
+    }
+
+    allSlides.forEach((slide, idx) => {
+      slide.querySelector('img').addEventListener('click', () => openLightbox(idx));
+    });
+
+    document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+    document.getElementById('lightboxPrev').addEventListener('click', () => navigateSlide(-1));
+    document.getElementById('lightboxNext').addEventListener('click', () => navigateSlide(1));
+
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') navigateSlide(-1);
+      if (e.key === 'ArrowRight') navigateSlide(1);
+    });
+
+    let lbTouchX = 0;
+    lightbox.addEventListener('touchstart', (e) => { lbTouchX = e.changedTouches[0].clientX; }, { passive: true });
+    lightbox.addEventListener('touchend', (e) => {
+      const diff = e.changedTouches[0].clientX - lbTouchX;
+      if (Math.abs(diff) > 40) diff < 0 ? navigateSlide(1) : navigateSlide(-1);
+    }, { passive: true });
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
     });
   </script>
 </body>

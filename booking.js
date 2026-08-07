@@ -288,7 +288,11 @@
       dateField.min = todayStr;
       dateField.addEventListener('change', function() {
         if (this.value && this.value < todayStr) {
-          alert('Travel date cannot be in the past.');
+          if (typeof showToast === 'function') {
+            showToast('Travel date cannot be in the past.', 'error');
+          } else {
+            alert('Travel date cannot be in the past.');
+          }
           this.value = '';
           calculateReturnDate();
         }

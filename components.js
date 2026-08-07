@@ -77,6 +77,38 @@
       footerPlaceholder.innerHTML = footerHTML;
     }
 
+    // --- Toast container (once) ---
+    if (!document.getElementById('toastContainer')) {
+      const toastWrap = document.createElement('div');
+      toastWrap.id = 'toastContainer';
+      toastWrap.className = 'toast-container';
+      document.body.appendChild(toastWrap);
+    }
+
+    // --- Back-to-top button ---
+    if (!document.getElementById('backToTop')) {
+      const backTop = document.createElement('button');
+      backTop.id = 'backToTop';
+      backTop.setAttribute('aria-label', 'Back to top');
+      backTop.innerHTML = '<i class="fas fa-arrow-up"></i>';
+      backTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+      document.body.appendChild(backTop);
+    } else {
+      document.getElementById('backToTop').addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    // Show/hide on scroll
+    const backToTopEl = document.getElementById('backToTop');
+    const onScroll = () => {
+      if (backToTopEl) backToTopEl.classList.toggle('visible', window.scrollY > 400);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
     // --- Dynamic Auth Link ---
     const authContainer = document.getElementById('auth-link-container');
     if (authContainer) {
@@ -159,3 +191,32 @@
     initComponents();
   }
 })();
+
+// ============================================================
+// Global Toast Notification helper
+// Usage: showToast('Message', 'success'|'error'|'info');
+// ============================================================
+function showToast(message, type) {
+  const container = document.getElementById('toastContainer');
+  if (!container) return;
+
+  const icons = { success: 'fas fa-check-circle', error: 'fas fa-exclamation-circle', info: 'fas fa-info-circle' };
+  const icon = icons[type] || icons.info;
+
+  const toast = document.createElement('div');
+  toast.className = 'toast ' + (type || 'info');
+  toast.innerHTML = '<i class="' + icon + '" style="margin-top:2px;"></i><span>' + message + '</span>' +
+    '<button class="toast-close" aria-label="Dismiss">&times;</button>';
+  container.appendChild(toast);
+
+  const dismiss = () => {
+    if (!toast.classList.contains('hide')) {
+      toast.classList.add('hide');
+      setTimeout(() => toast.remove(), 300);
+    }
+  };
+
+  toast.querySelector('.toast-close').addEventListener('click', dismiss);
+  setTimeout(dismiss, 4000);
+}
+window.showToast = showToast;

@@ -81,6 +81,7 @@ function submitVisa() {
       showVisaSuccess(data.visa);
     })
     .catch((err) => {
+      showToast(err.message, 'error');
       showVisaError([err.message]);
     });
 

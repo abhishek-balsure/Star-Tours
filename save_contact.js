@@ -56,7 +56,7 @@ function saveContact() {
       showContactSuccess(name);
     })
     .catch((err) => {
-      alert('Error: ' + err.message);
+      if (typeof showToast === 'function') showToast(err.message, 'error');
       if (btn) {
         btn.textContent = originalText;
         btn.disabled = false;

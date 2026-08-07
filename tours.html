@@ -1185,7 +1185,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const dest = card.dataset.destination;
         const token = localStorage.getItem('star_token');
         if (!token) {
-          alert('Please login to save tours to your wishlist.');
+          showToast('Please login to save tours to your wishlist.', 'info');
           return;
         }
         const isSaved = heart.textContent === '\u2665';
@@ -1196,8 +1196,9 @@ document.addEventListener('DOMContentLoaded', function () {
         })
           .then(function () {
             heart.textContent = isSaved ? '\u2661' : '\u2665';
+            showToast(isSaved ? 'Removed from wishlist' : 'Added to wishlist', 'success');
           })
-          .catch(function (err) { alert(err.message); });
+          .catch(function (err) { showToast(err.message, 'error'); });
       });
     });
   }
@@ -1257,11 +1258,11 @@ document.addEventListener('DOMContentLoaded', function () {
       const selected = parseInt(starInput.dataset.selected) || 0;
       const comment = container.querySelector('textarea').value.trim();
 
-      if (!selected) { alert('Please select a star rating.'); return; }
+      if (!selected) { showToast('Please select a star rating.', 'info'); return; }
 
       const token = localStorage.getItem('star_token');
       if (!token) {
-        alert('Please login to submit a review.');
+        showToast('Please login to submit a review.', 'info');
         return;
       }
 
@@ -1274,9 +1275,10 @@ document.addEventListener('DOMContentLoaded', function () {
           starInput.querySelectorAll('span').forEach(function (s) { s.textContent = '\u2606'; });
           container.querySelector('textarea').value = '';
           container.style.display = 'none';
+          showToast('Thanks for your review!', 'success');
           loadReviews();
         })
-        .catch(function (err) { alert(err.message); });
+        .catch(function (err) { showToast(err.message, 'error'); });
     });
   });
 
