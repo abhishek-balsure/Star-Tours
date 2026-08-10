@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Your personal dashboard for ST★R Tours — manage bookings and visa applications." />
-    <link rel="icon" type="image/png" href="Logo/Logoo.png">
+  <meta name="description" content="Your personal dashboard for ST★R Tours — manage bookings, visa applications and wishlist." />
+  <link rel="icon" type="image/png" href="Logo/Logoo.png">
   <title>Dashboard | ＳＴ ✪ Ｒ Tours And Travels</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -14,93 +14,275 @@
   <style>
     .dashboard-hero {
       text-align: center;
-      padding: 3rem 1.5rem 1.5rem;
+      padding: 2.8rem 1.5rem 1.8rem;
       animation: fadeInUp 0.6s ease both;
+      background: linear-gradient(180deg, var(--bg-light), var(--bg-page));
     }
+
+    .user-avatar {
+      width: 84px;
+      height: 84px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), #0055a5);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      font-weight: 800;
+      box-shadow: 0 8px 24px rgba(0, 51, 102, 0.35);
+      margin-bottom: 12px;
+      border: 3px solid var(--gold);
+    }
+
     .dashboard-hero h1 {
       font-family: 'Orbitron', sans-serif;
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
       color: var(--primary);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.3rem;
     }
+
     .dashboard-hero p {
       color: var(--text-mid);
-      font-size: 1.1rem;
+      font-size: 1.02rem;
     }
-    .dashboard-grid {
+
+    .hero-role-badge {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 4px 14px;
+      border-radius: 50px;
+      background: var(--gold);
+      color: #1a1a1a;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* User stat cards */
+    .user-stats {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
       max-width: 1300px;
       margin: 0 auto;
-      padding: 0 2rem 3rem;
+      padding: 0 2rem;
     }
-    .dashboard-section {
+
+    .user-stat {
       background: var(--bg-card);
-      border-radius: var(--radius-md);
-      padding: 1.5rem;
-      box-shadow: var(--shadow-sm);
       border: 1px solid var(--border-light);
-      transition: box-shadow var(--transition), background-color var(--transition);
-      animation: fadeInUp 0.6s ease both;
-    }
-    .dashboard-section:nth-child(1) { animation-delay: 0.1s; }
-    .dashboard-section:nth-child(2) { animation-delay: 0.2s; }
-    .dashboard-section:hover {
-      box-shadow: var(--shadow-md);
-    }
-    .dashboard-section h2 {
-      font-size: 1.4rem;
-      color: var(--primary);
-      margin-bottom: 1.2rem;
+      border-radius: var(--radius-md);
+      padding: 1.1rem 1.3rem;
       display: flex;
       align-items: center;
-      gap: 0.6rem;
+      gap: 14px;
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .user-stat:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .user-stat .us-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .us-icon.blue { background: linear-gradient(135deg, var(--primary), #2196f3); }
+    .us-icon.green { background: linear-gradient(135deg, #2e7d32, #66bb6a); }
+    .us-icon.orange { background: linear-gradient(135deg, var(--accent), #ff7a00); }
+    .us-icon.purple { background: linear-gradient(135deg, #6a1b9a, #ab47bc); }
+
+    .user-stat .us-value {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      line-height: 1.1;
+    }
+
+    .user-stat .us-label {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      font-weight: 600;
+    }
+
+    /* Tabs */
+    .dash-tabs {
+      display: flex;
+      gap: 8px;
+      max-width: 1300px;
+      margin: 2rem auto 0;
+      padding: 0 2rem;
       border-bottom: 2px solid var(--border-light);
-      padding-bottom: 0.7rem;
     }
-    .dashboard-section h2 i {
-      color: var(--accent);
+
+    .dash-tab {
+      padding: 12px 22px;
+      background: none;
+      border: none;
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--text-light);
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all var(--transition);
     }
-    .card-list {
+
+    .dash-tab:hover {
+      color: var(--primary);
+    }
+
+    .dash-tab.active {
+      color: var(--primary);
+      border-bottom-color: var(--accent);
+    }
+
+    .dash-tab .tab-count {
+      background: var(--bg-light);
+      padding: 1px 9px;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--text-mid);
+    }
+
+    .dash-tab.active .tab-count {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .tab-panel {
+      display: none;
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 1.8rem 2rem 3rem;
+    }
+
+    .tab-panel.active {
+      display: block;
+      animation: fadeInUp 0.4s ease both;
+    }
+
+    /* Cards grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .d-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 1.2rem 1.4rem;
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition), box-shadow var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .d-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--primary);
+    }
+
+    .d-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .d-card .d-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+
+    .d-card .d-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .d-card .d-sub {
+      font-size: 0.8rem;
+      color: var(--text-light);
+    }
+
+    .d-card .d-rows {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 5px;
     }
-    .d-card {
-      background: var(--bg-light);
-      border-radius: var(--radius-sm);
-      padding: 1rem 1.2rem;
-      border-left: 4px solid var(--primary);
-      transition: transform var(--transition), box-shadow var(--transition);
-      animation: scaleIn 0.35s ease both;
-    }
-    .d-card:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-sm);
-    }
+
     .d-card .d-row {
       display: flex;
       justify-content: space-between;
-      padding: 3px 0;
-      font-size: 0.92rem;
+      font-size: 0.88rem;
     }
+
     .d-card .d-row .label {
       color: var(--text-light);
       font-weight: 500;
     }
+
     .d-card .d-row .value {
       color: var(--text-dark);
       font-weight: 600;
       text-align: right;
     }
+
     .d-card .d-actions {
-      margin-top: 0.7rem;
-      padding-top: 0.6rem;
+      margin-top: 12px;
+      padding-top: 10px;
       border-top: 1px solid var(--border-light);
       display: flex;
       justify-content: flex-end;
+      gap: 8px;
     }
+
+    .status-badge {
+      display: inline-block;
+      padding: 3px 12px;
+      border-radius: 50px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .status-badge.confirmed { background: #e8f5e9; color: #2e7d32; }
+    .status-badge.pending { background: #fff3e0; color: #e65100; }
+    .status-badge.approved { background: #e8f5e9; color: #2e7d32; }
+    .status-badge.rejected { background: #ffebee; color: #c62828; }
+    .status-badge.cancelled { background: #eceff1; color: #546e7a; }
+
+    body.dark-mode .status-badge.confirmed { background: #1b4332; color: #6fcf97; }
+    body.dark-mode .status-badge.pending { background: #4a3b12; color: #ffb74d; }
+    body.dark-mode .status-badge.approved { background: #1b4332; color: #6fcf97; }
+    body.dark-mode .status-badge.rejected { background: #4a1c1c; color: #ef9a9a; }
+    body.dark-mode .status-badge.cancelled { background: #263238; color: #90a4ae; }
+
     .btn-cancel {
       padding: 6px 16px;
       background: #e74c3c;
@@ -108,134 +290,270 @@
       border: none;
       border-radius: 50px;
       font-weight: 600;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       cursor: pointer;
       transition: background var(--transition), transform var(--transition);
     }
+
     .btn-cancel:hover {
       background: #c0392b;
       transform: translateY(-1px);
     }
-    body.dark-mode .btn-cancel {
-      background: #c0392b;
-    }
-    body.dark-mode .btn-cancel:hover {
-      background: #a93226;
-    }
-    .status-badge {
-      display: inline-block;
-      padding: 2px 10px;
-      border-radius: 50px;
-      font-size: 0.78rem;
-      font-weight: 700;
-      background: #e8f5e9;
-      color: #2e7d32;
-    }
-    body.dark-mode .status-badge {
-      background: #1b4332;
-      color: #6fcf97;
-    }
-    .empty-state {
-      text-align: center;
-      padding: 2rem 1rem;
-      color: var(--text-light);
-    }
-    .empty-state i {
-      font-size: 2.5rem;
-      margin-bottom: 0.6rem;
-      opacity: 0.5;
-    }
-    .empty-state p {
-      margin-bottom: 1rem;
-      font-size: 1rem;
-    }
-    .empty-state a {
-      display: inline-block;
-      padding: 8px 20px;
+
+    .btn-book-small {
+      padding: 6px 16px;
       background: var(--accent);
       color: #fff;
       text-decoration: none;
       border-radius: 50px;
       font-weight: 600;
-      font-size: 0.9rem;
-      transition: background var(--transition), transform var(--transition);
+      font-size: 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all var(--transition);
     }
+
+    .btn-book-small:hover {
+      background: var(--accent-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-remove {
+      padding: 6px 14px;
+      background: transparent;
+      color: var(--text-light);
+      border: 1.5px solid var(--border-light);
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .btn-remove:hover {
+      border-color: #e74c3c;
+      color: #e74c3c;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--text-light);
+    }
+
+    .empty-state i {
+      font-size: 3rem;
+      margin-bottom: 0.8rem;
+      opacity: 0.4;
+    }
+
+    .empty-state p {
+      margin-bottom: 1.2rem;
+      font-size: 1rem;
+    }
+
+    .empty-state a {
+      display: inline-block;
+      padding: 9px 24px;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: all var(--transition);
+    }
+
     .empty-state a:hover {
       background: var(--accent-dark);
       transform: translateY(-2px);
     }
 
-    /* Admin section */
+    .guest-note {
+      text-align: center;
+      padding: 4rem 1rem;
+    }
+
+    .guest-note i {
+      font-size: 3.5rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .guest-note h2 {
+      color: var(--primary);
+      font-family: 'Orbitron', sans-serif;
+      margin-bottom: 0.5rem;
+    }
+
+    .guest-note p {
+      color: var(--text-mid);
+      margin-bottom: 1.5rem;
+    }
+
+    .guest-note a {
+      display: inline-block;
+      padding: 12px 30px;
+      background: linear-gradient(135deg, var(--primary), #0055a5);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: all var(--transition);
+    }
+
+    .guest-note a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 51, 102, 0.4);
+    }
+
+    /* ============ ADMIN PANEL ============ */
     .admin-section {
       display: none;
       max-width: 1300px;
       margin: 0 auto;
       padding: 0 2rem 3rem;
     }
+
     .admin-section.visible {
       display: block;
+      animation: fadeInUp 0.5s ease both;
     }
+
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 1.5rem;
+    }
+
+    .admin-header h2 {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--primary);
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .admin-header h2 i {
+      color: var(--accent);
+    }
+
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.2rem;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 1rem;
       margin-bottom: 2rem;
     }
+
     .stat-card {
       background: var(--bg-card);
       border-radius: var(--radius-md);
-      padding: 1.5rem;
+      padding: 1.3rem 1rem;
       text-align: center;
       box-shadow: var(--shadow-sm);
       border: 1px solid var(--border-light);
-      animation: fadeInUp 0.5s ease both;
       transition: transform var(--transition), box-shadow var(--transition);
     }
+
     .stat-card:hover {
       transform: translateY(-3px);
       box-shadow: var(--shadow-md);
     }
+
     .stat-card i {
-      font-size: 2rem;
+      font-size: 1.6rem;
       color: var(--accent);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.4rem;
     }
+
     .stat-card .stat-value {
-      font-size: 2rem;
+      font-size: 1.7rem;
       font-weight: 800;
       color: var(--primary);
     }
+
     .stat-card .stat-label {
       color: var(--text-light);
-      font-size: 0.9rem;
+      font-size: 0.8rem;
+      font-weight: 600;
     }
+
+    .admin-block {
+      margin-bottom: 2.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 1.4rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .admin-block h3 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .admin-block h3 i {
+      color: var(--accent);
+    }
+
+    .admin-search {
+      width: 100%;
+      max-width: 320px;
+      padding: 9px 14px;
+      border: 1.5px solid var(--border-light);
+      border-radius: 50px;
+      font-size: 0.88rem;
+      background: var(--bg-light);
+      color: var(--text-dark);
+      margin-bottom: 12px;
+    }
+
+    .admin-search:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
     .admin-table {
       width: 100%;
       border-collapse: collapse;
-      background: var(--bg-card);
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      box-shadow: var(--shadow-sm);
-      border: 1px solid var(--border-light);
+      font-size: 0.88rem;
     }
+
     .admin-table th,
     .admin-table td {
-      padding: 0.8rem 1rem;
+      padding: 0.7rem 0.9rem;
       text-align: left;
-      font-size: 0.9rem;
       border-bottom: 1px solid var(--border-light);
     }
+
     .admin-table th {
-      background: var(--primary);
-      color: #fff;
+      background: var(--bg-light);
+      color: var(--text-mid);
       font-weight: 700;
       text-transform: uppercase;
-      font-size: 0.78rem;
+      font-size: 0.72rem;
       letter-spacing: 0.5px;
     }
+
     .admin-table tr:hover td {
       background: var(--bg-light);
     }
+
     .admin-table .btn-del {
       padding: 4px 12px;
       background: #e74c3c;
@@ -243,66 +561,45 @@
       border: none;
       border-radius: 50px;
       font-weight: 600;
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       cursor: pointer;
     }
+
     .admin-table .btn-del:hover {
       background: #c0392b;
     }
-    .admin-section-title {
-      font-family: 'Orbitron', sans-serif;
-      color: var(--primary);
-      font-size: 1.5rem;
-      margin: 0 0 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-    .admin-section-title i {
-      color: var(--accent);
-    }
-    .admin-block {
-      margin-bottom: 2.5rem;
-    }
-    .admin-block h3 {
-      color: var(--primary);
-      margin-bottom: 1rem;
-      font-size: 1.1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .admin-block h3 i {
-      color: var(--accent);
-    }
+
     .status-select {
       padding: 4px 8px;
       border-radius: 6px;
       border: 1px solid var(--border-light);
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       background: var(--bg-light);
       color: var(--text-dark);
     }
-    @media (max-width: 900px) {
-      .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
+
+    .revenue-badge {
+      color: #2e7d32;
+      font-weight: 800;
+    }
+
+    @media (max-width: 800px) {
+      .user-stats,
+      .dash-tabs,
+      .tab-panel,
       .admin-section {
-        padding: 0 1rem 2rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
       }
-      .admin-table {
-        display: block;
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+      .dash-tabs {
         overflow-x: auto;
       }
-    }
-    @media (max-width: 800px) {
-      .dashboard-grid {
-        grid-template-columns: 1fr;
-        padding: 0 1rem 2rem;
-        gap: 1.5rem;
-      }
-      .dashboard-section {
-        padding: 1.2rem;
+      .dash-tab {
+        padding: 10px 14px;
+        white-space: nowrap;
       }
     }
   </style>
@@ -312,45 +609,104 @@
 
   <div id="navbar-placeholder"></div>
 
-  <div class="dashboard-hero">
-    <h1>My Dashboard</h1>
-    <p>Manage your bookings and visa applications</p>
+  <div class="dashboard-hero" id="heroSection">
+    <div class="user-avatar" id="userAvatar">?</div>
+    <h1 id="heroName">My Dashboard</h1>
+    <p id="heroSub">Manage your bookings and visa applications</p>
+    <span class="hero-role-badge" id="roleBadge" style="display:none;">Admin</span>
   </div>
 
-  <div class="dashboard-grid">
-    <div class="dashboard-section">
-      <h2><i class="fas fa-suitcase-rolling"></i> My Bookings</h2>
-      <div class="card-list" id="bookingsList"></div>
+  <div class="user-stats" id="userStats">
+    <div class="user-stat">
+      <div class="us-icon blue"><i class="fas fa-suitcase-rolling"></i></div>
+      <div>
+        <div class="us-value" id="usBookings">0</div>
+        <div class="us-label">Total Bookings</div>
+      </div>
     </div>
-    <div class="dashboard-section">
-      <h2><i class="fas fa-passport"></i> My Visa Applications</h2>
-      <div class="card-list" id="visaList"></div>
+    <div class="user-stat">
+      <div class="us-icon green"><i class="fas fa-rupee-sign"></i></div>
+      <div>
+        <div class="us-value" id="usSpent">₹0</div>
+        <div class="us-label">Total Spent</div>
+      </div>
     </div>
+    <div class="user-stat">
+      <div class="us-icon orange"><i class="fas fa-passport"></i></div>
+      <div>
+        <div class="us-value" id="usVisas">0</div>
+        <div class="us-label">Visa Applications</div>
+      </div>
+    </div>
+    <div class="user-stat">
+      <div class="us-icon purple"><i class="fas fa-heart"></i></div>
+      <div>
+        <div class="us-value" id="usWishlist">0</div>
+        <div class="us-label">Wishlist</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dash-tabs" id="dashTabs" style="display:none;">
+    <button class="dash-tab active" data-tab="bookings"><i class="fas fa-suitcase-rolling"></i> Bookings <span class="tab-count" id="tabCountBookings">0</span></button>
+    <button class="dash-tab" data-tab="visas"><i class="fas fa-passport"></i> Visas <span class="tab-count" id="tabCountVisas">0</span></button>
+    <button class="dash-tab" data-tab="wishlist"><i class="fas fa-heart"></i> Wishlist <span class="tab-count" id="tabCountWishlist">0</span></button>
+  </div>
+
+  <div class="tab-panel active" id="tabBookings">
+    <div class="cards-grid" id="bookingsList"></div>
+  </div>
+
+  <div class="tab-panel" id="tabVisas">
+    <div class="cards-grid" id="visaList"></div>
+  </div>
+
+  <div class="tab-panel" id="tabWishlist">
+    <div class="cards-grid" id="wishlistList"></div>
+  </div>
+
+  <div class="guest-note" id="guestNote" style="display:none;">
+    <i class="fas fa-user-lock"></i>
+    <h2>Welcome, Guest</h2>
+    <p>Login to view your bookings, visa applications and wishlist.</p>
+    <a href="auth.html"><i class="fas fa-sign-in-alt"></i> Login / Register</a>
   </div>
 
   <!-- Admin Panel -->
   <div class="admin-section" id="adminSection">
-    <h2 class="admin-section-title"><i class="fas fa-shield-alt"></i> Admin Panel</h2>
+    <div class="admin-header">
+      <h2><i class="fas fa-shield-alt"></i> Admin Panel</h2>
+    </div>
 
     <div class="stats-grid" id="adminStats"></div>
 
     <div class="admin-block">
       <h3><i class="fas fa-users"></i> All Users</h3>
+      <input type="text" class="admin-search" id="searchUsers" placeholder="Search users by name or email...">
       <div class="table-wrap" id="adminUsersTable"></div>
     </div>
 
     <div class="admin-block">
       <h3><i class="fas fa-suitcase-rolling"></i> All Bookings</h3>
+      <input type="text" class="admin-search" id="searchBookings" placeholder="Search bookings...">
       <div class="table-wrap" id="adminBookingsTable"></div>
     </div>
 
     <div class="admin-block">
       <h3><i class="fas fa-passport"></i> All Visa Applications</h3>
+      <input type="text" class="admin-search" id="searchVisas" placeholder="Search visa applications...">
       <div class="table-wrap" id="adminVisasTable"></div>
     </div>
 
     <div class="admin-block">
+      <h3><i class="fas fa-star"></i> Reviews</h3>
+      <input type="text" class="admin-search" id="searchReviews" placeholder="Search reviews...">
+      <div class="table-wrap" id="adminReviewsTable"></div>
+    </div>
+
+    <div class="admin-block">
       <h3><i class="fas fa-envelope"></i> Contact Messages</h3>
+      <input type="text" class="admin-search" id="searchContacts" placeholder="Search messages...">
       <div class="table-wrap" id="adminContactsTable"></div>
     </div>
   </div>

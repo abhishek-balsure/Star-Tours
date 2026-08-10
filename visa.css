@@ -3,178 +3,27 @@
    Page-specific styles only. Shared styles → shared.css
    ============================================================ */
 
-/* Visa form container */
-.container {
-  max-width: 860px;
-  margin: 50px auto;
-  padding: 36px;
-  background: #fff;
-  border-radius: 14px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(63, 81, 181, 0.1);
-}
-
-.container h1 {
-  text-align: center;
-  color: #002244;
-  font-size: clamp(1.6rem, 3.5vw, 2.2rem);
-  font-weight: 800;
-  margin-bottom: 28px;
-}
-
-.container h3 {
-  text-align: center;
-  color: #003366;
-  font-size: 1.15rem;
-  margin: 24px 0 14px;
-  font-weight: 700;
-}
-
-/* Form fields */
-.visa-form label {
-  display: block;
-  font-weight: 600;
-  color: #333;
-  margin: 14px 0 5px;
-  font-size: 0.97rem;
-}
-
-.visa-form select,
-.visa-form input,
-.visa-form textarea {
-  width: 100%;
-  padding: 12px 14px;
-  margin-bottom: 6px;
-  font-size: 1rem;
-  font-family: inherit;
-  border: 1.5px solid #e0e4ed;
-  border-radius: 8px;
-  background: #fafbff;
-  color: #333;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  box-sizing: border-box;
-}
-
-.visa-form select:focus,
-.visa-form input:focus,
-.visa-form textarea:focus {
-  border-color: #3f51b5;
-  box-shadow: 0 0 0 3px rgba(63, 81, 181, 0.1);
-  outline: none;
-  background: #fff;
-}
-
-/* Documents upload section */
+/* Documents upload section frame */
 #documentsContainer {
-  background: #f5f8ff;
+  background: var(--bg-light);
   padding: 18px 20px;
   border-radius: 10px;
-  border: 1px dashed #c5cae9;
+  border: 1px dashed var(--border-light);
   margin: 10px 0 20px;
+  transition: background-color var(--transition), border-color var(--transition);
 }
 
-#documentsContainer label {
-  margin: 10px 0 4px;
-  color: #1a237e;
-  font-weight: 600;
-  font-size: 0.93rem;
-}
-
-#documentsContainer input[type="file"] {
-  padding: 8px 10px;
-  background: #fff;
-  border-style: solid;
-  cursor: pointer;
-}
-
-/* Submit buttons */
-.visa-form button[type="submit"] {
-  display: block;
-  width: 200px;
-  margin: 20px auto 10px;
-  padding: 13px 24px;
-  background: linear-gradient(135deg, #003366, #0055a5);
-  color: #fff;
-  border: none;
-  border-radius: 50px;
-  font-size: 1rem;
-  font-weight: 700;
-  font-family: inherit;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 16px rgba(0, 51, 102, 0.3);
-}
-
-.visa-form button[type="submit"]:hover {
-  background: linear-gradient(135deg, #0055a5, #003366);
-  box-shadow: 0 6px 20px rgba(0, 51, 102, 0.45);
-  transform: translateY(-2px);
-}
-
-.visa-form button[type="reset"] {
-  display: block;
-  width: 140px;
-  margin: 0 auto 10px;
-  padding: 11px 20px;
-  background: #e53935;
-  color: #fff;
-  border: none;
-  border-radius: 50px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  font-family: inherit;
-  cursor: pointer;
-  transition: background 0.3s ease, transform 0.3s ease;
-}
-
-.visa-form button[type="reset"]:hover {
-  background: #c62828;
-  transform: translateY(-1px);
-}
-
-/* Visa info block (shown after selection) */
-.visa-info {
-  display: none;
-  background-color: #eef3fc;
-  padding: 14px 18px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  border-left: 4px solid #3f51b5;
-}
-
-.visa-info.active {
-  display: block;
+body.dark-mode #documentsContainer {
+  background: var(--bg-card);
 }
 
 /* ====================================================
    RESPONSIVE — Visa Page
    ==================================================== */
-@media (max-width: 768px) {
-  .container {
-    margin: 24px 16px;
-    padding: 24px 18px;
-  }
-}
-
 @media (max-width: 480px) {
-  .container {
-    margin: 14px 10px;
-    padding: 18px 14px;
-    border-radius: 10px;
-  }
-
-  .container h1 {
-    font-size: 1.4rem;
-  }
-
   .visa-form select,
   .visa-form input {
     padding: 10px 12px;
     font-size: 0.95rem;
-  }
-
-  .visa-form button[type="submit"],
-  .visa-form button[type="reset"] {
-    width: 100%;
   }
 }

@@ -39,3 +39,18 @@ def create_review():
     result = reviews.insert_one(review)
     review["_id"] = result.inserted_id
     return jsonify({"review": serialize(review)}), 201
+
+
+@bp.delete("/<review_id>")
+@authenticate
+def delete_review(review_id):
+    review = reviews.find_one({"_id": ObjectId(review_id)})
+    if not review:
+        return jsonify({"error": "Review not found"}), 404
+    if (
+        review["user"] != request.user["id"]
+        and request.user["role"] != "admin"
+    ):
+        return jsonify({"error": "Not authorized"}), 403
+    reviews.delete_one({"_id": ObjectId(review_id)})
+    return jsonify({"message": "Deleted"})

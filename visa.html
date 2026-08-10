@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Apply for a tourist visa with ST★R Tours — select your country and upload documents easily." />
-    <link rel="icon" type="image/png" href="Logo/Logoo.png">
+  <meta name="description" content="Apply for a visa with ST★R Tours — real processing times, fees, and document checklists for 20+ countries." />
+  <link rel="icon" type="image/png" href="Logo/Logoo.png">
   <title>Visa Application | ＳＴ ✪ Ｒ Tours And Travels</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -13,27 +13,386 @@
   <link rel="stylesheet" href="shared.css" />
   <link rel="stylesheet" href="visa.css" />
   <style>
+    .visa-page {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    .visa-page-title {
+      text-align: center;
+      font-family: 'Orbitron', sans-serif;
+      color: var(--primary);
+      font-size: clamp(1.6rem, 4vw, 2.3rem);
+      margin-bottom: 0.5rem;
+    }
+
+    .visa-page-subtitle {
+      text-align: center;
+      color: var(--text-mid);
+      margin-bottom: 2.5rem;
+      font-size: 1rem;
+    }
+
+    /* Step tracker */
+    .step-tracker {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      opacity: 0.45;
+      transition: opacity 0.3s ease;
+    }
+
+    .step-item.active {
+      opacity: 1;
+    }
+
+    .step-item.done {
+      opacity: 0.85;
+    }
+
+    .step-circle {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--bg-light);
+      border: 2px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--text-mid);
+      transition: all 0.3s ease;
+    }
+
+    .step-item.active .step-circle {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(0, 51, 102, 0.3);
+    }
+
+    .step-item.done .step-circle {
+      background: #2e7d32;
+      border-color: #2e7d32;
+      color: #fff;
+    }
+
+    .step-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-mid);
+    }
+
+    .step-line {
+      width: 60px;
+      height: 2px;
+      background: var(--border-light);
+      margin: 0 10px;
+    }
+
+    .step-line.done {
+      background: #2e7d32;
+    }
+
+    /* Fee / processing info card */
+    .visa-info-card {
+      background: linear-gradient(135deg, var(--primary), #0055a5);
+      color: #fff;
+      border-radius: var(--radius-md);
+      padding: 1.2rem 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.8rem;
+      box-shadow: var(--shadow-md);
+      animation: fadeIn 0.4s ease both;
+      display: none;
+    }
+
+    .visa-info-card.visible {
+      display: grid;
+    }
+
+    .visa-info-card .info-item {
+      text-align: center;
+    }
+
+    .visa-info-card .info-item i {
+      font-size: 1.3rem;
+      margin-bottom: 4px;
+      color: var(--gold);
+    }
+
+    .visa-info-card .info-item .info-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      opacity: 0.85;
+    }
+
+    .visa-info-card .info-item .info-value {
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    /* Form */
+    .visa-form {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      box-shadow: var(--shadow-md);
+      animation: fadeInUp 0.5s ease both;
+    }
+
+    .form-section-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 1.4rem 0 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--border-light);
+    }
+
+    .form-section-title:first-child {
+      margin-top: 0;
+    }
+
+    .form-section-title i {
+      color: var(--accent);
+    }
+
+    .visa-form .field {
+      margin-bottom: 1.1rem;
+    }
+
+    .visa-form label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text-mid);
+      margin-bottom: 6px;
+    }
+
+    .visa-form input,
+    .visa-form select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      background: var(--bg-light);
+      color: var(--text-dark);
+      transition: all 0.3s;
+    }
+
+    .visa-form input:focus,
+    .visa-form select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.1);
+      background: var(--bg-card);
+    }
+
+    .visa-form input[readonly] {
+      background: var(--bg-light);
+      opacity: 0.8;
+    }
+
+    .visa-form .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    /* Document checklist */
+    .doc-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 12px;
+      border: 1.5px dashed var(--border-light);
+      border-radius: var(--radius-sm);
+      margin-bottom: 10px;
+      transition: all 0.3s;
+      background: var(--bg-light);
+    }
+
+    .doc-item.uploaded {
+      border-color: #2e7d32;
+      border-style: solid;
+      background: rgba(46, 125, 50, 0.06);
+    }
+
+    .doc-item input[type="file"] {
+      display: none;
+    }
+
+    .doc-item .doc-icon {
+      font-size: 1.3rem;
+      color: var(--primary);
+      margin-top: 2px;
+    }
+
+    .doc-item .doc-body {
+      flex: 1;
+    }
+
+    .doc-item .doc-name {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text-dark);
+    }
+
+    .doc-item .doc-file {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      margin-top: 2px;
+    }
+
+    .doc-item .doc-upload-btn {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .doc-item .doc-upload-btn:hover {
+      background: var(--primary-mid);
+      transform: translateY(-1px);
+    }
+
+    .doc-item .doc-upload-btn i {
+      margin-right: 4px;
+    }
+
+    /* Form actions */
+    .form-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .form-actions button {
+      flex: 1;
+      padding: 14px 20px;
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      min-width: 180px;
+    }
+
+    .btn-primary-action {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 6px 18px rgba(255, 152, 0, 0.4);
+    }
+
+    .btn-primary-action:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+    }
+
+    .btn-ghost-action {
+      background: var(--bg-light);
+      color: var(--text-mid);
+      border: 1.5px solid var(--border-light) !important;
+    }
+
+    .btn-ghost-action:hover {
+      background: var(--border-light);
+    }
+
+    /* Review summary (step 3) */
+    .review-summary {
+      background: var(--bg-light);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin: 1rem 0;
+    }
+
+    .review-summary .rs-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      font-size: 0.92rem;
+      border-bottom: 1px dashed var(--border-light);
+    }
+
+    .review-summary .rs-row:last-child {
+      border-bottom: none;
+    }
+
+    .review-summary .rs-label {
+      color: var(--text-light);
+    }
+
+    .review-summary .rs-value {
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
     .success-card {
       text-align: center;
       padding: 40px 20px;
+      animation: fadeInUp 0.5s ease both;
     }
+
     .success-card .success-icon {
-      font-size: 3rem;
+      font-size: 3.2rem;
       margin-bottom: 15px;
     }
+
     .success-card h2 {
       color: var(--primary);
       font-family: 'Orbitron', sans-serif;
       margin-bottom: 15px;
     }
+
     .success-card p {
       color: var(--text-mid);
       margin: 8px 0;
       line-height: 1.6;
     }
+
+    .success-card .app-id {
+      display: inline-block;
+      background: var(--bg-light);
+      border: 1px dashed var(--primary);
+      padding: 8px 18px;
+      border-radius: 50px;
+      font-family: monospace;
+      font-size: 0.9rem;
+      color: var(--primary);
+      margin: 10px 0;
+    }
+
     .success-card .btn {
       margin-top: 20px;
     }
+
     .btn-home {
       display: inline-block;
       margin-top: 15px;
@@ -41,8 +400,48 @@
       text-decoration: none;
       font-weight: 600;
     }
+
     .btn-home:hover {
       text-decoration: underline;
+    }
+
+    .visa-error-box {
+      background: #fff0f0;
+      border: 1px solid #ffcdd2;
+      color: #c62828;
+      padding: 14px 18px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 1.2rem;
+      font-size: 0.9rem;
+    }
+
+    body.dark-mode .visa-error-box {
+      background: rgba(198, 40, 40, 0.12);
+      border-color: #c62828;
+      color: #ff8a80;
+    }
+
+    .visa-error-box ul {
+      margin: 6px 0 0 18px;
+    }
+
+    @media (max-width: 600px) {
+      .visa-page {
+        padding: 2rem 1rem 3rem;
+      }
+      .visa-form {
+        padding: 1.2rem;
+      }
+      .visa-form .row {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+      .step-line {
+        width: 30px;
+      }
+      .step-label {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -51,125 +450,173 @@
   <!-- Navigation Menu -->
   <div id="navbar-placeholder"></div>
 
-  <!-- Visa Form -->
-  <div class="container">
-    <h1>🛂 Visa Application Form</h1>
+  <div class="visa-page">
+    <h1 class="visa-page-title">Visa Application Center</h1>
+    <p class="visa-page-subtitle">Real processing times, government fees, and document checklists for 20+ countries</p>
 
-    <form class="visa-form" onsubmit="event.preventDefault(); submitVisa();">
-      <!-- Visa Type -->
-      <label for="visaType">Visa Type:</label>
-      <select id="visaType" name="visaType" onchange="populateCountries()" required>
-        <option value="">-- Select Visa Type --</option>
-        <option value="Tourist">Tourist</option>
-      </select>
+    <!-- Step tracker -->
+    <div class="step-tracker" id="stepTracker">
+      <div class="step-item active" data-step="1">
+        <div class="step-circle">1</div>
+        <div class="step-label">Application</div>
+      </div>
+      <div class="step-line" id="line1"></div>
+      <div class="step-item" data-step="2">
+        <div class="step-circle">2</div>
+        <div class="step-label">Documents</div>
+      </div>
+      <div class="step-line" id="line2"></div>
+      <div class="step-item" data-step="3">
+        <div class="step-circle">3</div>
+        <div class="step-label">Review &amp; Submit</div>
+      </div>
+    </div>
 
-      <!-- Country -->
-      <label for="country">Destination Country:</label>
-      <select id="country" name="country" onchange="generateDocumentFields()" required>
-        <option value="">-- Select Country --</option>
-      </select>
+    <form class="visa-form" id="visaForm">
+      <div id="visaErrorBox"></div>
 
-      <!-- Personal Info -->
-      <label for="fullName">Full Name:</label>
-      <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required />
+      <!-- STEP 1: Application -->
+      <div class="visa-step" id="step1">
+        <div class="form-section-title"><i class="fas fa-file-alt"></i> Application Details</div>
 
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" placeholder="Enter your email address" required />
+        <div class="field">
+          <label for="visaType">Visa Type</label>
+          <select id="visaType" required>
+            <option value="">-- Select Visa Type --</option>
+            <option value="Tourist">Tourist</option>
+            <option value="Business">Business</option>
+            <option value="Student">Student</option>
+            <option value="Work">Work</option>
+            <option value="Medical">Medical</option>
+          </select>
+        </div>
 
-      <label for="phone">Phone Number:</label>
-      <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210" required />
+        <div class="field">
+          <label for="country">Destination Country</label>
+          <select id="country" required>
+            <option value="">-- Select Country --</option>
+          </select>
+        </div>
 
-      <label for="passport">Passport Number:</label>
-      <input type="text" id="passport" name="passport" placeholder="e.g. M1234567" required />
+        <div class="visa-info-card" id="visaInfoCard">
+          <div class="info-item">
+            <i class="fas fa-money-bill-wave"></i>
+            <div class="info-label">Visa Fee</div>
+            <div class="info-value" id="infoFee">—</div>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-clock"></i>
+            <div class="info-label">Processing</div>
+            <div class="info-value" id="infoProcessing">—</div>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-calendar-check"></i>
+            <div class="info-label">Validity</div>
+            <div class="info-value" id="infoValidity">—</div>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-door-open"></i>
+            <div class="info-label">Max Stay</div>
+            <div class="info-value" id="infoStay">—</div>
+          </div>
+        </div>
 
-      <label for="nationality">Nationality:</label>
-      <input type="text" id="nationality" name="nationality" placeholder="e.g. Indian" required />
+        <div class="form-section-title"><i class="fas fa-user"></i> Applicant Information</div>
 
-      <label for="travelDates">Travel Dates:</label>
-      <input type="text" id="travelDates" name="travelDates" placeholder="e.g., 10 Aug 2025 – 25 Aug 2025" required />
+        <div class="row">
+          <div class="field">
+            <label for="fullName">Full Name (as in passport)</label>
+            <input type="text" id="fullName" placeholder="e.g. Rahul Sharma" required />
+          </div>
+          <div class="field">
+            <label for="nationality">Nationality</label>
+            <input type="text" id="nationality" placeholder="e.g. Indian" required />
+          </div>
+        </div>
 
-      <!-- Document Upload Section -->
-      <div id="documentsContainer">
-        <h3>📎 Upload Required Documents:</h3>
+        <div class="row">
+          <div class="field">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="you@example.com" required />
+          </div>
+          <div class="field">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" placeholder="+91 98765 43210" required />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="passport">Passport Number</label>
+            <input type="text" id="passport" placeholder="e.g. M1234567" required />
+          </div>
+          <div class="field">
+            <label for="passportExpiry">Passport Expiry Date</label>
+            <input type="date" id="passportExpiry" required />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="travelStart">Planned Arrival Date</label>
+            <input type="date" id="travelStart" required />
+          </div>
+          <div class="field">
+            <label for="travelEnd">Planned Departure Date</label>
+            <input type="date" id="travelEnd" required />
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-primary-action" onclick="nextStep()">Continue <i class="fas fa-arrow-right"></i></button>
+        </div>
       </div>
 
-      <button type="submit">Submit Application</button>
-      <button type="reset">Clear Form</button>
+      <!-- STEP 2: Documents -->
+      <div class="visa-step" id="step2" style="display:none;">
+        <div class="form-section-title"><i class="fas fa-paperclip"></i> Required Documents</div>
+        <p style="font-size:0.9rem;color:var(--text-mid);margin-bottom:1rem;">
+          <i class="fas fa-info-circle" style="color:var(--primary);"></i>
+          Attach each required document below. Accepted formats: PDF, JPG, PNG (max 5MB each).
+        </p>
+        <div id="documentsContainer"></div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-ghost-action" onclick="prevStep()"><i class="fas fa-arrow-left"></i> Back</button>
+          <button type="button" class="btn-primary-action" onclick="nextStep()">Review Application <i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Review -->
+      <div class="visa-step" id="step3" style="display:none;">
+        <div class="form-section-title"><i class="fas fa-clipboard-check"></i> Review Your Application</div>
+
+        <div class="review-summary">
+          <div class="rs-row"><span class="rs-label">Visa Type</span><span class="rs-value" id="rsType">—</span></div>
+          <div class="rs-row"><span class="rs-label">Country</span><span class="rs-value" id="rsCountry">—</span></div>
+          <div class="rs-row"><span class="rs-label">Visa Fee</span><span class="rs-value" id="rsFee">—</span></div>
+          <div class="rs-row"><span class="rs-label">Full Name</span><span class="rs-value" id="rsName">—</span></div>
+          <div class="rs-row"><span class="rs-label">Nationality</span><span class="rs-value" id="rsNat">—</span></div>
+          <div class="rs-row"><span class="rs-label">Email</span><span class="rs-value" id="rsEmail">—</span></div>
+          <div class="rs-row"><span class="rs-label">Phone</span><span class="rs-value" id="rsPhone">—</span></div>
+          <div class="rs-row"><span class="rs-label">Passport</span><span class="rs-value" id="rsPassport">—</span></div>
+          <div class="rs-row"><span class="rs-label">Travel Dates</span><span class="rs-value" id="rsDates">—</span></div>
+          <div class="rs-row"><span class="rs-label">Documents Attached</span><span class="rs-value" id="rsDocs">—</span></div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-ghost-action" onclick="prevStep()"><i class="fas fa-arrow-left"></i> Back</button>
+          <button type="submit" class="btn-primary-action" id="submitVisaBtn"><i class="fas fa-paper-plane"></i> Submit Application</button>
+        </div>
+      </div>
     </form>
   </div>
 
   <!-- Footer -->
   <div id="footer-placeholder"></div>
 
-  <script>
-    const visaRequirements = {
-      Tourist: {
-        "Australia": ["Passport", "Health Check", "Police Certificate"],
-        "Chile": ["Passport", "Application Form", "Return Ticket"],
-        "France": ["Passport", "Visa Application Form", "Photo"],
-        "Greece": ["Passport", "Accommodation", "Flight Reservation"],
-        "Greenland": ["Passport", "Travel Itinerary", "Accommodation Proof"],
-        "Iceland": ["Passport", "Travel Plan", "Photograph"],
-        "Indonesia": ["Passport", "Return Ticket", "Hotel Details"],
-        "Italy": ["Passport", "Flight Ticket", "Hotel Booking"],
-        "Japan": ["Passport", "Return Ticket", "Hotel Booking", "Itinerary", "Sponsor Letter"],
-        "Kenya": ["Passport", "Visa Form", "Yellow Fever Certificate"],
-        "Maldives": ["Passport", "Hotel Booking", "Return Ticket"],
-        "Morocco": ["Passport", "Visa Form", "Hotel Confirmation"],
-        "Netherlands": ["Passport", "Proof of Funds", "Visa Application"],
-        "New Zealand": ["Passport", "Health Check", "Financial Documents"],
-        "Norway": ["Passport", "Bank Statement", "Accommodation"],
-        "Peru": ["Passport", "Visa Form", "Travel Itinerary"],
-        "South Africa": ["Passport", "Yellow Fever Certificate", "Travel Insurance"],
-        "Spain": ["Passport", "Bank Statement", "Travel Insurance"],
-        "Switzerland": ["Passport", "Travel Insurance", "Flight Details"],
-        "United Arab Emirates": ["Passport", "Photograph", "Hotel Booking"],
-        "United Kingdom": ["Passport", "Financial Documents", "Accommodation Proof"],
-        "United States": ["Passport", "Photograph", "Travel Itinerary", "DS-160 Confirmation", "Appointment Letter"]
-      }
-    };
-
-    function populateCountries() {
-      const visaType = document.getElementById("visaType").value;
-      const countrySelect = document.getElementById("country");
-      countrySelect.innerHTML = `<option value="">-- Select Country --</option>`;
-
-      if (visaType && visaRequirements[visaType]) {
-        Object.keys(visaRequirements[visaType]).sort().forEach(country => {
-          const opt = document.createElement("option");
-          opt.value = country;
-          opt.textContent = country;
-          countrySelect.appendChild(opt);
-        });
-      }
-      document.getElementById("documentsContainer").innerHTML = "<h3>📎 Upload Required Documents:</h3>";
-    }
-
-    function generateDocumentFields() {
-      const visaType = document.getElementById("visaType").value;
-      const country = document.getElementById("country").value;
-      const docContainer = document.getElementById("documentsContainer");
-
-      docContainer.innerHTML = "<h3>📎 Upload Required Documents:</h3>";
-
-      if (visaType && country && visaRequirements[visaType] && visaRequirements[visaType][country]) {
-        visaRequirements[visaType][country].forEach((doc) => {
-          const label = document.createElement("label");
-          label.textContent = `${doc}:`;
-          const input = document.createElement("input");
-          input.type = "file";
-          input.name = `documents[${doc}]`;
-          input.required = true;
-          input.accept = ".pdf,.jpg,.png,.jpeg";
-
-          docContainer.appendChild(label);
-          docContainer.appendChild(input);
-        });
-      }
-    }
-  </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script src="visa.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script src="components.js"></script>
 </body>
 

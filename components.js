@@ -19,13 +19,13 @@
     </div>
 
     <ul class="nav-links" id="navbar-menu">
-      <li><a href="index.html" class="nav-item" data-page="index.html">Home</a></li>
-      <li><a href="about.html" class="nav-item" data-page="about.html">About</a></li>
-      <li><a href="gallery.html" class="nav-item" data-page="gallery.html">Gallery</a></li>
-      <li><a href="tours.html" class="nav-item" data-page="tours.html">Tours</a></li>
-      <li><a href="visa.html" class="nav-item" data-page="visa.html">Visa</a></li>
-      <li><a href="contact.html" class="nav-item" data-page="contact.html">Contact</a></li>
-      <li><a href="dashboard.html" class="nav-item" data-page="dashboard.html">Dashboard</a></li>
+      <li><a href="index.html" class="nav-item" data-page="index.html"><i class="fas fa-home"></i><span>Home</span></a></li>
+      <li><a href="about.html" class="nav-item" data-page="about.html"><i class="fas fa-user-friends"></i><span>About</span></a></li>
+      <li><a href="gallery.html" class="nav-item" data-page="gallery.html"><i class="fas fa-images"></i><span>Gallery</span></a></li>
+      <li><a href="visa.html" class="nav-item" data-page="visa.html"><i class="fas fa-passport"></i><span>Visa</span></a></li>
+      <li><a href="contact.html" class="nav-item" data-page="contact.html"><i class="fas fa-envelope"></i><span>Contact</span></a></li>
+      <li><a href="booking.html" class="nav-item nav-cta" data-page="booking.html"><i class="fas fa-plane-departure"></i><span>Book Now</span></a></li>
+      <li><a href="dashboard.html" class="nav-item" data-page="dashboard.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
       <li id="auth-link-container"></li>
       <li><button class="dark-toggle" id="darkModeToggle" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button></li>
     </ul>
@@ -47,7 +47,7 @@
       <a href="about.html"><i class="fas fa-user-friends"></i> About</a>
       <a href="visa.html"><i class="fas fa-passport"></i> Visa</a>
       <a href="gallery.html"><i class="fas fa-images"></i> Gallery</a>
-      <a href="tours.html"><i class="fas fa-map-marked-alt"></i> Tours</a>
+      <a href="booking.html"><i class="fas fa-map-marked-alt"></i> Book Now</a>
       <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
     </div>
 
@@ -103,8 +103,10 @@
 
     // Show/hide on scroll
     const backToTopEl = document.getElementById('backToTop');
+    const navbar = document.querySelector('.navbar');
     const onScroll = () => {
       if (backToTopEl) backToTopEl.classList.toggle('visible', window.scrollY > 400);
+      if (navbar) navbar.classList.toggle('scrolled', window.scrollY > 10);
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();

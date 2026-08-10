@@ -1,29 +1,167 @@
-(function() {
+(function () {
+  // ============================================================
+  // DESTINATION CATALOG — daily base cost per person (INR)
+  // ============================================================
+  var DESTINATIONS = {
+    "Goa Beach":           { daily: 4500, intl: false },
+    "Rishikesh":           { daily: 3500, intl: false },
+    "Manali":              { daily: 4200, intl: false },
+    "Himachal":            { daily: 4200, intl: false },
+    "Shimla":              { daily: 4200, intl: false },
+    "Andaman":             { daily: 6500, intl: false },
+    "Kerala Backwaters":   { daily: 4800, intl: false },
+    "Sikkim Darjeeling":   { daily: 4500, intl: false },
+    "Jaipur":              { daily: 3800, intl: false },
+    "Udaipur":             { daily: 4000, intl: false },
+    "Jaisalmer":           { daily: 3800, intl: false },
+    "Rann of Kutch":       { daily: 4000, intl: false },
+    "Mysore":              { daily: 3500, intl: false },
+    "Coorg":               { daily: 3800, intl: false },
+    "Varanasi":            { daily: 3600, intl: false },
+    "Tawang":              { daily: 5000, intl: false },
+    "Bali":                { daily: 8000, intl: true },
+    "Dubai":               { daily: 9000, intl: true },
+    "Thailand":            { daily: 7500, intl: true },
+    "Sri Lanka":           { daily: 7000, intl: true },
+    "Vietnam":             { daily: 7200, intl: true },
+    "Maldives":            { daily: 15000, intl: true },
+    "Singapore":           { daily: 9500, intl: true },
+    "Malaysia":            { daily: 8500, intl: true },
+    "Turkey":              { daily: 9000, intl: true },
+    "Egypt":               { daily: 8800, intl: true },
+    "Japan":               { daily: 14000, intl: true },
+    "South Korea":         { daily: 12000, intl: true },
+    "China":               { daily: 10000, intl: true },
+    "Australia":           { daily: 15000, intl: true },
+    "New Zealand":         { daily: 16000, intl: true },
+    "Europe":              { daily: 13000, intl: true },
+    "France":              { daily: 13000, intl: true },
+    "Paris":               { daily: 13000, intl: true },
+    "Switzerland":         { daily: 14500, intl: true },
+    "Italy":               { daily: 12500, intl: true },
+    "Rome":                { daily: 12500, intl: true },
+    "Venice":              { daily: 12500, intl: true },
+    "Spain":               { daily: 12000, intl: true },
+    "Barcelona":           { daily: 12000, intl: true },
+    "Greece":              { daily: 11000, intl: true },
+    "Santorini":           { daily: 11000, intl: true },
+    "Iceland":             { daily: 16000, intl: true },
+    "Norway":              { daily: 15000, intl: true },
+    "United Kingdom":      { daily: 14000, intl: true },
+    "London":              { daily: 14000, intl: true },
+    "Netherlands":         { daily: 12500, intl: true },
+    "Amsterdam":           { daily: 12500, intl: true },
+    "Germany":             { daily: 13000, intl: true },
+    "Russia":              { daily: 11000, intl: true },
+    "United States":       { daily: 16000, intl: true },
+    "America":             { daily: 16000, intl: true },
+    "New York City":       { daily: 16500, intl: true },
+    "Canada":              { daily: 15500, intl: true },
+    "Mexico":              { daily: 10000, intl: true },
+    "Brazil":              { daily: 10500, intl: true },
+    "Chile and Peru":      { daily: 10000, intl: true },
+    "South Africa":        { daily: 9500, intl: true },
+    "Cape Town":           { daily: 9500, intl: true },
+    "Kenya":               { daily: 9000, intl: true },
+    "Morocco":             { daily: 8500, intl: true },
+    "Marrakech":           { daily: 8500, intl: true },
+    "Greenland":           { daily: 17000, intl: true },
+    "Egypt":               { daily: 8800, intl: true }
+  };
+
+  var HOTEL_RATES = { "3star": 1500, "4star": 2500, "5star": 4000 };
+  var MEAL_RATES = { veg: 800, nonveg: 1100, both: 1400 };
+  var GUIDE_RATE = 1200;
+  var FLIGHT_INTERNATIONAL = { economy: 18000, business: 45000, firstclass: 75000 };
+  var FLIGHT_DOMESTIC = { economy: 5500, business: 12000, firstclass: 20000 };
+  var VISA_ASSIST_INTL = 8000;
+  var LUXURY_RATE = 5000;
+  var GST = 0.05;
+
+  var uploadId = null;
+
   function sanitize(str) {
-    const div = document.createElement('div');
+    var div = document.createElement('div');
     div.textContent = str;
     return div.innerHTML;
+  }
+
+  function fmt(n) {
+    return '₹' + Math.round(n).toLocaleString('en-IN');
   }
 
   function validateEmail(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   }
 
+  function getDestInfo() {
+    var dest = document.getElementById('destination').value;
+    return DESTINATIONS[dest] || null;
+  }
+
+  function calculateCost() {
+    var days = parseInt(document.getElementById('days').value) || 1;
+    var people = parseInt(document.getElementById('people').value) || 1;
+    var isInternational = document.getElementById('international').checked;
+    var isLuxury = document.getElementById('luxury').checked;
+    var flight = document.getElementById('flight').value;
+    var hotelType = document.getElementById('hotel').value;
+    var meal = document.getElementById('meal').value;
+    var guider = document.getElementById('guider').value;
+    var dest = getDestInfo();
+
+    var destDaily = dest ? dest.daily : (isInternational ? 8000 : 4000);
+
+    var destFee = destDaily * days;
+    var hotelFee = HOTEL_RATES[hotelType] * days;
+    var flightFee = (isInternational ? FLIGHT_INTERNATIONAL[flight] : FLIGHT_DOMESTIC[flight]);
+    var restaurantFee = MEAL_RATES[meal] * days;
+    var guiderFee = guider === 'yes' ? GUIDE_RATE * days : 0;
+    var visaFee = isInternational ? VISA_ASSIST_INTL : 0;
+    var luxuryFee = isLuxury ? LUXURY_RATE * days : 0;
+
+    var subtotalPerPerson = destFee + hotelFee + flightFee + restaurantFee + guiderFee + visaFee + luxuryFee;
+    var subtotal = subtotalPerPerson * people;
+
+    var discountPct = 0;
+    if (people >= 10) discountPct = 0.10;
+    else if (people >= 5) discountPct = 0.05;
+    var discount = subtotal * discountPct;
+    var gstAmount = (subtotal - discount) * GST;
+    var totalCost = subtotal - discount + gstAmount;
+
+    return {
+      destDaily: destDaily,
+      destFee: destFee,
+      hotelFee: hotelFee,
+      flightFee: flightFee,
+      restaurantFee: restaurantFee,
+      guiderFee: guiderFee,
+      visaFee: visaFee,
+      luxuryFee: luxuryFee,
+      subtotal: subtotal,
+      discount: discount,
+      discountPct: discountPct,
+      gst: gstAmount,
+      totalPerPerson: (subtotal - discount) / people + gstAmount / people,
+      totalCost: totalCost
+    };
+  }
+
   function validateForm() {
-    const name = document.getElementById('name')?.value?.trim() || '';
-    const email = document.getElementById('email')?.value?.trim() || '';
-    const destination = document.getElementById('destination')?.value?.trim() || '';
-    const days = parseInt(document.getElementById('days')?.value) || 0;
-    const people = parseInt(document.getElementById('people')?.value) || 0;
-    const date = document.getElementById('date')?.value || '';
-    const returnDate = document.getElementById('return')?.value || '';
+    var name = document.getElementById('name').value.trim();
+    var email = document.getElementById('email').value.trim();
+    var destination = document.getElementById('destination').value;
+    var days = parseInt(document.getElementById('days').value) || 0;
+    var people = parseInt(document.getElementById('people').value) || 0;
+    var date = document.getElementById('date').value;
+    var returnDate = document.getElementById('return').value;
 
-    const errors = [];
-
+    var errors = [];
     if (!name || name.length < 2) errors.push('Please enter a valid name');
     if (!validateEmail(email)) errors.push('Please enter a valid email address');
-    if (!destination) errors.push('Please enter a destination');
-    if (days < 1 || days > 365) errors.push('Please enter valid number of days (1-365)');
+    if (!destination) errors.push('Please select a destination');
+    if (days < 1 || days > 60) errors.push('Please enter a valid number of days (1-60)');
     if (people < 1 || people > 100) errors.push('Please enter valid number of people (1-100)');
     if (!date) errors.push('Please select a travel date');
     if (!returnDate) errors.push('Please select a return date');
@@ -31,105 +169,131 @@
     return errors;
   }
 
-  function calculateCost() {
-    const days = parseInt(document.getElementById('days')?.value) || 1;
-    const people = parseInt(document.getElementById('people')?.value) || 1;
-    const isInternational = document.getElementById('international')?.checked || false;
-    const isLuxury = document.getElementById('luxury')?.checked || false;
-    const flight = document.getElementById('flight')?.value || 'economy';
-    const hotelType = document.getElementById('hotel')?.value || '3star';
-    const guider = document.getElementById('guider')?.value || 'no';
-
-    let travelFee = 2000 * days;
-    let guiderFee = (guider === 'yes') ? 1500 * days : 0;
-    let visaFee = isInternational ? 50000 : 0;
-    let luxuryFee = isLuxury ? 3000 * days : 0;
-    let restaurantFee = 2000 * days;
-
-    let hotelFee;
-    switch (hotelType) {
-      case '3star': hotelFee = 1500 * days; break;
-      case '4star': hotelFee = 2500 * days; break;
-      case '5star': hotelFee = 4000 * days; break;
-      default: hotelFee = 2000 * days;
+  function calculateReturnDate() {
+    var travelDate = document.getElementById('date').value;
+    var days = parseInt(document.getElementById('days').value);
+    if (travelDate && days) {
+      var startDate = new Date(travelDate);
+      startDate.setDate(startDate.getDate() + days);
+      var returnDate = startDate.toISOString().split('T')[0];
+      var returnInput = document.getElementById('return');
+      if (returnInput) returnInput.value = returnDate;
     }
+    updatePriceDisplay();
+  }
 
-    let flightFee;
-    if (isInternational) {
-      switch (flight) {
-        case 'economy': flightFee = 10000; break;
-        case 'business': flightFee = 25000; break;
-        case 'firstclass': flightFee = 35000; break;
-        default: flightFee = 20000;
-      }
+  function updatePriceDisplay() {
+    var cost = calculateCost();
+    document.getElementById('pDest').textContent = fmt(cost.destFee) + ' (' + fmt(cost.destDaily) + '/day)';
+    document.getElementById('pHotel').textContent = fmt(cost.hotelFee);
+    document.getElementById('pFlight').textContent = fmt(cost.flightFee);
+    document.getElementById('pMeals').textContent = fmt(cost.restaurantFee);
+    document.getElementById('pGuide').textContent = fmt(cost.guiderFee);
+    document.getElementById('pVisa').textContent = fmt(cost.visaFee);
+    document.getElementById('pLuxury').textContent = fmt(cost.luxuryFee);
+    document.getElementById('pGst').textContent = fmt(cost.gst);
+
+    var discRow = document.getElementById('discountRow');
+    if (cost.discount > 0) {
+      discRow.style.display = '';
+      document.getElementById('pDiscount').textContent = '- ' + fmt(cost.discount) + ' (' + (cost.discountPct * 100) + '%)';
     } else {
-      switch (flight) {
-        case 'economy': flightFee = 5000; break;
-        case 'business': flightFee = 10000; break;
-        case 'firstclass': flightFee = 15000; break;
-        default: flightFee = 5000;
-      }
+      discRow.style.display = 'none';
     }
 
-    const totalPerPerson = travelFee + guiderFee + visaFee + luxuryFee + restaurantFee + hotelFee + flightFee;
-    const totalCost = totalPerPerson * people;
+    document.getElementById('pTotal').textContent = fmt(cost.totalCost);
+  }
 
-    return { travelFee, guiderFee, visaFee, luxuryFee, restaurantFee, hotelFee, flightFee, totalPerPerson, totalCost };
+  function syncInternational() {
+    var dest = getDestInfo();
+    var intlCheck = document.getElementById('international');
+    if (dest) {
+      intlCheck.checked = dest.intl;
+      intlCheck.disabled = true;
+      intlCheck.parentElement.style.opacity = '0.6';
+    } else {
+      intlCheck.disabled = false;
+      intlCheck.parentElement.style.opacity = '1';
+    }
+    updatePriceDisplay();
   }
 
   async function submitBooking() {
-    const errors = validateForm();
-
+    var errors = validateForm();
     if (errors.length > 0) {
       showError(errors);
       return false;
     }
 
-    const name = sanitize(document.getElementById('name').value.trim());
-    const email = sanitize(document.getElementById('email').value.trim());
-    const destination = sanitize(document.getElementById('destination').value.trim());
-    const days = parseInt(document.getElementById('days').value);
-    const people = parseInt(document.getElementById('people').value);
-    const date = document.getElementById('date').value;
-    const returnDate = document.getElementById('return').value;
-    const isInternational = document.getElementById('international').checked;
-    const isLuxury = document.getElementById('luxury').checked;
-    const flight = document.getElementById('flight').value;
-    const hotelType = document.getElementById('hotel').value;
-    const meal = document.getElementById('meal').value;
-    const guider = document.getElementById('guider').value;
+    var dest = getDestInfo();
+    var isInternational = document.getElementById('international').checked;
+    var isLuxury = document.getElementById('luxury').checked;
+    var name = sanitize(document.getElementById('name').value.trim());
+    var email = sanitize(document.getElementById('email').value.trim());
+    var destination = sanitize(document.getElementById('destination').value.trim());
+    var days = parseInt(document.getElementById('days').value);
+    var people = parseInt(document.getElementById('people').value);
+    var date = document.getElementById('date').value;
+    var returnDate = document.getElementById('return').value;
+    var flight = document.getElementById('flight').value;
+    var hotelType = document.getElementById('hotel').value;
+    var meal = document.getElementById('meal').value;
+    var guider = document.getElementById('guider').value;
 
-    const costs = calculateCost();
+    var costs = calculateCost();
 
-    const bookingPayload = {
-      name, email, destination, days, people, date, returnDate,
-      flight, hotelType, meal, guider,
-      isInternational, isLuxury,
-      costs
+    var bookingPayload = {
+      name: name,
+      email: email,
+      destination: destination,
+      days: days,
+      people: people,
+      date: date,
+      returnDate: returnDate,
+      flight: flight,
+      hotelType: hotelType,
+      meal: meal,
+      guider: guider,
+      isInternational: isInternational,
+      isLuxury: isLuxury,
+      costs: {
+        travelFee: costs.destFee,
+        hotelFee: costs.hotelFee,
+        flightFee: costs.flightFee,
+        restaurantFee: costs.restaurantFee,
+        guiderFee: costs.guiderFee,
+        visaFee: costs.visaFee,
+        luxuryFee: costs.luxuryFee,
+        subtotal: costs.subtotal,
+        discount: costs.discount,
+        gst: costs.gst,
+        totalPerPerson: costs.totalPerPerson,
+        totalCost: costs.totalCost
+      }
     };
 
-    const token = localStorage.getItem('star_token');
+    var token = localStorage.getItem('star_token');
     if (!token) {
       showError(['You must be logged in to make a booking. Please login from the menu.']);
       return false;
     }
 
-    const btn = document.querySelector('.submit-btn');
-    const originalText = btn.textContent;
-    btn.textContent = 'Processing...';
+    var btn = document.getElementById('submitBtn');
+    var originalText = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
     btn.disabled = true;
 
     try {
-      const response = await fetch('http://localhost:5000/api/bookings', {
+      var response = await fetch('http://localhost:5000/api/bookings', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          'Authorization': 'Bearer ' + token
         },
         body: JSON.stringify(bookingPayload)
       });
 
-      const data = await response.json();
+      var data = await response.json();
       if (!response.ok) {
         throw new Error(data.error || 'Failed to submit booking');
       }
@@ -138,100 +302,104 @@
     } catch (err) {
       showError([err.message]);
     } finally {
-      btn.textContent = originalText;
+      btn.innerHTML = originalText;
       btn.disabled = false;
     }
   }
 
   function showError(errors) {
-    const msg = document.getElementById('bookingMessage');
+    var msg = document.getElementById('bookingMessage');
     if (!msg) return;
     msg.className = 'show error';
-    msg.innerHTML = `<strong>Please fix the following:</strong><ul>${errors.map(e => `<li>${e}</li>`).join('')}</ul>`;
+    msg.innerHTML = '<strong>Please fix the following:</strong><ul>' + errors.map(function (e) { return '<li>' + e + '</li>'; }).join('') + '</ul>';
     msg.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   function showSuccess(booking) {
-    window.lastBooking = booking; // Need this globally for invoice download
-    const form = document.querySelector('.booking-form');
+    window.lastBooking = booking;
+    var form = document.querySelector('.booking-form');
     if (!form) return;
-    const { costs } = booking;
-    form.innerHTML = `
-      <div class="success-card">
-        <div class="success-icon">&#9989;</div>
-        <h2>Booking Successful!</h2>
-        <p>Thank you, <strong>${booking.name}</strong>. Your tour to <strong>${booking.destination}</strong> is confirmed from <strong>${booking.date}</strong> to <strong>${booking.returnDate}</strong>.</p>
-        <p><strong>Travelers:</strong> ${booking.people}<br><strong>Total Cost:</strong> &#8377;${costs.totalCost.toLocaleString()}</p>
-        <p><em>Booking ID: ${booking._id}</em></p>
-        <button id="downloadInvoiceBtn" class="btn">&#128196; Download Invoice</button>
-        <br>
-        <a href="index.html" class="btn-home">&larr; Back to Home</a>
-      </div>
-    `;
+    var costs = booking.costs;
+
+    form.innerHTML =
+      '<div class="success-card">' +
+        '<div class="success-icon">&#9989;</div>' +
+        '<h2>Booking Successful!</h2>' +
+        '<p>Thank you, <strong>' + booking.name + '</strong>. Your tour to <strong>' + booking.destination + '</strong> is confirmed from <strong>' + booking.date + '</strong> to <strong>' + booking.returnDate + '</strong>.</p>' +
+        '<p><strong>Travelers:</strong> ' + booking.people + '<br><strong>Total Cost (incl. GST):</strong> &#8377;' + Math.round(costs.totalCost).toLocaleString('en-IN') + '</p>' +
+        '<p><em>Booking ID: ' + booking._id + '</em></p>' +
+        '<button id="downloadInvoiceBtn" class="btn">&#128196; Download Invoice</button>' +
+        '<br><a href="dashboard.html" class="btn-home">&rarr; View in Dashboard</a>' +
+      '</div>';
+
     document.getElementById('downloadInvoiceBtn').addEventListener('click', downloadInvoice);
   }
 
   function downloadInvoice() {
-    const booking = window.lastBooking;
+    var booking = window.lastBooking;
     if (!booking) return;
-    const { costs } = booking;
+    var costs = booking.costs;
 
-    const el = document.createElement('div');
-    el.innerHTML = `
-      <div style="padding:40px;font-family:Arial,sans-serif;max-width:800px;margin:0 auto;color:#333;">
-        <div style="text-align:center;border-bottom:3px solid #003366;padding-bottom:20px;margin-bottom:30px;">
-          <h1 style="color:#003366;margin:0;font-size:28px;">ST&#9733;R Tours &amp; Travels</h1>
-          <p style="color:#666;margin:5px 0;">Your journey begins with us</p>
-        </div>
-        <h2 style="color:#003366;">Booking Invoice</h2>
-        <table style="width:100%;border-collapse:collapse;margin-bottom:20px;">
-          <tr><td style="padding:6px 10px;width:150px;"><strong>Booking ID:</strong></td><td style="padding:6px 10px;">${booking._id}</td></tr>
-          <tr><td style="padding:6px 10px;"><strong>Date:</strong></td><td style="padding:6px 10px;">${new Date(booking.createdAt).toLocaleDateString()}</td></tr>
-        </table>
-        <h3 style="color:#003366;border-bottom:1px solid #ddd;padding-bottom:5px;">Customer Details</h3>
-        <table style="width:100%;border-collapse:collapse;margin-bottom:20px;">
-          <tr><td style="padding:6px 10px;width:150px;"><strong>Name:</strong></td><td style="padding:6px 10px;">${booking.name}</td></tr>
-          <tr><td style="padding:6px 10px;"><strong>Email:</strong></td><td style="padding:6px 10px;">${booking.email}</td></tr>
-        </table>
-        <h3 style="color:#003366;border-bottom:1px solid #ddd;padding-bottom:5px;">Trip Details</h3>
-        <table style="width:100%;border-collapse:collapse;margin-bottom:20px;">
-          <tr><td style="padding:6px 10px;width:150px;"><strong>Destination:</strong></td><td style="padding:6px 10px;">${booking.destination}</td></tr>
-          <tr><td style="padding:6px 10px;"><strong>Travel Date:</strong></td><td style="padding:6px 10px;">${booking.date}</td></tr>
-          <tr><td style="padding:6px 10px;"><strong>Return Date:</strong></td><td style="padding:6px 10px;">${booking.returnDate}</td></tr>
-          <tr><td style="padding:6px 10px;"><strong>Duration:</strong></td><td style="padding:6px 10px;">${booking.days} days</td></tr>
-          <tr><td style="padding:6px 10px;"><strong>Travelers:</strong></td><td style="padding:6px 10px;">${booking.people}</td></tr>
-          <tr><td style="padding:6px 10px;"><strong>Flight:</strong></td><td style="padding:6px 10px;">${booking.flight.charAt(0).toUpperCase() + booking.flight.slice(1)}</td></tr>
-          <tr><td style="padding:6px 10px;"><strong>Hotel:</strong></td><td style="padding:6px 10px;">${booking.hotelType}</td></tr>
-          <tr><td style="padding:6px 10px;"><strong>Meal:</strong></td><td style="padding:6px 10px;">${booking.meal}</td></tr>
-          <tr><td style="padding:6px 10px;"><strong>Guide:</strong></td><td style="padding:6px 10px;">${booking.guider === 'yes' ? 'Yes' : 'No'}</td></tr>
-        </table>
-        <h3 style="color:#003366;border-bottom:1px solid #ddd;padding-bottom:5px;">Cost Breakdown</h3>
-        <table style="width:100%;border-collapse:collapse;">
-          <tr style="background:#003366;color:#fff;">
-            <th style="padding:10px;text-align:left;">Item</th>
-            <th style="padding:10px;text-align:right;">Amount</th>
-          </tr>
-          <tr style="border-bottom:1px solid #eee;"><td style="padding:8px 10px;">Travel Fee (${booking.days} days)</td><td style="padding:8px 10px;text-align:right;">&#8377;${costs.travelFee.toLocaleString()}</td></tr>
-          <tr style="border-bottom:1px solid #eee;"><td style="padding:8px 10px;">Hotel Fee</td><td style="padding:8px 10px;text-align:right;">&#8377;${costs.hotelFee.toLocaleString()}</td></tr>
-          <tr style="border-bottom:1px solid #eee;"><td style="padding:8px 10px;">Flight Fee</td><td style="padding:8px 10px;text-align:right;">&#8377;${costs.flightFee.toLocaleString()}</td></tr>
-          <tr style="border-bottom:1px solid #eee;"><td style="padding:8px 10px;">Meals Fee</td><td style="padding:8px 10px;text-align:right;">&#8377;${costs.restaurantFee.toLocaleString()}</td></tr>
-          ${costs.guiderFee > 0 ? '<tr style="border-bottom:1px solid #eee;"><td style="padding:8px 10px;">Guide Fee</td><td style="padding:8px 10px;text-align:right;">&#8377;' + costs.guiderFee.toLocaleString() + '</td></tr>' : ''}
-          ${costs.visaFee > 0 ? '<tr style="border-bottom:1px solid #eee;"><td style="padding:8px 10px;">Visa Fee</td><td style="padding:8px 10px;text-align:right;">&#8377;' + costs.visaFee.toLocaleString() + '</td></tr>' : ''}
-          ${costs.luxuryFee > 0 ? '<tr style="border-bottom:1px solid #eee;"><td style="padding:8px 10px;">Luxury Package</td><td style="padding:8px 10px;text-align:right;">&#8377;' + costs.luxuryFee.toLocaleString() + '</td></tr>' : ''}
-          <tr style="background:#f0f7ff;font-weight:bold;">
-            <td style="padding:12px 10px;font-size:1.1em;">Grand Total</td>
-            <td style="padding:12px 10px;text-align:right;font-size:1.1em;">&#8377;${costs.totalCost.toLocaleString()}</td>
-          </tr>
-        </table>
-        <div style="margin-top:40px;padding-top:20px;border-top:2px solid #003366;text-align:center;color:#999;font-size:12px;">
-          <p>Thank you for choosing ST&#9733;R Tours &amp; Travels!</p>
-          <p>This is a computer-generated invoice.</p>
-        </div>
-      </div>
-    `;
+    var el = document.createElement('div');
+    el.innerHTML =
+      '<div style="padding:40px;font-family:Arial,sans-serif;max-width:800px;margin:0 auto;color:#333;">' +
+        '<div style="text-align:center;border-bottom:3px solid #003366;padding-bottom:20px;margin-bottom:30px;">' +
+          '<h1 style="color:#003366;margin:0;font-size:28px;">ST&#9733;R Tours &amp; Travels</h1>' +
+          '<p style="color:#666;margin:5px 0;">Your journey begins with us</p>' +
+        '</div>' +
+        '<h2 style="color:#003366;">Booking Invoice</h2>' +
+        '<table style="width:100%;border-collapse:collapse;margin-bottom:20px;">' +
+          '<tr><td style="padding:6px 10px;width:150px;"><strong>Booking ID:</strong></td><td style="padding:6px 10px;">' + booking._id + '</td></tr>' +
+          '<tr><td style="padding:6px 10px;"><strong>Date:</strong></td><td style="padding:6px 10px;">' + new Date(booking.createdAt).toLocaleDateString() + '</td></tr>' +
+          '<tr><td style="padding:6px 10px;"><strong>Status:</strong></td><td style="padding:6px 10px;">' + (booking.status || 'confirmed') + '</td></tr>' +
+        '</table>' +
+        '<h3 style="color:#003366;border-bottom:1px solid #ddd;padding-bottom:5px;">Customer Details</h3>' +
+        '<table style="width:100%;border-collapse:collapse;margin-bottom:20px;">' +
+          '<tr><td style="padding:6px 10px;width:150px;"><strong>Name:</strong></td><td style="padding:6px 10px;">' + booking.name + '</td></tr>' +
+          '<tr><td style="padding:6px 10px;"><strong>Email:</strong></td><td style="padding:6px 10px;">' + booking.email + '</td></tr>' +
+        '</table>';
+    el.innerHTML +=
+      '<h3 style="color:#003366;border-bottom:1px solid #ddd;padding-bottom:5px;">Trip Details</h3>' +
+      '<table style="width:100%;border-collapse:collapse;margin-bottom:20px;">' +
+        '<tr><td style="padding:6px 10px;width:150px;"><strong>Destination:</strong></td><td style="padding:6px 10px;">' + booking.destination + '</td></tr>' +
+        '<tr><td style="padding:6px 10px;"><strong>Travel Date:</strong></td><td style="padding:6px 10px;">' + booking.date + '</td></tr>' +
+        '<tr><td style="padding:6px 10px;"><strong>Return Date:</strong></td><td style="padding:6px 10px;">' + booking.returnDate + '</td></tr>' +
+        '<tr><td style="padding:6px 10px;"><strong>Duration:</strong></td><td style="padding:6px 10px;">' + booking.days + ' days</td></tr>' +
+        '<tr><td style="padding:6px 10px;"><strong>Travelers:</strong></td><td style="padding:6px 10px;">' + booking.people + '</td></tr>' +
+        '<tr><td style="padding:6px 10px;"><strong>Flight:</strong></td><td style="padding:6px 10px;">' + booking.flight.charAt(0).toUpperCase() + booking.flight.slice(1) + '</td></tr>' +
+        '<tr><td style="padding:6px 10px;"><strong>Hotel:</strong></td><td style="padding:6px 10px;">' + booking.hotelType + '</td></tr>' +
+        '<tr><td style="padding:6px 10px;"><strong>Meal:</strong></td><td style="padding:6px 10px;">' + booking.meal + '</td></tr>' +
+        '<tr><td style="padding:6px 10px;"><strong>Guide:</strong></td><td style="padding:6px 10px;">' + (booking.guider === 'yes' ? 'Yes' : 'No') + '</td></tr>' +
+      '</table>';
+
+    function row(label, amount, bold) {
+      return '<tr style="border-bottom:1px solid #eee;' + (bold ? 'background:#f0f7ff;font-weight:bold;' : '') + '">' +
+        '<td style="padding:8px 10px;">' + label + '</td>' +
+        '<td style="padding:8px 10px;text-align:right;">' + amount + '</td></tr>';
+    }
+
+    el.innerHTML +=
+      '<h3 style="color:#003366;border-bottom:1px solid #ddd;padding-bottom:5px;">Cost Breakdown</h3>' +
+      '<table style="width:100%;border-collapse:collapse;">' +
+        '<tr style="background:#003366;color:#fff;"><th style="padding:10px;text-align:left;">Item</th><th style="padding:10px;text-align:right;">Amount</th></tr>' +
+        row('Base Travel (' + booking.days + ' days)', '&#8377;' + Math.round(costs.travelFee).toLocaleString('en-IN')) +
+        row('Hotel Fee', '&#8377;' + Math.round(costs.hotelFee).toLocaleString('en-IN')) +
+        row('Flight Fee', '&#8377;' + Math.round(costs.flightFee).toLocaleString('en-IN')) +
+        row('Meals Fee', '&#8377;' + Math.round(costs.restaurantFee).toLocaleString('en-IN')) +
+        row('Guide Fee', '&#8377;' + Math.round(costs.guiderFee).toLocaleString('en-IN')) +
+        row('Visa Assistance', '&#8377;' + Math.round(costs.visaFee).toLocaleString('en-IN')) +
+        row('Luxury Package', '&#8377;' + Math.round(costs.luxuryFee).toLocaleString('en-IN')) +
+        row('Subtotal', '&#8377;' + Math.round(costs.subtotal).toLocaleString('en-IN')) +
+        row('Group Discount', '- &#8377;' + Math.round(costs.discount || 0).toLocaleString('en-IN')) +
+        row('GST (5%)', '&#8377;' + Math.round(costs.gst || 0).toLocaleString('en-IN')) +
+        row('Grand Total', '&#8377;' + Math.round(costs.totalCost).toLocaleString('en-IN'), true) +
+      '</table>' +
+      '<div style="margin-top:40px;padding-top:20px;border-top:2px solid #003366;text-align:center;color:#999;font-size:12px;">' +
+        '<p>Thank you for choosing ST&#9733;R Tours &amp; Travels!</p>' +
+        '<p>This is a computer-generated invoice.</p>' +
+      '</div>' +
+    '</div>';
     document.body.appendChild(el);
-
-    const origDisplay = el.style.display;
     el.style.position = 'fixed';
     el.style.top = '0';
     el.style.left = '0';
@@ -241,7 +409,7 @@
 
     html2pdf().set({
       margin: [10, 10, 10, 10],
-      filename: `STAR-Tours-Invoice-${booking._id}.pdf`,
+      filename: 'STAR-Tours-Invoice-' + booking._id + '.pdf',
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: {
         scale: 2,
@@ -251,42 +419,33 @@
         height: el.scrollHeight
       },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    }).from(el).save().then(() => {
+    }).from(el).save().then(function () {
       document.body.removeChild(el);
-    }).catch((err) => {
+    }).catch(function (err) {
       console.error('PDF failed:', err);
       document.body.removeChild(el);
     });
   }
 
-  function calculateReturnDate() {
-    const travelDate = document.getElementById("date")?.value;
-    const days = parseInt(document.getElementById("days")?.value);
-    if (travelDate && days) {
-      const startDate = new Date(travelDate);
-      startDate.setDate(startDate.getDate() + days);
-      const returnDate = startDate.toISOString().split('T')[0];
-      const returnInput = document.getElementById("return");
-      if (returnInput) returnInput.value = returnDate;
-    }
-    calculateCostDisplay();
-  }
+  // ============================================================
+  // INIT
+  // ============================================================
+  function init() {
+    var destSel = document.getElementById('destination');
+    var sorted = Object.keys(DESTINATIONS).sort();
+    sorted.forEach(function (name) {
+      var opt = document.createElement('option');
+      opt.value = name;
+      opt.textContent = name + ' (' + (DESTINATIONS[name].intl ? 'Intl' : 'Domestic') + ')';
+      destSel.appendChild(opt);
+    });
 
-  function calculateCostDisplay() {
-    const cost = calculateCost();
-    const costEl = document.getElementById('estimatedCost');
-    if (costEl) costEl.textContent = cost.totalCost.toLocaleString();
-  }
-
-  // Pre-fill from URL and event listeners
-  window.addEventListener('DOMContentLoaded', () => {
-    // Block past dates on the travel date picker
-    const today = new Date();
-    const todayStr = today.toISOString().split('T')[0];
-    const dateField = document.getElementById('date');
+    var today = new Date();
+    var todayStr = today.toISOString().split('T')[0];
+    var dateField = document.getElementById('date');
     if (dateField) {
       dateField.min = todayStr;
-      dateField.addEventListener('change', function() {
+      dateField.addEventListener('change', function () {
         if (this.value && this.value < todayStr) {
           if (typeof showToast === 'function') {
             showToast('Travel date cannot be in the past.', 'error');
@@ -299,55 +458,52 @@
       });
     }
 
-    // Attach form submit
-    const form = document.getElementById('bookingForm');
+    var form = document.getElementById('bookingForm');
     if (form) {
-      form.addEventListener('submit', (e) => {
+      form.addEventListener('submit', function (e) {
         e.preventDefault();
         submitBooking();
       });
     }
 
-    const params = new URLSearchParams(window.location.search);
-    const destInput = document.getElementById('destination');
-    const daysInput = document.getElementById('days');
-    const dateInput = document.getElementById('date');
+    var params = new URLSearchParams(window.location.search);
+    var destInput = document.getElementById('destination');
+    var daysInput = document.getElementById('days');
+    var dateInput = document.getElementById('date');
 
     if (params.has('destination') && destInput) destInput.value = params.get('destination');
     if (params.has('duration') && daysInput) daysInput.value = params.get('duration');
     if (params.has('date') && dateInput) {
       dateInput.value = params.get('date');
-      calculateReturnDate();
     }
 
-    // Add event listeners
-    const daysField = document.getElementById('days');
-    const peopleField = document.getElementById('people');
-    const intlCheck = document.getElementById('international');
-    const luxuryCheck = document.getElementById('luxury');
-    const flightSel = document.getElementById('flight');
-    const hotelSel = document.getElementById('hotel');
-    const guiderSel = document.getElementById('guider');
+    if (destInput) destInput.addEventListener('change', syncInternational);
+    if (daysInput) daysInput.addEventListener('input', calculateReturnDate);
+    document.getElementById('people').addEventListener('input', updatePriceDisplay);
+    document.getElementById('international').addEventListener('change', updatePriceDisplay);
+    document.getElementById('luxury').addEventListener('change', updatePriceDisplay);
+    document.getElementById('flight').addEventListener('change', updatePriceDisplay);
+    document.getElementById('hotel').addEventListener('change', updatePriceDisplay);
+    document.getElementById('meal').addEventListener('change', updatePriceDisplay);
+    document.getElementById('guider').addEventListener('change', updatePriceDisplay);
 
-    if (daysField) daysField.addEventListener('input', calculateReturnDate);
-    if (peopleField) peopleField.addEventListener('input', calculateCostDisplay);
-    if (intlCheck) intlCheck.addEventListener('change', calculateCostDisplay);
-    if (luxuryCheck) luxuryCheck.addEventListener('change', calculateCostDisplay);
-    if (flightSel) flightSel.addEventListener('change', calculateCostDisplay);
-    if (hotelSel) hotelSel.addEventListener('change', calculateCostDisplay);
-    if (guiderSel) guiderSel.addEventListener('change', calculateCostDisplay);
-    
-    // Auto populate user info if logged in
-    const storedUser = localStorage.getItem('star_user');
+    var storedUser = localStorage.getItem('star_user');
     if (storedUser) {
       try {
-        const user = JSON.parse(storedUser);
-        const nameInput = document.getElementById('name');
-        const emailInput = document.getElementById('email');
+        var user = JSON.parse(storedUser);
+        var nameInput = document.getElementById('name');
+        var emailInput = document.getElementById('email');
         if (nameInput && !nameInput.value) nameInput.value = user.name;
         if (emailInput && !emailInput.value) emailInput.value = user.email;
-      } catch(e) {}
+      } catch (e) {}
     }
-  });
 
+    syncInternational();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();

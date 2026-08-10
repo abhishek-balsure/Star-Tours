@@ -186,8 +186,13 @@ body.dark-mode .nav-links li a:hover {
 }
 
 body.dark-mode .nav-links li a.active {
-  background-color: rgba(79, 195, 247, 0.2);
-  color: var(--primary);
+  background: linear-gradient(135deg, #1565c0, #2196f3);
+  color: #fff;
+}
+
+body.dark-mode .nav-links li a.nav-cta {
+  background: linear-gradient(135deg, var(--accent), #ff7a00);
+  color: #fff;
 }
 
 body.dark-mode .hamburger span {
@@ -327,20 +332,32 @@ img {
 .nav-links li a {
   color: var(--primary-light);
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 0.98rem;
   font-weight: 600;
-  padding: 8px 14px;
-  border-radius: var(--radius-sm);
+  padding: 9px 13px;
+  border-radius: 50px;
   transition: all var(--transition);
   position: relative;
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.nav-links li a i {
+  font-size: 0.95rem;
+  opacity: 0.85;
+  transition: transform var(--transition);
+}
+
+.nav-links li a:hover i {
+  transform: translateY(-1px);
 }
 
 .nav-links li a::after {
   content: '';
   position: absolute;
   left: 50%;
-  bottom: 2px;
+  bottom: 3px;
   width: 0;
   height: 2px;
   background: #3f51b5;
@@ -355,14 +372,45 @@ img {
 }
 
 .nav-links li a:hover::after {
-  width: 80%;
-  left: 10%;
+  width: 70%;
+  left: 15%;
 }
 
 .nav-links li a.active {
-  background-color: #c5cae9;
-  color: var(--primary-light);
-  box-shadow: 0 2px 8px rgba(63, 81, 181, 0.2);
+  background: linear-gradient(135deg, #003366, #0055a5);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(0, 51, 102, 0.35);
+}
+
+.nav-links li a.active::after {
+  display: none;
+}
+
+/* Book Now CTA button */
+.nav-links li a.nav-cta {
+  background: linear-gradient(135deg, var(--accent), #ff7a00);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(255, 152, 0, 0.4);
+  padding: 9px 20px;
+}
+
+.nav-links li a.nav-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 152, 0, 0.55);
+  background: linear-gradient(135deg, #ff7a00, var(--accent));
+}
+
+.nav-links li a.nav-cta::after {
+  display: none;
+}
+
+/* Scrolled navbar shadow */
+.navbar.scrolled {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.14);
+}
+
+body.dark-mode .navbar.scrolled {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
 }
 
 /* Dark Mode Toggle */
